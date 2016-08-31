@@ -7,4 +7,4 @@ add_subdirectory(QRoseEngine.Core)
 
 set(DEMO_EXE Demo/MainWin32.cpp)
 add_executable(Demo ${DEMO_EXE})
-target_link_libraries(Demo ${HEADERS} ${LIBS})
+target_link_libraries(Demo ${HEADERS} QRoseEngine.Core)

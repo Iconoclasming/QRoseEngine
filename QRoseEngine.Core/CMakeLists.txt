@@ -12,6 +12,7 @@ set(HEADERS ${HEADERS} ${QROSEENGINE_CORE_HEADERS})
 set(QROSEENGINE_CORE_SOURCES
 	Color.cpp
 	GraphicsDesc.cpp
-	Size.cpp)
+	Size.cpp
+	Win32EngineFactory.cpp
+	WindowDesc.cpp)
 add_library(QRoseEngine.Core STATIC ${QROSEENGINE_CORE_HEADERS} ${QROSEENGINE_CORE_SOURCES})
-set(LIBS ${LIBS} QRoseEngine.Core)

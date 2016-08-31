@@ -8,14 +8,14 @@ namespace QRose
 	class WindowDesc
 	{
 	public:
-		WindowDesc(const std::string& windowName, const SizeD& windowSize);
+		WindowDesc(const std::string& windowName, const Size<int>& windowSize);
 		~WindowDesc();
 
 		std::string GetWindowName() const;
-		SizeD GetWindowSize() const;
+		Size<int> GetWindowSize() const;
 
 	private:
 		std::string windowName;
-		SizeD windowSize;
+		Size<int> windowSize;
 	};
 }

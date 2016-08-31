@@ -1,12 +1,13 @@
 #pragma once
 
 #include "GraphicsDesc.h"
+#include "Scene.h"
 
 namespace QRose
 {
 	class Engine
 	{
 	public:
-		Engine()
+		virtual void PresentScene(const Scene& scene) abstract;
 	};
 }
