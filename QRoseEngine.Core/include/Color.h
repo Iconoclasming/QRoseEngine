@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 
 namespace QRose
 {
@@ -17,5 +18,10 @@ namespace QRose
 		double red;
 		double green;
 		double blue;
+
+		friend class Streaming;
+
+		void Serialize(const std::ostream& serializationStream);
+		static void Deserialize(const std::istream& deserializationStream);
 	};
 }
