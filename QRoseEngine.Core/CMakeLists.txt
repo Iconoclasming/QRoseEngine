@@ -1,14 +1,15 @@
 cmake_minimum_required(VERSION 3.6)
 
 set(QROSEENGINE_CORE_HEADERS
-	include/Color.h
-	include/Engine.h
-	include/GraphicsDesc.h
-	include/QRoseEngineCore.h
-	include/Scene.h
-	include/Size.h
-	include/WindowDesc.h
-	include/QCE.h
+	include/Color.hpp
+	include/Engine.hpp
+	include/EngineFactory.hpp
+	include/GraphicsDesc.hpp
+	include/QRoseEngineCore.hpp
+	include/Scene.hpp
+	include/Size.hpp
+	include/WindowDesc.hpp
+	include/QCE.hpp
 	include/Streaming.hpp
 	include/Uuid.hpp
 	include/Entity.hpp)

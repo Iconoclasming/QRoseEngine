@@ -1,7 +1,7 @@
 #pragma once
 
-#include "WindowDesc.h"
-#include "Color.h"
+#include "WindowDesc.hpp"
+#include "Color.hpp"
 
 namespace QRose
 {

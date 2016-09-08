@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include "Size.h"
+#include "Size.hpp"
 
 namespace QRose
 {

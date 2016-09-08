@@ -1,4 +1,4 @@
-#include <QRoseEngineCore.h>
+#include <QRoseEngineCore.hpp>
 
 using namespace QRose;
 

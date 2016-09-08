@@ -1,4 +1,4 @@
-#include "GraphicsDesc.h"
+#include "GraphicsDesc.hpp"
 
 using namespace QRose;
 

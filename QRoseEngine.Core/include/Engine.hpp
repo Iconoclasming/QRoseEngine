@@ -1,7 +1,7 @@
 #pragma once
 
-#include "GraphicsDesc.h"
-#include "Scene.h"
+#include "GraphicsDesc.hpp"
+#include "Scene.hpp"
 
 namespace QRose
 {

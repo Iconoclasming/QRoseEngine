@@ -1,4 +1,4 @@
-#include "WindowDesc.h"
+#include "WindowDesc.hpp"
 
 using namespace QRose;
 
