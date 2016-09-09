@@ -10,4 +10,5 @@ add_subdirectory(QRoseEngine.Components)
 
 set(DEMO_EXE QRoseEngine.Demo/MainWin32.cpp)
 add_executable(QRoseEngine.Demo ${DEMO_EXE})
+target_link_libraries(QRoseEngine.Demo opengl32)
 target_link_libraries(QRoseEngine.Demo ${HEADERS} QRoseEngine.Core QRoseEngine.Components)
