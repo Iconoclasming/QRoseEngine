@@ -12,7 +12,8 @@ set(QROSEENGINE_CORE_HEADERS
 	include/QCE.hpp
 	include/Streaming.hpp
 	include/Uuid.hpp
-	include/Entity.hpp)
+	include/Entity.hpp
+	include/SerializationException.hpp)
 set(HEADERS ${HEADERS} ${QROSEENGINE_CORE_HEADERS})
 set(QROSEENGINE_CORE_SOURCES
 	Color.cpp

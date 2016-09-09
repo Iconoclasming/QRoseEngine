@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include "SerializationException.hpp"
 
 namespace QRose
 {
@@ -10,11 +11,31 @@ namespace QRose
 		template<typename T>
 		static bool Serialize(const T* object, const std::ostream& serializationStream)
 		{
-			
+			try
+			{
+				object->Serialize(serializationStream);
+			}
+			catch (const SerializationException& ex)
+			{
+				// TODO: exception's logging
+				return false;
+			}
+			return true;
 		}
 
 		template<typename T>
-		static T* Deserialize(const std::istream& deserializationStream);
+		static T* Deserialize(const std::istream& deserializationStream)
+		{
+			try
+			{
+				return T::Deserialize(deserializationStream);
+			}
+			catch (const SerializationException& ex)
+			{
+				// TODO: exception's logging
+				return nullptr;
+			}
+		}
 
 		static bool Write(int integer, const std::ostream& serializationStream);
 		static bool Write(float real, const std::ostream& serializationStream);
