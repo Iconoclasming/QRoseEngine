@@ -29,7 +29,7 @@ namespace QRose
 		static bool Read(std::string& strOut, const std::istream& deserializationStream);
 	};
 	
-	/*
+	/* from: http://www.boost.org/doc/libs/1_61_0/libs/serialization/doc/index.html
 	// When the class Archive corresponds to an output archive, the
     	// & operator is defined similar to <<.  Likewise, when the class Archive
 	 // is a type of input archive the & operator is defined similar to >>.
