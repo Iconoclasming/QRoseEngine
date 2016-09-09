@@ -1,19 +1,19 @@
 cmake_minimum_required(VERSION 3.6)
 
 set(QROSEENGINE_CORE_HEADERS
-	include/Color.hpp
-	include/Engine.hpp
-	include/EngineFactory.hpp
-	include/GraphicsDesc.hpp
-	include/QRoseEngineCore.hpp
-	include/Scene.hpp
-	include/Size.hpp
-	include/WindowDesc.hpp
-	include/QCE.hpp
-	include/Streaming.hpp
-	include/Uuid.hpp
-	include/Entity.hpp
-	include/SerializationException.hpp)
+	../include/QRoseEngine.Core/Color.hpp
+	../include/QRoseEngine.Core/Engine.hpp
+	../include/QRoseEngine.Core/EngineFactory.hpp
+	../include/QRoseEngine.Core/GraphicsDesc.hpp
+	../include/QRoseEngine.Core/QRoseEngineCore.hpp
+	../include/QRoseEngine.Core/Scene.hpp
+	../include/QRoseEngine.Core/Size.hpp
+	../include/QRoseEngine.Core/WindowDesc.hpp
+	../include/QRoseEngine.Core/QCE.hpp
+	../include/QRoseEngine.Core/Streaming.hpp
+	../include/QRoseEngine.Core/Uuid.hpp
+	../include/QRoseEngine.Core/Entity.hpp
+	../include/QRoseEngine.Core/SerializationException.hpp)
 set(HEADERS ${HEADERS} ${QROSEENGINE_CORE_HEADERS})
 set(QROSEENGINE_CORE_SOURCES
 	Color.cpp
