@@ -1,4 +1,5 @@
 #include <QRoseEngineCore.hpp>
+#include <TransformationComponent.hpp>
 
 using namespace QRose;
 
@@ -9,7 +10,14 @@ void main()
 	Engine* pEngine = EngineFactory::CreateEngine(graphicsDesc);
 	//engine->Exit += &OnExit;
 
-	Scene mainScene/*(some actors list)*/;
+	Entity boxEntity;
+	TransformationComponent boxTransformationComponent;
+
+	Uuid boxMeshId = pEngine->LoadMesh("D:\\SomePathToMesh");
+	MeshComponent boxMeshComponent;
+
+	pEngine->AttachComponent(boxEntity, boxTransformationComponent);
+	Scene mainScene(boxEntity);
 	pEngine->PresentScene(mainScene);
 }
 
