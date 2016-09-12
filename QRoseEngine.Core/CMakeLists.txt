@@ -12,7 +12,8 @@ set(QROSEENGINE_CORE_HEADERS
 	../include/QRoseEngine.Core/QCE.hpp
 	../include/QRoseEngine.Core/Streaming.hpp
 	../include/QRoseEngine.Core/Uuid.hpp
-	../include/QRoseEngine.Core/Entity.hpp)
+	../include/QRoseEngine.Core/Entity.hpp
+	../include/QRoseEngine.Core/SerializationException.hpp)
 set(HEADERS ${HEADERS} ${QROSEENGINE_CORE_HEADERS})
 set(QROSEENGINE_CORE_SOURCES
 	Color.cpp

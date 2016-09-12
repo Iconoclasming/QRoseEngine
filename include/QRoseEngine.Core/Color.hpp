@@ -21,7 +21,7 @@ namespace QRose
 		double blue;
 
 		friend class Streaming;
-		void Serialize(const std::ostream& serializationStream);
-		static void Deserialize(const std::istream& deserializationStream);
+		void Serialize(const std::ostream& serializationStream) const;
+		static Color* Deserialize(const std::istream& deserializationStream);
 	};
 }
