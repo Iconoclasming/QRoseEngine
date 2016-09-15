@@ -19,7 +19,6 @@ set(QROSEENGINE_CORE_SOURCES
 	Color.cpp
 	GraphicsDesc.cpp
 	Size.cpp
-	Win32EngineFactory.cpp
 	WindowDesc.cpp
 	Uuid.cpp)
 add_library(QRoseEngine.Core STATIC ${QROSEENGINE_CORE_HEADERS} ${QROSEENGINE_CORE_SOURCES})
