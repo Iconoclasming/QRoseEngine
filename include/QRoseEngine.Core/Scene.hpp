@@ -1,6 +1,6 @@
 #pragma once
 
-#include <vector>
+#include <list>
 #include "Entity.hpp"
 
 namespace QRose
@@ -8,8 +8,10 @@ namespace QRose
 	class Scene
 	{
 	public:
-		Scene(Entity entities ...);
-		Scene(const std::vector<Entity>& entities);
+		Scene(const std::list<Entity>& entities);
 		~Scene();
+
+	private:
+		std::list<Entity> entities;
 	};
 }

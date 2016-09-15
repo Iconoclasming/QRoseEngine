@@ -11,6 +11,8 @@ namespace QRose
 		Entity(const Uuid& id);
 		~Entity();
 
+		Uuid GetID() const;
+
 	private:
 		Uuid id;
 	};

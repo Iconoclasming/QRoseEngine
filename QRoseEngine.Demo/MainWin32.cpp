@@ -1,5 +1,6 @@
 #include <QRoseEngineCore.hpp>
 #include <TransformationComponent.hpp>
+#include <MeshComponent.hpp>
 
 using namespace QRose;
 
@@ -14,10 +15,10 @@ void main()
 	TransformationComponent boxTransformationComponent;
 
 	Uuid boxMeshId = pEngine->LoadMesh("D:\\SomePathToMesh");
-	MeshComponent boxMeshComponent;
+	MeshComponent boxMeshComponent(boxMeshId);
 
 	pEngine->AttachComponent(boxEntity, boxTransformationComponent);
-	Scene mainScene(boxEntity);
+	Scene mainScene({ boxEntity });
 	pEngine->PresentScene(mainScene);
 }
 
