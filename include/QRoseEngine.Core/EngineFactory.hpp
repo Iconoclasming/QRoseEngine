@@ -1,6 +1,7 @@
 #pragma once
 
-#include "Engine.h"
+#include "Engine.hpp"
+#include "GraphicsDesc.hpp"
 
 namespace QRose
 {

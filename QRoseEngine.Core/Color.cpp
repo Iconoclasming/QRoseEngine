@@ -62,4 +62,5 @@ void Color::Serialize(const std::ostream& serializationStream) const
 
 Color* Color::Deserialize(const std::istream& deserializationStream)
 {
+	return nullptr;
 }
