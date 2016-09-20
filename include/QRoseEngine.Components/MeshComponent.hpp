@@ -12,6 +12,9 @@ namespace QRose
 
 		Uuid GetMeshId() const;
 
+		static const Uuid ComponentTypeId;
+		static const std::string ComponentName;
+
 	private:
 		Uuid meshId;
 	};

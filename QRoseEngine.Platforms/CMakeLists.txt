@@ -1,10 +1,6 @@
 cmake_minimum_required(VERSION 3.6)
 
-#set(QROSEENGINE_PLATFORMS_WIN32_HEADERS
-#	../include/QRoseEngine.Platforms.Win32/...)
-#set(HEADERS ${HEADERS} ${QROSEENGINE_COMPONENTS_HEADERS})
 set(QROSEENGINE_PLATFORMS_WIN32_SOURCES
-	Win32EngineFactory.cpp)
-add_library(QRoseEngine.Platforms.Win32 STATIC 
-	#${QROSEENGINE_COMPONENTS_HEADERS} 
+	QRoseEngine.Platforms.Win32/Win32EngineFactory.cpp)
+add_library(QRoseEngine.Platforms.Win32 STATIC
 	${QROSEENGINE_PLATFORMS_WIN32_SOURCES})

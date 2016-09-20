@@ -13,12 +13,17 @@ set(QROSEENGINE_CORE_HEADERS
 	../include/QRoseEngine.Core/Streaming.hpp
 	../include/QRoseEngine.Core/Uuid.hpp
 	../include/QRoseEngine.Core/Entity.hpp
-	../include/QRoseEngine.Core/SerializationException.hpp)
+	../include/QRoseEngine.Core/SerializationException.hpp
+	../include/QRoseEngine.Core/Vector.hpp)
 set(HEADERS ${HEADERS} ${QROSEENGINE_CORE_HEADERS})
 set(QROSEENGINE_CORE_SOURCES
 	Color.cpp
 	GraphicsDesc.cpp
 	Size.cpp
 	WindowDesc.cpp
-	Uuid.cpp)
+	Uuid.cpp
+	Entity.cpp
+	Scene.cpp
+	Streaming.cpp
+	Vector3.cpp)
 add_library(QRoseEngine.Core STATIC ${QROSEENGINE_CORE_HEADERS} ${QROSEENGINE_CORE_SOURCES})
