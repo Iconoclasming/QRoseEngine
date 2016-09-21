@@ -14,7 +14,10 @@ set(QROSEENGINE_CORE_HEADERS
 	../../include/QRoseEngine.Core/Uuid.hpp
 	../../include/QRoseEngine.Core/Entity.hpp
 	../../include/QRoseEngine.Core/SerializationException.hpp
-	../../include/QRoseEngine.Core/Vector.hpp)
+	../../include/QRoseEngine.Core/Vector.hpp
+	../../include/QRoseEngine.Core/ComponentsRepository.hpp
+	../../include/QRoseEngine.Core/EntitiesRepository.hpp
+	../../include/QRoseEngine.Core/ComponentsEntitiesRepository.hpp)
 set(HEADERS ${HEADERS} ${QROSEENGINE_CORE_HEADERS})
 set(QROSEENGINE_CORE_SOURCES
 	Color.cpp
