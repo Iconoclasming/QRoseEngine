@@ -9,11 +9,11 @@ include_directories(
 	include/QRoseEngine.Core
 	include/QRoseEngine.Components
 	include/QRoseEngine.Platforms)
-add_subdirectory(QRoseEngine.Core)
-add_subdirectory(QRoseEngine.Components)
-add_subdirectory(QRoseEngine.Platforms)
+add_subdirectory(src/QRoseEngine.Core)
+add_subdirectory(src/QRoseEngine.Components)
+add_subdirectory(src/QRoseEngine.Platforms)
 
-set(DEMO_EXE QRoseEngine.Demo/MainWin32.cpp)
+set(DEMO_EXE src/QRoseEngine.Demo/MainWin32.cpp)
 add_executable(QRoseEngine.Demo ${DEMO_EXE})
 target_link_libraries(QRoseEngine.Demo opengl32)
 target_link_libraries(QRoseEngine.Demo Rpcrt4.lib)
