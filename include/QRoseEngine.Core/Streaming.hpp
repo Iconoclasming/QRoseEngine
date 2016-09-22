@@ -9,7 +9,7 @@ namespace QRose
 	{
 	public:
 		template<typename T>
-		static bool Serialize(const T* object, const std::ostream& serializationStream)
+		static bool Serialize(const T* object, std::ostream& serializationStream)
 		{
 			try
 			{
@@ -24,30 +24,22 @@ namespace QRose
 		}
 
 		template<typename T>
-		static T* Deserialize(const std::istream& deserializationStream)
+		static T Deserialize(std::istream& deserializationStream)
 		{
-			try
-			{
-				return T::Deserialize(deserializationStream);
-			}
-			catch (const SerializationException& ex)
-			{
-				// TODO: exception's logging
-				return nullptr;
-			}
+			return T::Deserialize(deserializationStream);
 		}
 
-		static bool Write(int integer, const std::ostream& serializationStream);
-		static bool Write(float real, const std::ostream& serializationStream);
-		static bool Write(double doubleReal, const std::ostream& serializationStream);
-		static bool Write(bool boolean, const std::ostream& serializationStream);
-		static bool Write(const std::string& str, const std::ostream& serializationStream);
+		static bool Write(int integer, std::ostream& serializationStream);
+		static bool Write(float real, std::ostream& serializationStream);
+		static bool Write(double doubleReal, std::ostream& serializationStream);
+		static bool Write(bool boolean, std::ostream& serializationStream);
+		static bool Write(const std::string& str, std::ostream& serializationStream);
 
-		static bool Read(int& integerOut, const std::istream& deserializationStream);
-		static bool Read(float& realOut, const std::istream& deserializationStream);
-		static bool Read(double& doubleRealOut, const std::istream& deserializationStream);
-		static bool Read(bool& booleanOut, const std::istream& deserializationStream);
-		static bool Read(std::string& strOut, const std::istream& deserializationStream);
+		static bool Read(int& integerOut, std::istream& deserializationStream);
+		static bool Read(float& realOut, std::istream& deserializationStream);
+		static bool Read(double& doubleRealOut, std::istream& deserializationStream);
+		static bool Read(bool& booleanOut, std::istream& deserializationStream);
+		static bool Read(std::string& strOut, std::istream& deserializationStream);
 	};
 	
 	/* from: http://www.boost.org/doc/libs/1_61_0/libs/serialization/doc/index.html

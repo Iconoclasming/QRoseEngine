@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <iostream>
 
 namespace QRose
 {
@@ -26,4 +27,7 @@ namespace QRose
 	private:
 		std::string uuid;
 	};
+
+	std::ostream& operator<<(std::ostream& s, const Uuid& id);
+	Uuid operator>>(std::istream& s, Uuid& id);
 }

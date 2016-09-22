@@ -13,6 +13,8 @@ namespace QRose
 
 		Uuid GetID() const;
 
+		bool operator==(const Entity& rhs) const;
+
 	private:
 		Uuid id;
 	};

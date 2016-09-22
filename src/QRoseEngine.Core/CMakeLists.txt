@@ -17,7 +17,8 @@ set(QROSEENGINE_CORE_HEADERS
 	../../include/QRoseEngine.Core/Vector.hpp
 	../../include/QRoseEngine.Core/ComponentsRepository.hpp
 	../../include/QRoseEngine.Core/EntitiesRepository.hpp
-	../../include/QRoseEngine.Core/ComponentsEntitiesRepository.hpp)
+	../../include/QRoseEngine.Core/EntitiesComponentsRepository.hpp
+	../../include/QRoseEngine.Core/ECService.hpp)
 set(HEADERS ${HEADERS} ${QROSEENGINE_CORE_HEADERS})
 set(QROSEENGINE_CORE_SOURCES
 	Color.cpp
@@ -28,5 +29,8 @@ set(QROSEENGINE_CORE_SOURCES
 	Entity.cpp
 	Scene.cpp
 	Streaming.cpp
-	Vector3.cpp)
+	Vector3.cpp
+	ECService.cpp
+	EntitiesRepository.cpp
+	EntitiesComponentsRepository.cpp)
 add_library(QRoseEngine.Core STATIC ${QROSEENGINE_CORE_HEADERS} ${QROSEENGINE_CORE_SOURCES})

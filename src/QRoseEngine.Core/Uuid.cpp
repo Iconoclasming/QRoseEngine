@@ -75,3 +75,15 @@ std::string Uuid::ToString() const
 {
 	return uuid;
 }
+
+std::ostream& QRose::operator<<(std::ostream& s, const Uuid& id)
+{
+	return s << id.ToString();
+}
+
+Uuid QRose::operator >> (std::istream& s, Uuid& id)
+{
+	std::string uuidString;
+	s >> uuidString;
+	return Uuid::FromString(uuidString);
+}

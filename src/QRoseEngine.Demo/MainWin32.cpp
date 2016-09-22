@@ -11,13 +11,14 @@ void main()
 	Engine* pEngine = EngineFactory::CreateEngine(graphicsDesc);
 	//engine->Exit += &OnExit;
 
-	Entity boxEntity;
-	TransformationComponent boxTransformationComponent;
+	Entity boxEntity = pEngine->CreateEntity();
 
 	Uuid boxMeshId = pEngine->LoadMesh("D:\\SomePathToMesh");
 	MeshComponent boxMeshComponent(boxMeshId);
+	pEngine->AttachComponent(boxEntity, boxMeshComponent);
 
-	pEngine->AttachComponent(boxEntity, boxTransformationComponent);
+	//TransformationComponent boxTransformationComponent;
+	//pEngine->AttachComponent(boxEntity, boxTransformationComponent);
 	Scene mainScene({ boxEntity });
 	pEngine->PresentScene(mainScene);
 }

@@ -56,11 +56,11 @@ double Color::GetBlue() const
 	return blue;
 }
 
-void Color::Serialize(const std::ostream& serializationStream) const
+void Color::Serialize(std::ostream& serializationStream) const
 {
 }
 
-Color* Color::Deserialize(const std::istream& deserializationStream)
+Color Color::Deserialize(std::istream& deserializationStream)
 {
-	return nullptr;
+	return Color(0, 0, 0);
 }

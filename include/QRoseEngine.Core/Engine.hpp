@@ -1,19 +1,33 @@
 #pragma once
 
 #include "Scene.hpp"
+#include "ECService.hpp"
 
 namespace QRose
 {
 	class Engine
 	{
 	public:
-		virtual ~Engine() {}
+		Engine(ECService* pEcService) : pEcService(pEcService) {}
+		~Engine() {}
 
-		virtual void PresentScene(const Scene& scene) abstract;
+		void PresentScene(const Scene& scene) {}
+		Uuid LoadMesh(const std::string& path) { return Uuid::GenerateUuid(); }
 
-		virtual Uuid LoadMesh(const std::string& path) abstract;
+		Entity CreateEntity()
+		{
+			Entity entity;
+			pEcService->AddEntity(entity);
+			return entity;
+		}
 
 		template<typename TComponent>
-		void AttachComponent(const Entity& entity, const TComponent& component);
+		void AttachComponent(const Entity& entity, const TComponent& component)
+		{
+			pEcService->AttachComponent(entity, component);
+		}
+
+	private:
+		ECService* pEcService;
 	};
 }

@@ -2,7 +2,7 @@
 
 using namespace QRose;
 
-Entity::Entity()
+Entity::Entity() : Entity(Uuid::GenerateUuid())
 {
 }
 
@@ -17,4 +17,9 @@ Entity::~Entity()
 Uuid Entity::GetID() const
 {
 	return id;
+}
+
+bool Entity::operator==(const Entity& rhs) const
+{
+	return this->GetID() == rhs.GetID();
 }

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <list>
 #include "Entity.hpp"
 
 namespace QRose
@@ -8,5 +9,10 @@ namespace QRose
 	{
 	public:
 		void Add(const Entity& entity);
+		bool Contains(const Entity& entity);
+		bool Contains(const Uuid& entityId);
+
+	private:
+		std::list<Entity> entities;
 	};
 }
