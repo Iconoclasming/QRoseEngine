@@ -17,8 +17,8 @@ void main()
 	MeshComponent boxMeshComponent(boxMeshId);
 	pEngine->AttachComponent(boxEntity, boxMeshComponent);
 
-	//TransformationComponent boxTransformationComponent;
-	//pEngine->AttachComponent(boxEntity, boxTransformationComponent);
+	TransformationComponent boxTransformationComponent;
+	pEngine->AttachComponent(boxEntity, boxTransformationComponent);
 	Scene mainScene({ boxEntity });
 	pEngine->PresentScene(mainScene);
 }
