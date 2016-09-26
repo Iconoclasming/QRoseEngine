@@ -2,10 +2,11 @@
 
 #include <list>
 #include "Entity.hpp"
+#include "Managed.hpp"
 
 namespace QRose
 {
-	class EntitiesRepository
+	class EntitiesRepository : public Managed<EntitiesRepository>
 	{
 	public:
 		void Add(const Entity& entity);

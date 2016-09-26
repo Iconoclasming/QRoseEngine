@@ -2,8 +2,8 @@
 
 using namespace QRose;
 
-ECService::ECService(EntitiesRepository* pEntitiesRepository, ComponentsRepository* pComponentsRepository,
-	EntitiesComponentsRepository* pEntitiesComponentsRepository)
+ECService::ECService(ManagedPtr<EntitiesRepository> pEntitiesRepository, ManagedPtr<ComponentsRepository> pComponentsRepository,
+	ManagedPtr<EntitiesComponentsRepository> pEntitiesComponentsRepository)
 {
 	if(pEntitiesRepository == nullptr)
 	{

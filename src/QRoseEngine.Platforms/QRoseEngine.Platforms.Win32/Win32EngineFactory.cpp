@@ -5,6 +5,8 @@ using namespace QRose;
 
 Engine* EngineFactory::CreateEngine(const GraphicsDesc& graphicsDesc)
 {
-	ECService* pEcService = new ECService(new EntitiesRepository(), new ComponentsRepository(), new EntitiesComponentsRepository());
+	ECService* pEcService = new ECService(ManagedPtr<EntitiesRepository>(new EntitiesRepository()),
+		ManagedPtr<ComponentsRepository>(new ComponentsRepository()), 
+		ManagedPtr<EntitiesComponentsRepository>(new EntitiesComponentsRepository()));
 	return new Win32Engine(pEcService);
 }

@@ -18,7 +18,10 @@ set(QROSEENGINE_CORE_HEADERS
 	../../include/QRoseEngine.Core/ComponentsRepository.hpp
 	../../include/QRoseEngine.Core/EntitiesRepository.hpp
 	../../include/QRoseEngine.Core/EntitiesComponentsRepository.hpp
-	../../include/QRoseEngine.Core/ECService.hpp)
+	../../include/QRoseEngine.Core/ECService.hpp
+	../../include/QRoseEngine.Core/System.hpp
+	../../include/QRoseEngine.Core/ManagedPtr.hpp
+	../../include/QRoseEngine.Core/Managed.hpp)
 set(HEADERS ${HEADERS} ${QROSEENGINE_CORE_HEADERS})
 set(QROSEENGINE_CORE_SOURCES
 	Color.cpp

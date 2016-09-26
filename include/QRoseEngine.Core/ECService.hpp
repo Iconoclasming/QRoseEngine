@@ -10,8 +10,8 @@ namespace QRose
 	class ECService
 	{
 	public:
-		ECService(EntitiesRepository* pEntitiesRepository, ComponentsRepository* pComponentsRepository,
-			EntitiesComponentsRepository* pEntitiesComponentsRepository);
+		ECService(ManagedPtr<EntitiesRepository> pEntitiesRepository, ManagedPtr<ComponentsRepository> pComponentsRepository,
+			ManagedPtr<EntitiesComponentsRepository> pEntitiesComponentsRepository);
 
 		void AddEntity(const Entity& entity);
 
@@ -19,9 +19,9 @@ namespace QRose
 		void AttachComponent(const Entity& entity, const TComponent& component);
 
 	private:
-		EntitiesRepository* pEntitiesRepository;
-		ComponentsRepository* pComponentsRepository;
-		EntitiesComponentsRepository* pEntitiesComponentsRepository;
+		ManagedPtr<EntitiesRepository> pEntitiesRepository;
+		ManagedPtr<ComponentsRepository> pComponentsRepository;
+		ManagedPtr<EntitiesComponentsRepository> pEntitiesComponentsRepository;
 	};
 
 	template <typename TComponent>

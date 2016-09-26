@@ -1,11 +1,12 @@
 #pragma once
 
-#include "Uuid.hpp"
 #include <list>
+#include "Uuid.hpp"
+#include "Managed.hpp"
 
 namespace QRose
 {
-	class EntitiesComponentsRepository
+	class EntitiesComponentsRepository : public Managed<EntitiesComponentsRepository>
 	{
 	public:
 
