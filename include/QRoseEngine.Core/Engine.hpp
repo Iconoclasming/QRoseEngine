@@ -1,17 +1,20 @@
 #pragma once
 
+#include <vector>
 #include "Scene.hpp"
 #include "ECService.hpp"
+#include "System.hpp"
 
 namespace QRose
 {
 	class Engine
 	{
 	public:
-		Engine(ECService* pEcService) : pEcService(pEcService) {}
-		~Engine() {}
+		Engine(ECService* pEcService, std::vector<System*> systems) : pEcService(pEcService) {}
+		virtual ~Engine() {}
 
-		void PresentScene(const Scene& scene) {}
+		virtual void PresentScene(const Scene& scene) abstract;
+
 		Uuid LoadMesh(const std::string& path) { return Uuid::GenerateUuid(); }
 
 		Entity CreateEntity()
@@ -26,6 +29,9 @@ namespace QRose
 		{
 			pEcService->AttachComponent(entity, component);
 		}
+
+	protected:
+		std::vector<System*> systems;
 
 	private:
 		ECService* pEcService;

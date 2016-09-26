@@ -21,7 +21,9 @@ set(QROSEENGINE_CORE_HEADERS
 	../../include/QRoseEngine.Core/ECService.hpp
 	../../include/QRoseEngine.Core/System.hpp
 	../../include/QRoseEngine.Core/ManagedPtr.hpp
-	../../include/QRoseEngine.Core/Managed.hpp)
+	../../include/QRoseEngine.Core/Managed.hpp
+	../../include/QRoseEngine.Core/RenderSystem.hpp
+	../../include/QRoseEngine.Core/Render.hpp)
 set(HEADERS ${HEADERS} ${QROSEENGINE_CORE_HEADERS})
 set(QROSEENGINE_CORE_SOURCES
 	Color.cpp
@@ -35,5 +37,6 @@ set(QROSEENGINE_CORE_SOURCES
 	Vector3.cpp
 	ECService.cpp
 	EntitiesRepository.cpp
-	EntitiesComponentsRepository.cpp)
+	EntitiesComponentsRepository.cpp
+	RenderSystem.cpp)
 add_library(QRoseEngine.Core STATIC ${QROSEENGINE_CORE_HEADERS} ${QROSEENGINE_CORE_SOURCES})
