@@ -2,7 +2,7 @@
 
 #include <vector>
 #include "Scene.hpp"
-#include "ECService.hpp"
+#include "EntitiesComponentsService.hpp"
 #include "System.hpp"
 
 namespace QRose
@@ -10,7 +10,8 @@ namespace QRose
 	class Engine
 	{
 	public:
-		Engine(ECService* pEcService, std::vector<System*> systems) : pEcService(pEcService) {}
+		Engine(ManagedPtr<EntitiesComponentsService> pEntitiesComponentsService, std::vector<System*> systems) 
+			: pEntitiesComponentsService(pEntitiesComponentsService) {}
 		virtual ~Engine() {}
 
 		virtual void PresentScene(const Scene& scene) abstract;
@@ -20,20 +21,20 @@ namespace QRose
 		Entity CreateEntity()
 		{
 			Entity entity;
-			pEcService->AddEntity(entity);
+			pEntitiesComponentsService->AddEntity(entity);
 			return entity;
 		}
 
 		template<typename TComponent>
 		void AttachComponent(const Entity& entity, const TComponent& component)
 		{
-			pEcService->AttachComponent(entity, component);
+			pEntitiesComponentsService->AttachComponent(entity, component);
 		}
 
 	protected:
 		std::vector<System*> systems;
 
 	private:
-		ECService* pEcService;
+		ManagedPtr<EntitiesComponentsService> pEntitiesComponentsService;
 	};
 }

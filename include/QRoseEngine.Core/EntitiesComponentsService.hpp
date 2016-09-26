@@ -7,10 +7,11 @@
 
 namespace QRose
 {
-	class ECService
+	class EntitiesComponentsService : public Managed<EntitiesComponentsService>
 	{
 	public:
-		ECService(ManagedPtr<EntitiesRepository> pEntitiesRepository, ManagedPtr<ComponentsRepository> pComponentsRepository,
+		EntitiesComponentsService(ManagedPtr<EntitiesRepository> pEntitiesRepository,
+			ManagedPtr<ComponentsRepository> pComponentsRepository,
 			ManagedPtr<EntitiesComponentsRepository> pEntitiesComponentsRepository);
 
 		void AddEntity(const Entity& entity);
@@ -25,7 +26,7 @@ namespace QRose
 	};
 
 	template <typename TComponent>
-	void ECService::AttachComponent(const Entity& entity, const TComponent& component)
+	void EntitiesComponentsService::AttachComponent(const Entity& entity, const TComponent& component)
 	{
 		if (pEntitiesRepository->Contains(entity))
 		{

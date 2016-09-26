@@ -1,8 +1,9 @@
-#include "ECService.hpp"
+#include "EntitiesComponentsService.hpp"
 
 using namespace QRose;
 
-ECService::ECService(ManagedPtr<EntitiesRepository> pEntitiesRepository, ManagedPtr<ComponentsRepository> pComponentsRepository,
+EntitiesComponentsService::EntitiesComponentsService(ManagedPtr<EntitiesRepository> pEntitiesRepository,
+	ManagedPtr<ComponentsRepository> pComponentsRepository,
 	ManagedPtr<EntitiesComponentsRepository> pEntitiesComponentsRepository)
 {
 	if(pEntitiesRepository == nullptr)
@@ -22,7 +23,7 @@ ECService::ECService(ManagedPtr<EntitiesRepository> pEntitiesRepository, Managed
 	this->pEntitiesComponentsRepository = pEntitiesComponentsRepository;
 }
 
-void ECService::AddEntity(const Entity& entity)
+void EntitiesComponentsService::AddEntity(const Entity& entity)
 {
 	if (!pEntitiesRepository->Contains(entity))
 	{

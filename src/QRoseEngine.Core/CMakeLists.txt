@@ -18,7 +18,7 @@ set(QROSEENGINE_CORE_HEADERS
 	../../include/QRoseEngine.Core/ComponentsRepository.hpp
 	../../include/QRoseEngine.Core/EntitiesRepository.hpp
 	../../include/QRoseEngine.Core/EntitiesComponentsRepository.hpp
-	../../include/QRoseEngine.Core/ECService.hpp
+	../../include/QRoseEngine.Core/EntitiesComponentsService.hpp
 	../../include/QRoseEngine.Core/System.hpp
 	../../include/QRoseEngine.Core/ManagedPtr.hpp
 	../../include/QRoseEngine.Core/Managed.hpp
@@ -35,7 +35,7 @@ set(QROSEENGINE_CORE_SOURCES
 	Scene.cpp
 	Streaming.cpp
 	Vector3.cpp
-	ECService.cpp
+	EntitiesComponentsService.cpp
 	EntitiesRepository.cpp
 	EntitiesComponentsRepository.cpp
 	RenderSystem.cpp)
