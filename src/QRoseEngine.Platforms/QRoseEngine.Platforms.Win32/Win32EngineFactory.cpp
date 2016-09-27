@@ -1,13 +1,17 @@
 #include "EngineFactory.hpp"
 #include "QRoseEngine.Platforms.Win32/Win32Engine.hpp"
+#include <RenderSystem.hpp>
 
 using namespace QRose;
 
-Engine* EngineFactory::CreateEngine(const GraphicsDesc& graphicsDesc)
+ManagedPtr<Engine> EngineFactory::CreateEngine(const GraphicsDesc& graphicsDesc)
 {
-	ManagedPtr<EntitiesComponentsService> pEcService = new EntitiesComponentsService(ManagedPtr<EntitiesRepository>(new EntitiesRepository()),
-		ManagedPtr<ComponentsRepository>(new ComponentsRepository()), 
-		ManagedPtr<EntitiesComponentsRepository>(new EntitiesComponentsRepository()));
+	ManagedPtr<EntitiesRepository> pEntitiesRepository = Managed<EntitiesRepository>();
+	ManagedPtr<ComponentsRepository> pComponentsRepository = Managed<ComponentsRepository>();
+	ManagedPtr<EntitiesComponentsRepository> pEntitiesComponentsRepository = Managed<EntitiesComponentsRepository>();
+	ManagedPtr<EntitiesComponentsService> pEntitiesComponentsService = Managed<EntitiesComponentsService>(pEntitiesRepository,
+		pComponentsRepository, pEntitiesComponentsRepository);
 	std::vector<System*> systems;
-	return new Win32Engine(pEcService, systems);
+	systems.push_back(new RenderSystem(Managed<Render>(), pEntitiesComponentsService));
+	return Managed<Win32Engine>(pEntitiesComponentsService, systems);
 }

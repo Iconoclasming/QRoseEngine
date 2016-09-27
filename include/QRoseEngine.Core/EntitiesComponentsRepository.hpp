@@ -2,11 +2,10 @@
 
 #include <list>
 #include "Uuid.hpp"
-#include "Managed.hpp"
 
 namespace QRose
 {
-	class EntitiesComponentsRepository : public Managed<EntitiesComponentsRepository>
+	class EntitiesComponentsRepository
 	{
 	public:
 

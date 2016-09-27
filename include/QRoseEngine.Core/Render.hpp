@@ -1,10 +1,8 @@
 #pragma once
 
-#include "Managed.hpp"
-
 namespace QRose
 {
-	class Render : public Managed<Render>
+	class Render
 	{
 	public:
 		Render() {}

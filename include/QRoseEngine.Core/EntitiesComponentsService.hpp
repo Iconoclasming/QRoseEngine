@@ -4,10 +4,11 @@
 #include "EntitiesComponentsRepository.hpp"
 #include "ComponentsRepository.hpp"
 #include "EntitiesRepository.hpp"
+#include "ManagedPtr.hpp"
 
 namespace QRose
 {
-	class EntitiesComponentsService : public Managed<EntitiesComponentsService>
+	class EntitiesComponentsService
 	{
 	public:
 		EntitiesComponentsService(ManagedPtr<EntitiesRepository> pEntitiesRepository,

@@ -3,11 +3,10 @@
 #include <map>
 #include <sstream>
 #include "Streaming.hpp"
-#include "Managed.hpp"
 
 namespace QRose
 {
-	class ComponentsRepository : public Managed<ComponentsRepository>
+	class ComponentsRepository
 	{
 	public:	
 		template<typename TComponent>

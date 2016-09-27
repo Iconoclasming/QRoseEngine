@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Engine.hpp"
+#include "ManagedPtr.hpp"
 
 namespace QRose
 {

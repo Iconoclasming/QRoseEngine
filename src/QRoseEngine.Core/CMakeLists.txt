@@ -21,7 +21,6 @@ set(QROSEENGINE_CORE_HEADERS
 	../../include/QRoseEngine.Core/EntitiesComponentsService.hpp
 	../../include/QRoseEngine.Core/System.hpp
 	../../include/QRoseEngine.Core/ManagedPtr.hpp
-	../../include/QRoseEngine.Core/Managed.hpp
 	../../include/QRoseEngine.Core/RenderSystem.hpp
 	../../include/QRoseEngine.Core/Render.hpp)
 set(HEADERS ${HEADERS} ${QROSEENGINE_CORE_HEADERS})
