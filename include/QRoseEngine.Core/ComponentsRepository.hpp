@@ -15,6 +15,9 @@ namespace QRose
 		template<typename TComponent>
 		bool Contains(const TComponent& component);
 
+		template<typename TComponent>
+		TComponent Get(const Uuid& componentId);
+
 	private:
 		std::map<Uuid, std::string> components;
 	};
@@ -34,5 +37,16 @@ namespace QRose
 	bool ComponentsRepository::Contains(const TComponent& component)
 	{
 		return components.find(component.GetID()) != components.end();
+	}
+
+	template <typename TComponent>
+	TComponent ComponentsRepository::Get(const Uuid& componentId)
+	{
+		/*std::stringstream ss;
+		if(!Contains(componentId))
+		{
+			throw std::invalid_argument("com")
+		}
+		ss << components[componentId] << std::endl;*/
 	}
 }

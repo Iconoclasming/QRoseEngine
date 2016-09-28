@@ -21,6 +21,21 @@ EntitiesComponentsService::EntitiesComponentsService(MPtr<EntitiesRepository> pE
 	this->pEntitiesRepository = pEntitiesRepository;
 	this->pComponentsRepository = pComponentsRepository;
 	this->pEntitiesComponentsRepository = pEntitiesComponentsRepository;
+
+	componentAddedEvent = new Event<ComponentEventArgs>(&componentAddedEventInvoker);
+	componentRemovedEvent = new Event<ComponentEventArgs>(&componentRemovedEventInvoker);
+	componentUpdatedEvent = new Event<ComponentUpdatedEventArgs>(&componentUpdatedEventInvoker);
+	entityAddedEvent = new Event<EntityEventArgs>(&entityAddedEventInvoker);
+	entityRemovedEvent = new Event<EntityEventArgs>(&entityRemovedEventInvoker);
+}
+
+EntitiesComponentsService::~EntitiesComponentsService()
+{
+	delete componentAddedEvent;
+	delete componentRemovedEvent;
+	delete componentUpdatedEvent;
+	delete entityAddedEvent;
+	delete entityRemovedEvent;
 }
 
 void EntitiesComponentsService::AddEntity(const Entity& entity)
@@ -29,4 +44,9 @@ void EntitiesComponentsService::AddEntity(const Entity& entity)
 	{
 		pEntitiesRepository->Add(entity);	
 	}
+}
+
+std::vector<Entity> EntitiesComponentsService::GetEntities() const
+{
+	return pEntitiesRepository->GetEntities();
 }

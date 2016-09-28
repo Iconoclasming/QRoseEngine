@@ -2,6 +2,7 @@
 
 #include <list>
 #include "Entity.hpp"
+#include <vector>
 
 namespace QRose
 {
@@ -12,6 +13,7 @@ namespace QRose
 		bool Contains(const Entity& entity);
 		bool Contains(const Uuid& entityId);
 
+		std::vector<Entity> GetEntities() const;
 	private:
 		std::list<Entity> entities;
 	};

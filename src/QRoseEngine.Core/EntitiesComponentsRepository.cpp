@@ -18,3 +18,8 @@ bool EntitiesComponentsRepository::Contains(const Uuid& entityId, const Uuid& co
 		return std::get<0>(entityComponent) == entityId && std::get<1>(entityComponent) == componentId;
 	}) != entitiesComponents.end();
 }
+
+std::list<std::tuple<Uuid, Uuid>> EntitiesComponentsRepository::GetEntitiesComponentsMapping()
+{
+	return entitiesComponents;
+}

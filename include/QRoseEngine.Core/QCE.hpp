@@ -13,6 +13,7 @@ namespace QRose
 {
 	class QCE
 	{
+	public:
 		template<typename TCollection, typename TEntity>
 		static bool Contains(TCollection& collection, TEntity& entity)
 		{

@@ -17,3 +17,8 @@ bool EntitiesRepository::Contains(const Uuid& entityId)
 {
 	return std::find_if(entities.begin(), entities.end(), [&entityId](const Entity& entity) { return entity.GetID() == entityId; }) != entities.end();
 }
+
+std::vector<Entity> EntitiesRepository::GetEntities() const
+{
+	return std::vector<Entity>(entities.begin(), entities.end());
+}
