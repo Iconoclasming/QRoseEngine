@@ -42,14 +42,14 @@ Vector3 Vector3::Deserialize(std::istream& deserializationStream)
 
 std::ostream& QRose::operator<<(std::ostream& s, const Vector3& vector)
 {
-	return s << "(" << vector.GetX() << "; " << vector.GetY() << "; " << vector.GetZ() << ")";
+	return s << "(" << vector.GetX() << ";" << vector.GetY() << ";" << vector.GetZ() << ")";
 }
 
 Vector3 QRose::operator>>(std::istream& s, Vector3& vector)
 {
 	std::string vectorString;
 	s >> vectorString;
-	std::regex vectorRegex(".([-+]?[0-9]*\\.?[0-9]+); ([-+]?[0-9]*\\.?[0-9]*); ([-+]?[0-9]*\\.?[0-9]*).");
+	std::regex vectorRegex(".([-+]?[0-9]*\\.?[0-9]+);([-+]?[0-9]*\\.?[0-9]*);([-+]?[0-9]*\\.?[0-9]*).");
 	std::smatch results;
 	if (!std::regex_match(vectorString, results, vectorRegex))
 	{

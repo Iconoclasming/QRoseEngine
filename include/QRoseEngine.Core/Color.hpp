@@ -8,17 +8,29 @@ namespace QRose
 	{
 	public:
 		Color();
-		Color(double r, double g, double b);
+		Color(float r, float g, float b, float a);
 		~Color();
 
-		double GetRed() const;
-		double GetGreen() const;
-		double GetBlue() const;
+		float GetRed() const;
+		float GetGreen() const;
+		float GetBlue() const;
+		float GetAlpha() const;
+
+		static const Color Red;
+		static const Color Green;
+		static const Color Blue;
+		static const Color Yellow;
+		static const Color Magneta;
+		static const Color Cyan;
+		static const Color White;
+		static const Color Black;
+		static const Color Aqua;
 
 	private:
-		double red;
-		double green;
-		double blue;
+		float red;
+		float green;
+		float blue;
+		float alpha;
 
 		friend class Streaming;
 		void Serialize(std::ostream& serializationStream) const;

@@ -29,5 +29,5 @@ namespace QRose
 	};
 
 	std::ostream& operator<<(std::ostream& s, const Uuid& id);
-	Uuid operator>>(std::istream& s, Uuid& id);
+	Uuid& operator>>(std::istream& s, Uuid& id);
 }

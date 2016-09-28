@@ -31,7 +31,7 @@ namespace QRose
 		template<typename TComponent>
 		inline TComponent GetComponent(const Uuid& componentId);
 		template<typename TComponent>
-		inline TComponent GetComponentForEntity(const Uuid entityId);
+		inline TComponent GetComponentForEntity(const Uuid& entityId);
 
 		Event<ComponentEventArgs>& GetComponentAddedEvent() { return *componentAddedEvent; }
 		Event<ComponentEventArgs>& GetComponentRemovedEvent() { return *componentRemovedEvent; }
@@ -67,39 +67,43 @@ namespace QRose
 	{
 		if (pEntitiesRepository->Contains(entity))
 		{
-			if(!pComponentsRepository->Contains(component))
+			if(!pComponentsRepository->Contains(component.GetID()))
 			{
 				pComponentsRepository->Add(component);
 			}
-			pEntitiesComponentsRepository->Add(entity.GetID(), component.GetID());
+			pEntitiesComponentsRepository->Add(entity.GetID(), TComponent::ComponentTypeId, component.GetID());
+			componentAddedEventInvoker.Invoke(ComponentEventArgs(TComponent::ComponentTypeId, entity.GetID(),
+				component.GetID()));
 		}
 	}
 
 	template <typename TComponent>
 	bool EntitiesComponentsService::IsComponentPresentForEntity(const Uuid& entityId)
 	{
-		return pEntitiesComponentsRepository->Contains(entityId, TComponent::ComponentTypeId);
+		return pEntitiesComponentsRepository->ContainsComponentType(entityId, TComponent::ComponentTypeId);
 	}
 
 	template <typename TComponent>
 	TComponent EntitiesComponentsService::GetComponent(const Uuid& componentId)
 	{
-
+		return pComponentsRepository->Get<TComponent>(componentId);
 	}
 
 	template <typename TComponent>
-	TComponent EntitiesComponentsService::GetComponentForEntity(const Uuid entityId)
+	TComponent EntitiesComponentsService::GetComponentForEntity(const Uuid& entityId)
 	{
+		if (!IsComponentPresentForEntity<TComponent>(entityId))
+		{
+			throw std::invalid_argument("component of type " + TComponent::ComponentName
+				+ " is not present for entity " + entityId.ToString());
+		}
 		Uuid componentTypeId = TComponent::ComponentTypeId;
-		if (IsComponentPresentForEntity<TComponent>(entityId))
+		std::list<std::tuple<Uuid, Uuid, Uuid>> entitiesComponentsMap = pEntitiesComponentsRepository->GetEntitiesComponentsMapping();
+		std::tuple<Uuid, Uuid, Uuid> entityComponent = QCE::Find<std::tuple<Uuid, Uuid, Uuid>>(entitiesComponentsMap,
+			[&entityId, &componentTypeId](const std::tuple<Uuid, Uuid, Uuid>& entityComponentLocal)
 		{
-			//std::list<std::tuple<Uuid, Uuid>> entitiesComponentsMap = pEntitiesComponentsRepository->GetEntitiesComponentsMapping();
-			//rComponentOut = GetComponent<TComponent>(entitiesComponentsMap[componentTypeId][entityId]);
-			//return true;
-		}
-		else
-		{
-			//return false;
-		}
+			return std::get<0>(entityComponentLocal) == entityId && std::get<1>(entityComponentLocal) == componentTypeId;
+		});
+		return GetComponent<TComponent>(std::get<2>(entityComponent));
 	}
 }

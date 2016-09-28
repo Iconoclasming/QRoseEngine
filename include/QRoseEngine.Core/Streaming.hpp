@@ -15,7 +15,7 @@ namespace QRose
 			{
 				object->Serialize(serializationStream);
 			}
-			catch (const SerializationException& ex)
+			catch (const SerializationException&)
 			{
 				// TODO: exception's logging
 				return false;

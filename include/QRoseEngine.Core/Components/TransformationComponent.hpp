@@ -14,6 +14,8 @@ namespace QRose
 		~TransformationComponent();
 
 		Uuid GetID() const;
+		Vector3 GetPosition() const;
+
 		static const Uuid ComponentTypeId;
 		static const std::string ComponentName;
 

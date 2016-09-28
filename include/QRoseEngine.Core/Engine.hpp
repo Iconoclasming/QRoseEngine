@@ -3,27 +3,21 @@
 #include <vector>
 #include "Scene.hpp"
 #include "EntitiesComponentsService.hpp"
-#include "System.hpp"
+#include "Vector.hpp"
 
 namespace QRose
 {
 	class Engine
 	{
 	public:
-		Engine(MPtr<EntitiesComponentsService> pEntitiesComponentsService, std::vector<System*> systems) 
-			: pEntitiesComponentsService(pEntitiesComponentsService) {}
-		virtual ~Engine() {}
+		Engine(MPtr<EntitiesComponentsService> pEntitiesComponentsService);
+		virtual ~Engine();
 
-		virtual void PresentScene(const Scene& scene) abstract;
+		virtual void PresentScene() abstract;
+		virtual Uuid LoadMesh(const std::string& path) abstract;
+		virtual Uuid LoadBoxMesh(const Vector3& size) abstract;
 
-		Uuid LoadMesh(const std::string& path) { return Uuid::GenerateUuid(); }
-
-		Entity CreateEntity()
-		{
-			Entity entity;
-			pEntitiesComponentsService->AddEntity(entity);
-			return entity;
-		}
+		Entity CreateEntity();
 
 		template<typename TComponent>
 		void AttachComponent(const Entity& entity, const TComponent& component)
@@ -31,8 +25,11 @@ namespace QRose
 			pEntitiesComponentsService->AttachComponent(entity, component);
 		}
 
-	protected:
-		std::vector<System*> systems;
+		template<typename TComponent>
+		TComponent GetComponentForEntity(const Uuid& entityId)
+		{
+			return pEntitiesComponentsService->GetComponentForEntity<TComponent>(entityId);
+		}
 
 	private:
 		MPtr<EntitiesComponentsService> pEntitiesComponentsService;

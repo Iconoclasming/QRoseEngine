@@ -32,7 +32,6 @@ set(QROSEENGINE_CORE_COMPONENTS_HEADERS
 set(HEADERS ${HEADERS} ${QROSEENGINE_CORE_HEADERS} ${QROSEENGINE_CORE_COMPONENTS_HEADERS})
 set(QROSEENGINE_CORE_SOURCES
 	Color.cpp
-	GraphicsDesc.cpp
 	Size.cpp
 	WindowDesc.cpp
 	Uuid.cpp
@@ -43,7 +42,9 @@ set(QROSEENGINE_CORE_SOURCES
 	EntitiesComponentsService.cpp
 	EntitiesRepository.cpp
 	EntitiesComponentsRepository.cpp
-	RenderSystem.cpp)
+	RenderSystem.cpp
+	ComponentsRepository.cpp
+	Engine.cpp)
 set(QROSEENGINE_CORE_COMPONENTS_SOURCES
 	Components/TransformationComponent.cpp
 	Components/MeshComponent.cpp)

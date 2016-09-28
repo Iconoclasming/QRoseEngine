@@ -5,7 +5,7 @@ using namespace QRose;
 const Uuid TransformationComponent::ComponentTypeId = Uuid::FromString("843CE3F3-AE74-4A85-8801-515A37F4B3E8");
 const std::string TransformationComponent::ComponentName = typeid(TransformationComponent).name();
 
-TransformationComponent::TransformationComponent() : position(0.0, 0.0, 0.0), id(Uuid::GenerateUuid())
+TransformationComponent::TransformationComponent() : id(Uuid::GenerateUuid()), position(0.0, 0.0, 0.0)
 {
 }
 
@@ -22,6 +22,11 @@ Uuid TransformationComponent::GetID() const
 	return id;
 }
 
+Vector3 TransformationComponent::GetPosition() const
+{
+	return position;
+}
+
 void TransformationComponent::Serialize(std::ostream& serializationStream) const
 {
 	serializationStream << id << std::endl;
@@ -30,5 +35,11 @@ void TransformationComponent::Serialize(std::ostream& serializationStream) const
 
 TransformationComponent TransformationComponent::Deserialize(std::istream& deserializationStream)
 {
-	return TransformationComponent();
+	Uuid id;
+	Vector3 position(0, 0, 0);
+	deserializationStream >> id;
+	deserializationStream >> position;
+	TransformationComponent transformationComponent(position);
+	transformationComponent.id = id;
+	return transformationComponent;
 }

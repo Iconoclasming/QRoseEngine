@@ -5,14 +5,13 @@
 
 namespace QRose
 {
-	class GraphicsDesc
+	struct GraphicsDesc
 	{
-	public:
-		GraphicsDesc(const WindowDesc& windowDesc, const Color& backgroundColor);
-		~GraphicsDesc();
+		GraphicsDesc(const WindowDesc& windowDesc, const Color& backgroundColor) 
+			: WindowDesc(windowDesc), BackgroundColor(backgroundColor) {}
+		~GraphicsDesc() {}
 
-	private:
-		WindowDesc windowDesc;
-		Color backgroundColor;
+		const WindowDesc WindowDesc;
+		const Color BackgroundColor;
 	};
 }

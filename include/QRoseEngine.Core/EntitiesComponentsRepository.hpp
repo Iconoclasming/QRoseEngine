@@ -2,7 +2,6 @@
 
 #include <list>
 #include "Uuid.hpp"
-#include <map>
 
 namespace QRose
 {
@@ -10,11 +9,13 @@ namespace QRose
 	{
 	public:
 
-		void Add(const Uuid& entityId, const Uuid& componentId);
-		bool Contains(const Uuid& entityId, const Uuid& componentId);
+		void Add(const Uuid& entityId, const Uuid& componentTypeId, const Uuid& componentId);
+		bool ContainsComponent(const Uuid& entityId, const Uuid& componentId);
+		bool ContainsComponentType(const Uuid& entityId, const Uuid& componentTypeId);
 
-		std::list<std::tuple<Uuid, Uuid>> GetEntitiesComponentsMapping();
+		std::list<std::tuple<Uuid, Uuid, Uuid>> GetEntitiesComponentsMapping();
 	private:
-		std::list<std::tuple<Uuid, Uuid>> entitiesComponents;
+		// Entity ID, Component type ID, Component ID
+		std::list<std::tuple<Uuid, Uuid, Uuid>> entitiesComponents;
 	};
 };

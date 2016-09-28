@@ -2,11 +2,21 @@
 
 using namespace QRose;
 
-Color::Color() : Color(0.0, 0.0, 0.0)
+Color const Color::Red = Color(1.0f, 0.0f, 0.0f, 1.0f);
+Color const Color::Green = Color(0.0f, 1.0f, 0.0f, 1.0f);
+Color const Color::Blue = Color(0.0f, 0.0f, 1.0f, 1.0f);
+Color const Color::Yellow = Color(1.0f, 1.0f, 0.0f, 1.0f);
+Color const Color::Magneta = Color(1.0f, 0.0f, 1.0f, 1.0f);
+Color const Color::Cyan = Color(0.0f, 1.0f, 1.0f, 1.0f);
+Color const Color::White = Color(1.0f, 1.0f, 1.0f, 1.0f);
+Color const Color::Black = Color(0.0f, 0.0f, 0.0f, 1.0f);
+Color const Color::Aqua = Color(0.2f, 0.4f, 0.6f, 1.0f);
+
+Color::Color() : Color(0.0, 0.0, 0.0, 0.0)
 {
 }
 
-Color::Color(double r, double g, double b)
+Color::Color(float r, float g, float b, float a)
 {
 	if(r < 0.0)
 	{
@@ -32,28 +42,42 @@ Color::Color(double r, double g, double b)
 	{
 		b = 1.0;
 	}
+	if (a < 0.0)
+	{
+		a = 0.0;
+	}
+	else if (a > 1.0)
+	{
+		a = 1.0;
+	}
 	red = r;
 	green = g;
 	blue = b;
+	alpha = a;
 }
 
 Color::~Color()
 {
 }
 
-double Color::GetRed() const
+float Color::GetRed() const
 {
 	return red;
 }
 
-double Color::GetGreen() const
+float Color::GetGreen() const
 {
 	return green;
 }
 
-double Color::GetBlue() const
+float Color::GetBlue() const
 {
 	return blue;
+}
+
+float Color::GetAlpha() const
+{
+	return alpha;
 }
 
 void Color::Serialize(std::ostream& serializationStream) const
@@ -62,5 +86,5 @@ void Color::Serialize(std::ostream& serializationStream) const
 
 Color Color::Deserialize(std::istream& deserializationStream)
 {
-	return Color(0, 0, 0);
+	return Color(0, 0, 0, 0);
 }

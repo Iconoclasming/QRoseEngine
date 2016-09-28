@@ -3,6 +3,7 @@
 #include <map>
 #include <sstream>
 #include "Streaming.hpp"
+#include "Uuid.hpp"
 
 namespace QRose
 {
@@ -12,8 +13,7 @@ namespace QRose
 		template<typename TComponent>
 		void Add(const TComponent& component);
 
-		template<typename TComponent>
-		bool Contains(const TComponent& component);
+		bool Contains(const Uuid& componentId);
 
 		template<typename TComponent>
 		TComponent Get(const Uuid& componentId);
@@ -21,7 +21,7 @@ namespace QRose
 	private:
 		std::map<Uuid, std::string> components;
 	};
-
+	
 	template <typename TComponent>
 	void ComponentsRepository::Add(const TComponent& component)
 	{
@@ -32,21 +32,16 @@ namespace QRose
 			components[component.GetID()] = ss.str();
 		}
 	}
-
-	template <typename TComponent>
-	bool ComponentsRepository::Contains(const TComponent& component)
-	{
-		return components.find(component.GetID()) != components.end();
-	}
-
+	
 	template <typename TComponent>
 	TComponent ComponentsRepository::Get(const Uuid& componentId)
 	{
-		/*std::stringstream ss;
+		std::stringstream ss;
 		if(!Contains(componentId))
 		{
-			throw std::invalid_argument("com")
+			throw std::invalid_argument("component with id " + componentId.ToString() + " not found");
 		}
-		ss << components[componentId] << std::endl;*/
+		ss << components[componentId] << std::endl;
+		return Streaming::Deserialize<TComponent>(ss);
 	}
 }

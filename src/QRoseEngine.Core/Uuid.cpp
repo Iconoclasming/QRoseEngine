@@ -81,9 +81,10 @@ std::ostream& QRose::operator<<(std::ostream& s, const Uuid& id)
 	return s << id.ToString();
 }
 
-Uuid QRose::operator >> (std::istream& s, Uuid& id)
+Uuid& QRose::operator >> (std::istream& s, Uuid& id)
 {
 	std::string uuidString;
 	s >> uuidString;
-	return Uuid::FromString(uuidString);
+	id = Uuid::FromString(uuidString);
+	return id;
 }
