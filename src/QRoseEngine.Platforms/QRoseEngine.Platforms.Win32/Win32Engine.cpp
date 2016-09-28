@@ -2,7 +2,7 @@
 
 using namespace QRose;
 
-Win32Engine::Win32Engine(ManagedPtr<EntitiesComponentsService> pEntitiesComponentsService, std::vector<System*> systems)
+Win32Engine::Win32Engine(MPtr<EntitiesComponentsService> pEntitiesComponentsService, std::vector<System*> systems)
 	: Engine(pEntitiesComponentsService, systems)
 {
 }

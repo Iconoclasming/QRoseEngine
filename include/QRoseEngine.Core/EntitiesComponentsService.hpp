@@ -11,9 +11,9 @@ namespace QRose
 	class EntitiesComponentsService
 	{
 	public:
-		EntitiesComponentsService(ManagedPtr<EntitiesRepository> pEntitiesRepository,
-			ManagedPtr<ComponentsRepository> pComponentsRepository,
-			ManagedPtr<EntitiesComponentsRepository> pEntitiesComponentsRepository);
+		EntitiesComponentsService(MPtr<EntitiesRepository> pEntitiesRepository,
+			MPtr<ComponentsRepository> pComponentsRepository,
+			MPtr<EntitiesComponentsRepository> pEntitiesComponentsRepository);
 
 		void AddEntity(const Entity& entity);
 
@@ -21,9 +21,9 @@ namespace QRose
 		void AttachComponent(const Entity& entity, const TComponent& component);
 
 	private:
-		ManagedPtr<EntitiesRepository> pEntitiesRepository;
-		ManagedPtr<ComponentsRepository> pComponentsRepository;
-		ManagedPtr<EntitiesComponentsRepository> pEntitiesComponentsRepository;
+		MPtr<EntitiesRepository> pEntitiesRepository;
+		MPtr<ComponentsRepository> pComponentsRepository;
+		MPtr<EntitiesComponentsRepository> pEntitiesComponentsRepository;
 	};
 
 	template <typename TComponent>

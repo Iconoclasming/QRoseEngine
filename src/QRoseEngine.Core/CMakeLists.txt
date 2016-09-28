@@ -23,7 +23,10 @@ set(QROSEENGINE_CORE_HEADERS
 	../../include/QRoseEngine.Core/ManagedPtr.hpp
 	../../include/QRoseEngine.Core/RenderSystem.hpp
 	../../include/QRoseEngine.Core/Render.hpp)
-set(HEADERS ${HEADERS} ${QROSEENGINE_CORE_HEADERS})
+set(QROSEENGINE_CORE_COMPONENTS_HEADERS
+	../../include/QRoseEngine.Core/Components/TransformationComponent.hpp
+	../../include/QRoseEngine.Core/Components/MeshComponent.hpp)
+set(HEADERS ${HEADERS} ${QROSEENGINE_CORE_HEADERS} ${QROSEENGINE_CORE_COMPONENTS_HEADERS})
 set(QROSEENGINE_CORE_SOURCES
 	Color.cpp
 	GraphicsDesc.cpp
@@ -38,4 +41,12 @@ set(QROSEENGINE_CORE_SOURCES
 	EntitiesRepository.cpp
 	EntitiesComponentsRepository.cpp
 	RenderSystem.cpp)
-add_library(QRoseEngine.Core STATIC ${QROSEENGINE_CORE_HEADERS} ${QROSEENGINE_CORE_SOURCES})
+set(QROSEENGINE_CORE_COMPONENTS_SOURCES
+	Components/TransformationComponent.cpp
+	Components/MeshComponent.cpp)
+source_group("Components" FILES ${QROSEENGINE_CORE_COMPONENTS_HEADERS} ${QROSEENGINE_CORE_COMPONENTS_SOURCES})
+add_library(QRoseEngine.Core STATIC 
+	${QROSEENGINE_CORE_HEADERS} 
+	${QROSEENGINE_CORE_COMPONENTS_HEADERS}
+	${QROSEENGINE_CORE_SOURCES}
+	${QROSEENGINE_CORE_COMPONENTS_SOURCES})

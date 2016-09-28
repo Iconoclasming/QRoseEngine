@@ -2,9 +2,9 @@
 
 using namespace QRose;
 
-EntitiesComponentsService::EntitiesComponentsService(ManagedPtr<EntitiesRepository> pEntitiesRepository,
-	ManagedPtr<ComponentsRepository> pComponentsRepository,
-	ManagedPtr<EntitiesComponentsRepository> pEntitiesComponentsRepository)
+EntitiesComponentsService::EntitiesComponentsService(MPtr<EntitiesRepository> pEntitiesRepository,
+	MPtr<ComponentsRepository> pComponentsRepository,
+	MPtr<EntitiesComponentsRepository> pEntitiesComponentsRepository)
 {
 	if(pEntitiesRepository == nullptr)
 	{

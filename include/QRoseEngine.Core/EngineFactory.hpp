@@ -9,6 +9,6 @@ namespace QRose
 	class EngineFactory
 	{
 	public:
-		static ManagedPtr<Engine> CreateEngine(const GraphicsDesc& graphicsDesc);
+		static MPtr<Engine> CreateEngine(const GraphicsDesc& graphicsDesc);
 	};
 }

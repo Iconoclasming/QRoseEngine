@@ -2,9 +2,8 @@
 
 using namespace QRose;
 
-RenderSystem::RenderSystem(ManagedPtr<Render> pRender,
-	ManagedPtr<EntitiesComponentsService> pEntitiesComponentsService)
-	: pEntitiesComponentsService(pEntitiesComponentsService)
+RenderSystem::RenderSystem(MPtr<Render> pRender, MPtr<EntitiesComponentsService> pEntitiesComponentsService)
+	: pRender(pRender), pEntitiesComponentsService(pEntitiesComponentsService)
 {
 }
 

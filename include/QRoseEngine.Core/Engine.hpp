@@ -10,7 +10,7 @@ namespace QRose
 	class Engine
 	{
 	public:
-		Engine(ManagedPtr<EntitiesComponentsService> pEntitiesComponentsService, std::vector<System*> systems) 
+		Engine(MPtr<EntitiesComponentsService> pEntitiesComponentsService, std::vector<System*> systems) 
 			: pEntitiesComponentsService(pEntitiesComponentsService) {}
 		virtual ~Engine() {}
 
@@ -35,6 +35,6 @@ namespace QRose
 		std::vector<System*> systems;
 
 	private:
-		ManagedPtr<EntitiesComponentsService> pEntitiesComponentsService;
+		MPtr<EntitiesComponentsService> pEntitiesComponentsService;
 	};
 }

@@ -4,10 +4,10 @@
 namespace QRose
 {
 	template<typename T>
-	using ManagedPtr = std::shared_ptr<T>;
+	using MPtr = std::shared_ptr<T>;
 
 	template<typename T, typename ... CtorArgs>
-	ManagedPtr<T> Managed(CtorArgs ... ctorArgs)
+	MPtr<T> Managed(CtorArgs ... ctorArgs)
 	{
 		return std::make_shared<T>(ctorArgs...);
 	}

@@ -8,7 +8,7 @@ void main()
 {
 	WindowDesc windowDesc("Awesome Sample Game", Size<int>(800, 600));
 	GraphicsDesc graphicsDesc(windowDesc, Color(24, 42, 51));
-	ManagedPtr<Engine> pEngine = EngineFactory::CreateEngine(graphicsDesc);
+	MPtr<Engine> pEngine = EngineFactory::CreateEngine(graphicsDesc);
 	//engine->Exit += &OnExit;
 
 	Entity boxEntity = pEngine->CreateEntity();
@@ -22,9 +22,3 @@ void main()
 	Scene mainScene({ boxEntity });
 	pEngine->PresentScene(mainScene);
 }
-
-/*class MyScene : public Scene
-{
-public:
-//...
-};*/
