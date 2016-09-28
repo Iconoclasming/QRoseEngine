@@ -31,7 +31,7 @@ namespace QRose
 			return pEntitiesComponentsService->GetComponentForEntity<TComponent>(entityId);
 		}
 
-	private:
+	protected:
 		MPtr<EntitiesComponentsService> pEntitiesComponentsService;
 	};
 }

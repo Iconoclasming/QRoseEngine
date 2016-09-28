@@ -11,5 +11,7 @@ MPtr<Engine> EngineFactory::CreateEngine(const GraphicsDesc& graphicsDesc)
 	MPtr<EntitiesComponentsRepository> pEntitiesComponentsRepository = Managed<EntitiesComponentsRepository>();
 	MPtr<EntitiesComponentsService> pEntitiesComponentsService = Managed<EntitiesComponentsService>(pEntitiesRepository,
 		pComponentsRepository, pEntitiesComponentsRepository);
-	return Managed<Win32Engine>(pEntitiesComponentsService, graphicsDesc);
+	MPtr<Win32Engine> pEngine = Managed<Win32Engine>(pEntitiesComponentsService);
+	pEngine->Initialize(graphicsDesc);
+	return pEngine;
 }

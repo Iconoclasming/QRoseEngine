@@ -7,7 +7,7 @@ using namespace QRose;
 void main()
 {
 	WindowDesc windowDesc("Awesome Sample Game", Size<int>(800, 600));
-	GraphicsDesc graphicsDesc(windowDesc, Color::Cyan);
+	GraphicsDesc graphicsDesc(windowDesc, Color::Aqua);
 	MPtr<Engine> pEngine = EngineFactory::CreateEngine(graphicsDesc);
 
 	Entity boxEntity = pEngine->CreateEntity();

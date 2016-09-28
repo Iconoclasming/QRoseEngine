@@ -1,5 +1,7 @@
 #pragma once
 
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
 #include <Render.hpp>
 #include <ManagedPtr.hpp>
 #include "OpenGLResourcesManager.hpp"
@@ -9,7 +11,7 @@ namespace QRose
 	class OpenGLRender : public Render
 	{
 	public:
-		OpenGLRender(MPtr<OpenGLResourcesManager> pResourcesManager);
+		OpenGLRender(MPtr<OpenGLResourcesManager> pResourcesManager, GLFWwindow* pWindow);
 		virtual ~OpenGLRender();
 
 		void ClearView() override;
@@ -21,6 +23,7 @@ namespace QRose
 
 	private:
 		MPtr<OpenGLResourcesManager> pResourcesManager;
+		GLFWwindow* pWindow;
 
 		Color clearColor;
 	};
