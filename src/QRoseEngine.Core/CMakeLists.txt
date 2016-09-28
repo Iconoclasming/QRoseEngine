@@ -22,7 +22,10 @@ set(QROSEENGINE_CORE_HEADERS
 	../../include/QRoseEngine.Core/System.hpp
 	../../include/QRoseEngine.Core/ManagedPtr.hpp
 	../../include/QRoseEngine.Core/RenderSystem.hpp
-	../../include/QRoseEngine.Core/Render.hpp)
+	../../include/QRoseEngine.Core/Render.hpp
+	../../include/QRoseEngine.Core/Delegate.hpp
+	../../include/QRoseEngine.Core/Event.hpp
+	../../include/QRoseEngine.Core/EventInvoker.hpp)
 set(QROSEENGINE_CORE_COMPONENTS_HEADERS
 	../../include/QRoseEngine.Core/Components/TransformationComponent.hpp
 	../../include/QRoseEngine.Core/Components/MeshComponent.hpp)
