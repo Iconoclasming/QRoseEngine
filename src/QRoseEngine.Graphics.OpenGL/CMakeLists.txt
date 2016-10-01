@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.6)
+cmake_minimum_required(VERSION 3.5)
 
 set(QROSEENGINE_GRAPHICS_OPENGL_HEADERS
 	../../include/QRoseEngine.Graphics.OpenGL/OpenGLGraphics.hpp

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.6)
+cmake_minimum_required(VERSION 3.5)
 
 set(QROSEENGINE_PLATFORMS_WIN32_HEADERS
 	../../include/QRoseEngine.Platforms.Win32/Win32Engine.hpp)

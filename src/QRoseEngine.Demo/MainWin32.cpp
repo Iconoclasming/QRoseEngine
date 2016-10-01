@@ -12,7 +12,7 @@ void main()
 
 	Entity boxEntity = pEngine->CreateEntity();
 
-	Uuid boxMeshId = pEngine->LoadMesh("D:\\SomePathToMesh");
+	Uuid boxMeshId = pEngine->LoadBoxMesh(Vector3(0.5f, 0.5f, 0.5f));
 	MeshComponent boxMeshComponent(boxMeshId);
 	pEngine->AttachComponent(boxEntity, boxMeshComponent);
 

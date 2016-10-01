@@ -35,23 +35,12 @@ RenderSystem::~RenderSystem()
 void RenderSystem::Update(double millisecondsElapsed)
 {
 	pRender->ClearView();
-	//if (activeCameraIndex != EMPTY_ACTIVE_CAMERA_INDEX)
+	pRender->BeginDrawing();
+	for each (const auto& toDrawTuple in toDraw)
 	{
-		// TODO: actual view matrix from active camera
-		/*Matrix4x4 camRotationMatrix = Matrix4x4::RotationMatrix(Quaternion(0.0f, 0.0f, 0.0f, 1.0f));
-		Vector3 camTarget = camRotationMatrix.TransformVectorCoord(Vector3(0.0f, 0.0f, 1.0f));
-		camTarget = camTarget.Normalize();
-		pRender->SetViewMatrix(Matrix4x4::MatrixLookAtLH(Vector3(0.0f, 0.0f, -1.0f),
-			camTarget, Vector3(0.0f, 1.0f, 0.0f)));*/
-
-		pRender->BeginDrawing();
-
-		for each (const auto& toDrawTuple in toDraw)
-		{
-			MeshComponent meshComponent = std::get<1>(toDrawTuple);
-			TransformationComponent transform = std::get<2>(toDrawTuple);
-			pRender->DrawMesh(meshComponent.GetMeshId(), transform.GetPosition());
-		}
+		MeshComponent meshComponent = std::get<1>(toDrawTuple);
+		TransformationComponent transform = std::get<2>(toDrawTuple);
+		pRender->DrawMesh(meshComponent.GetMeshId(), transform.GetPosition());
 	}
 	pRender->Present();
 }

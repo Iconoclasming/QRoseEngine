@@ -22,12 +22,12 @@ void Win32Engine::Initialize(const GraphicsDesc& graphicsDesc)
 
 Uuid Win32Engine::LoadMesh(const std::string& path)
 {
-	return Uuid::GenerateUuid();
+	return pGraphics->LoadMesh(path);
 }
 
 Uuid Win32Engine::LoadBoxMesh(const Vector3& size)
 {
-	return Uuid::GenerateUuid();
+	return pGraphics->LoadBoxMesh(size);
 }
 
 void Win32Engine::PresentScene()

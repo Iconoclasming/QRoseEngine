@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.6)
+cmake_minimum_required(VERSION 3.5)
 
 set(QROSEENGINE_CORE_HEADERS
 	../../include/QRoseEngine.Core/Color.hpp
