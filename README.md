@@ -19,6 +19,7 @@ Linux Mint 18 was only tested. CMake is required to build the engine. Also, foll
 <li>libx11-dev</li>
 <li>xorg-dev</li>
 <li>libglu1-mesa-dev</li>
+<li>uuid-dev</li>
 </ul>
 To build QRose Engine:
 <ol>
