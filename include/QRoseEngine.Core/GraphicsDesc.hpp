@@ -8,10 +8,10 @@ namespace QRose
 	struct GraphicsDesc
 	{
 		GraphicsDesc(const WindowDesc& windowDesc, const Color& backgroundColor) 
-			: WindowDesc(windowDesc), BackgroundColor(backgroundColor) {}
+			: windowDesc(windowDesc), backgroundColor(backgroundColor) {}
 		~GraphicsDesc() {}
 
-		const WindowDesc WindowDesc;
-		const Color BackgroundColor;
+		const WindowDesc windowDesc;
+		const Color backgroundColor;
 	};
 }

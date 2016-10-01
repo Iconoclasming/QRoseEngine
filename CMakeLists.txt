@@ -2,7 +2,10 @@ cmake_minimum_required(VERSION 3.5)
 
 project(QRoseEngine)
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+
 add_definitions(-DQROSEENGINE_USE_OPENGL_MATHEMATICS=1)
+add_definitions(-Dabstract==0)
 include_directories(thirdparty/glm/include)
 
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)

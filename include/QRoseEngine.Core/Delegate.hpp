@@ -18,7 +18,7 @@ namespace QRose
 
 		// Binds a class method
 		template<class C, TReturn(C::*TFunction)(Types ...)>
-		static Delegate<TReturn, Types ...> __forceinline Bind(C* instance)
+		static Delegate<TReturn, Types ...> inline Bind(C* instance)
 		{
 			return Delegate([instance](Types ... args)
 			{
@@ -27,7 +27,7 @@ namespace QRose
 		}
 
 		template<class C, TReturn(C::*TFunction)(Types ...)>
-		static std::function<TReturn(Types ...)> __forceinline ClassMethodAsFunction(C* instance)
+		static std::function<TReturn(Types ...)> inline ClassMethodAsFunction(C* instance)
 		{
 			return std::function<TReturn(Types ...)>([instance](Types ... args)
 			{
@@ -35,12 +35,12 @@ namespace QRose
 			});
 		}
 
-		TReturn __forceinline Invoke(Types ... args)
+		TReturn inline Invoke(Types ... args)
 		{
 			return func(std::forward<Types>(args)...);
 		}
 
-		TReturn __forceinline operator()(Types ... args)
+		TReturn inline operator()(Types ... args)
 		{
 			return Invoke(std::forward<Types>(args)...);
 		}
@@ -60,12 +60,12 @@ namespace QRose
 	class ReturnsNothingDelegate : public Delegate<void, Types ...>
 	{
 	public:
-		ReturnsNothingDelegate(std::function<void(Types ...)> func) : Delegate(func) {}
+		ReturnsNothingDelegate(std::function<void(Types ...)> func) : Delegate<void, Types ...>(func) {}
 		virtual ~ReturnsNothingDelegate() {}
 
 		// Binds a class method
 		template<class C, void(C::*TFunction)(Types ...)>
-		static ReturnsNothingDelegate __forceinline Bind(C* instance)
+		static ReturnsNothingDelegate inline Bind(C* instance)
 		{
 			return ReturnsNothingDelegate(std::function<void(Types ...)>([instance](Types ... args)
 			{
@@ -84,7 +84,7 @@ namespace QRose
 
 		// Binds a class method
 		template<class C, void(C::*TFunction)(void)>
-		static CommandDelegate __forceinline Bind(C* instance)
+		static CommandDelegate inline Bind(C* instance)
 		{
 			return CommandDelegate(std::function<void(void)>([instance]()
 			{

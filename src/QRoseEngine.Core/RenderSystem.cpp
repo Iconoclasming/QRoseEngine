@@ -36,7 +36,7 @@ void RenderSystem::Update(double millisecondsElapsed)
 {
 	pRender->ClearView();
 	pRender->BeginDrawing();
-	for each (const auto& toDrawTuple in toDraw)
+	for (const auto& toDrawTuple : toDraw)
 	{
 		MeshComponent meshComponent = std::get<1>(toDrawTuple);
 		TransformationComponent transform = std::get<2>(toDrawTuple);

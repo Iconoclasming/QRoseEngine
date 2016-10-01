@@ -18,8 +18,8 @@ void OpenGLGraphics::Initialize(const GraphicsDesc& graphicsDesc)
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
-	pWindow = glfwCreateWindow(graphicsDesc.WindowDesc.GetWindowSize().GetWidth(),
-		graphicsDesc.WindowDesc.GetWindowSize().GetHeight(), graphicsDesc.WindowDesc.GetWindowName().c_str(),
+	pWindow = glfwCreateWindow(graphicsDesc.windowDesc.GetWindowSize().GetWidth(),
+		graphicsDesc.windowDesc.GetWindowSize().GetHeight(), graphicsDesc.windowDesc.GetWindowName().c_str(),
 		nullptr, nullptr);
 	if (pWindow == nullptr)
 	{
@@ -38,7 +38,7 @@ void OpenGLGraphics::Initialize(const GraphicsDesc& graphicsDesc)
 
 	pResourcesManager = Managed<OpenGLResourcesManager>();
 	pRender = Managed<OpenGLRender>(pResourcesManager, pWindow);
-	pRender->SetClearColor(graphicsDesc.BackgroundColor);
+	pRender->SetClearColor(graphicsDesc.backgroundColor);
 }
 
 Uuid OpenGLGraphics::LoadMesh(const std::string& path)

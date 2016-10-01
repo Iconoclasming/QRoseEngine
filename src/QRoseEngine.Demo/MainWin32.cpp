@@ -4,7 +4,7 @@
 
 using namespace QRose;
 
-void main()
+int main()
 {
 	WindowDesc windowDesc("Awesome Sample Game", Size<int>(800, 600));
 	GraphicsDesc graphicsDesc(windowDesc, Color::Aqua);
@@ -20,4 +20,6 @@ void main()
 	pEngine->AttachComponent(boxEntity, boxTransformationComponent);
 
 	pEngine->PresentScene();
+
+	return 0;
 }

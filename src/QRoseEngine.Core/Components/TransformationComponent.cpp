@@ -1,5 +1,7 @@
 #include "Components/TransformationComponent.hpp"
 
+#include <typeinfo>
+
 using namespace QRose;
 
 const Uuid TransformationComponent::ComponentTypeId = Uuid::FromString("843CE3F3-AE74-4A85-8801-515A37F4B3E8");

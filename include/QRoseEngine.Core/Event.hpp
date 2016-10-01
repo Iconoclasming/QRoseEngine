@@ -46,7 +46,7 @@ namespace QRose
 
 	template<typename TEventArgs>
 	Event<TEventArgs>::Event(EventInvoker<TEventArgs>* pInvoker)
-		: invokeDelegate(Delegate<void, const TEventArgs&>::Bind<Event, &Event::Invoke>(this))
+		: invokeDelegate(Delegate<void, const TEventArgs&>::template Bind<Event<TEventArgs>, &Event<TEventArgs>::Invoke>(this))
 	{
 		if (pInvoker == nullptr)
 		{
