@@ -1,6 +1,5 @@
-#include <EngineFactory.hpp>
-#include <ManagedPtr.hpp>
-#include <Win32Engine.hpp>
+#include <QRoseEngine.Core/EngineFactory.hpp>
+#include "QRoseEngine.Platforms.Win32/Win32Engine.hpp"
 
 using namespace QRose;
 

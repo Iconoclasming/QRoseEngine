@@ -2,9 +2,8 @@
 
 #include <string>
 #include <map>
-#include <Uuid.hpp>
-#include <Vector.hpp>
 #include <GL/glew.h>
+#include <QRoseCore.hpp>
 
 namespace QRose
 {

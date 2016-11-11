@@ -2,8 +2,7 @@
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include <Render.hpp>
-#include <ManagedPtr.hpp>
+#include <QRoseCore.hpp>
 #include "OpenGLResourcesManager.hpp"
 
 namespace QRose

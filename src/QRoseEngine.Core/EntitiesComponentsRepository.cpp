@@ -1,7 +1,7 @@
-#include "EntitiesComponentsRepository.hpp"
+#include "QRoseEngine.Core/EntitiesComponentsRepository.hpp"
 
 #include <tuple>
-#include "QCE.hpp"
+#include "QRoseEngine.Core/QCE.hpp"
 
 using namespace QRose;
 

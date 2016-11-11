@@ -1,4 +1,4 @@
-#include "OpenGLRender.hpp"
+#include "QRoseEngine.Graphics.OpenGL/OpenGLRender.hpp"
 
 #include <sstream>
 using namespace QRose;

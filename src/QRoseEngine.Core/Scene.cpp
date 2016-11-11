@@ -1,4 +1,4 @@
-#include "Scene.hpp"
+#include "QRoseEngine.Core/Scene.hpp"
 
 using namespace QRose;
 

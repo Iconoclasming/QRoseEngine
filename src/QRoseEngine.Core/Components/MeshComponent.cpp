@@ -1,4 +1,4 @@
-#include "Components/MeshComponent.hpp"
+#include "QRoseEngine.Core/Components/MeshComponent.hpp"
 
 #include <typeinfo>
 

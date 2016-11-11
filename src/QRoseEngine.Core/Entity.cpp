@@ -1,4 +1,4 @@
-#include "Entity.hpp"
+#include "QRoseEngine.Core/Entity.hpp"
 
 using namespace QRose;
 

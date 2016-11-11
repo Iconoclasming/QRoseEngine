@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.5)
 
 set(QROSEENGINE_CORE_HEADERS
+	../../include/QRoseCore.hpp
 	../../include/QRoseEngine.Core/Color.hpp
 	../../include/QRoseEngine.Core/Engine.hpp
 	../../include/QRoseEngine.Core/EngineFactory.hpp
 	../../include/QRoseEngine.Core/GraphicsDesc.hpp
-	../../include/QRoseEngine.Core/QRoseEngineCore.hpp
 	../../include/QRoseEngine.Core/Scene.hpp
 	../../include/QRoseEngine.Core/Size.hpp
 	../../include/QRoseEngine.Core/WindowDesc.hpp
@@ -25,7 +25,9 @@ set(QROSEENGINE_CORE_HEADERS
 	../../include/QRoseEngine.Core/Render.hpp
 	../../include/QRoseEngine.Core/Delegate.hpp
 	../../include/QRoseEngine.Core/Event.hpp
-	../../include/QRoseEngine.Core/EventInvoker.hpp)
+	../../include/QRoseEngine.Core/EventInvoker.hpp
+	../../include/QRoseEngine.Core/Matrix.hpp
+	../../include/QRoseEngine.Core/RNDGen.hpp)
 set(QROSEENGINE_CORE_COMPONENTS_HEADERS
 	../../include/QRoseEngine.Core/Components/TransformationComponent.hpp
 	../../include/QRoseEngine.Core/Components/MeshComponent.hpp)
@@ -44,7 +46,8 @@ set(QROSEENGINE_CORE_SOURCES
 	EntitiesComponentsRepository.cpp
 	RenderSystem.cpp
 	ComponentsRepository.cpp
-	Engine.cpp)
+	Engine.cpp
+	Matrix.cpp)
 set(QROSEENGINE_CORE_COMPONENTS_SOURCES
 	Components/TransformationComponent.cpp
 	Components/MeshComponent.cpp)

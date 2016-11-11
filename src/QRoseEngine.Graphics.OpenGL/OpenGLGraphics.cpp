@@ -1,4 +1,4 @@
-#include "OpenGLGraphics.hpp"
+#include "QRoseEngine.Graphics.OpenGL/OpenGLGraphics.hpp"
 
 using namespace QRose;
 

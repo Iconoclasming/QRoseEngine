@@ -1,5 +1,6 @@
-#include "Win32Engine.hpp"
-#include <RenderSystem.hpp>
+#include "QRoseEngine.Platforms.Win32/Win32Engine.hpp"
+
+#include <QRoseCore.hpp>
 
 using namespace QRose;
 

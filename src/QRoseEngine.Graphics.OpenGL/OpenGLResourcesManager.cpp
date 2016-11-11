@@ -1,4 +1,4 @@
-#include "OpenGLResourcesManager.hpp"
+#include "QRoseEngine.Graphics.OpenGL/OpenGLResourcesManager.hpp"
 
 using namespace QRose;
 

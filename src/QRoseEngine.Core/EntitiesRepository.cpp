@@ -1,4 +1,5 @@
-#include "EntitiesRepository.hpp"
+#include "QRoseEngine.Core/EntitiesRepository.hpp"
+
 #include <algorithm>
 
 using namespace QRose;

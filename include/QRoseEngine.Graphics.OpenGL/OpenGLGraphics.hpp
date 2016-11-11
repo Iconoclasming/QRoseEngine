@@ -1,9 +1,6 @@
 #pragma once
 
-#include <Uuid.hpp>
-#include <Vector.hpp>
-#include <ManagedPtr.hpp>
-#include <GraphicsDesc.hpp>
+#include <QRoseCore.hpp>
 #include "OpenGLRender.hpp"
 
 namespace QRose

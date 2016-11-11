@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Uuid.hpp"
+#include "QRoseEngine.Core/Uuid.hpp"
 
 namespace QRose
 {

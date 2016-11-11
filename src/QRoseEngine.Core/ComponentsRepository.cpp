@@ -1,4 +1,4 @@
-#include "ComponentsRepository.hpp"
+#include "QRoseEngine.Core/ComponentsRepository.hpp"
 
 using namespace QRose;
 

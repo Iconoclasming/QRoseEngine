@@ -1,6 +1,6 @@
-#include <QRoseEngineCore.hpp>
-#include <Components/MeshComponent.hpp>
-#include <Components/TransformationComponent.hpp>
+#include <QRoseCore.hpp>
+#include <QRoseEngine.Core/Components/MeshComponent.hpp>
+#include <QRoseEngine.Core/Components/TransformationComponent.hpp>
 
 using namespace QRose;
 

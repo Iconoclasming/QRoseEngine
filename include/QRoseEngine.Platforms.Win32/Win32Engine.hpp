@@ -1,10 +1,7 @@
 #pragma once
 
-#include "Engine.hpp"
-#include "ManagedPtr.hpp"
-#include <System.hpp>
-#include <OpenGLGraphics.hpp>
-#include <GraphicsDesc.hpp>
+#include <QRoseCore.hpp>
+#include <QRoseEngine.Graphics.OpenGL/OpenGLGraphics.hpp>
 
 namespace QRose
 {
