@@ -15,6 +15,6 @@ namespace QRose
 
 		std::vector<Entity> GetEntities() const;
 	private:
-		std::list<Entity> entities;
+		std::list<Entity> entities;	// TODO: replace with std::vector
 	};
 }
