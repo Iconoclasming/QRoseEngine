@@ -16,12 +16,12 @@ namespace QRose
 		Uuid LoadMesh(const std::string& path);
 		Uuid LoadBoxMesh(const Vector3& size);
 
-		MPtr<OpenGLRender> GetRender() const;
+		Ptr<OpenGLRender> GetRender() const;
 		GLFWwindow* GetWindow() const;
 
 	private:
-		MPtr<OpenGLRender> pRender;
-		MPtr<OpenGLResourcesManager> pResourcesManager;
+		Ptr<OpenGLRender> pRender;
+		Ptr<OpenGLResourcesManager> pResourcesManager;
 		GLFWwindow* pWindow;
 	};
 }

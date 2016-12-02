@@ -10,7 +10,7 @@ namespace QRose
 	class OpenGLRender : public Render
 	{
 	public:
-		OpenGLRender(MPtr<OpenGLResourcesManager> pResourcesManager, GLFWwindow* pWindow);
+		OpenGLRender(Ptr<OpenGLResourcesManager> pResourcesManager, GLFWwindow* pWindow);
 		virtual ~OpenGLRender();
 
 		void ClearView() override;
@@ -21,7 +21,7 @@ namespace QRose
 		void SetClearColor(const Color& color) override;
 
 	private:
-		MPtr<OpenGLResourcesManager> pResourcesManager;
+		Ptr<OpenGLResourcesManager> pResourcesManager;
 		GLFWwindow* pWindow;
 
 		Color clearColor;

@@ -8,7 +8,7 @@ namespace QRose
 	class Win32Engine : public Engine
 	{
 	public:
-		Win32Engine(MPtr<EntitiesComponentsService> pEntitiesComponentsService);
+		Win32Engine(Ptr<EntitiesComponentsService> pEntitiesComponentsService);
 		virtual ~Win32Engine();
 
 		void Initialize(const GraphicsDesc& graphicsDesc);
@@ -18,7 +18,7 @@ namespace QRose
 		void PresentScene() override;
 
 	private:
-		std::vector<MPtr<System>> systems;
-		MPtr<OpenGLGraphics> pGraphics;
+		std::vector<Ptr<System>> systems;
+		Ptr<OpenGLGraphics> pGraphics;
 	};
 }

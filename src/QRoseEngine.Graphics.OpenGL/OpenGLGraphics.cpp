@@ -51,7 +51,7 @@ Uuid OpenGLGraphics::LoadBoxMesh(const Vector3& size)
 	return pResourcesManager->LoadBoxMesh(size);
 }
 
-MPtr<OpenGLRender> OpenGLGraphics::GetRender() const
+Ptr<OpenGLRender> OpenGLGraphics::GetRender() const
 {
 	return pRender;
 }

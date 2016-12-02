@@ -6,23 +6,19 @@
 
 namespace QRose
 {
-	class TransformationComponent
+	struct TransformationComponent
 	{
-	public:
-		TransformationComponent();
-		TransformationComponent(Vector3 position);
-		~TransformationComponent();
+		TransformationComponent() : position(Vector3(0, 0, 0)), rotation(Vector4(0, 0, 0, 0)), scale(Vector3(0, 0, 0))
+		{
+		}
 
-		Uuid GetID() const;
-		Vector3 GetPosition() const;
+		Vector3 position;
+		Vector4 rotation;
+		Vector3 scale;
 
-		static const Uuid ComponentTypeId;
-		static const std::string ComponentName;
+		static const Uuid Type;
 
 	private:
-		Uuid id;
-		Vector3 position;
-
 		friend class Streaming;
 		void Serialize(std::ostream& serializationStream) const;
 		static TransformationComponent Deserialize(std::istream& deserializationStream);

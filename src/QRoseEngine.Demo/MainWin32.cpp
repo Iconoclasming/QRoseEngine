@@ -1,6 +1,7 @@
 #include <QRoseCore.hpp>
 #include <QRoseEngine.Core/Components/MeshComponent.hpp>
 #include <QRoseEngine.Core/Components/TransformationComponent.hpp>
+#include <QRoseEngine.Core/Manager.hpp>
 
 using namespace QRose;
 
@@ -8,18 +9,18 @@ int main()
 {
 	WindowDesc windowDesc("Awesome Sample Game", Size<int>(800, 600));
 	GraphicsDesc graphicsDesc(windowDesc, Color::Aqua);
-	MPtr<Engine> pEngine = EngineFactory::CreateEngine(graphicsDesc);
+	Ptr<Engine> engine = EngineFactory::CreateEngine(graphicsDesc);
 
-	Entity boxEntity = pEngine->CreateEntity();
+	Uuid boxMeshId = engine->LoadBoxMesh(Vector3(0.5f, 0.5f, 0.5f));
 
-	Uuid boxMeshId = pEngine->LoadBoxMesh(Vector3(0.5f, 0.5f, 0.5f));
-	MeshComponent boxMeshComponent(boxMeshId);
-	pEngine->AttachComponent(boxEntity, boxMeshComponent);
+	Ptr<EntitiesComponentsService> ecs = engine->GetEntitiesComponentsService();
+	Uuid entity1 = ecs->CreateEntity();
+	Ptr<Manager<TransformationComponent>> transformComponentManager = ecs->GetManager<TransformationComponent>();
+	TransformationComponent& entity1Transform = transformComponentManager->CreateComponent(entity1);
+	entity1Transform.position += Vector3(1.0, 0.0, 0.0);
+	ecs->GetManager<MeshComponent>()->CreateComponent(entity1, boxMeshId);
 
-	TransformationComponent boxTransformationComponent;
-	pEngine->AttachComponent(boxEntity, boxTransformationComponent);
-
-	pEngine->PresentScene();
+	engine->PresentScene();
 
 	return 0;
 }

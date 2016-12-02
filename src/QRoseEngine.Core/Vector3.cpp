@@ -1,4 +1,4 @@
-#include "QRoseEngine.Core/Vector.hpp"
+#include "QRoseEngine.Core/Vector3.hpp"
 
 #include <string>
 #include <regex>
@@ -26,6 +26,14 @@ float Vector3::GetY() const
 float Vector3::GetZ() const
 {
 	return vecInternal.z;
+}
+
+Vector3& QRose::Vector3::operator+=(const Vector3 & rhs)
+{
+	vecInternal.x += rhs.GetX();
+	vecInternal.y += rhs.GetY();
+	vecInternal.z += rhs.GetZ();
+	return *this;
 }
 
 void Vector3::Serialize(std::ostream& serializationStream) const

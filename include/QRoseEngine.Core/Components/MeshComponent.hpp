@@ -7,19 +7,14 @@ namespace QRose
 	class MeshComponent
 	{
 	public:
-		MeshComponent(const Uuid& meshId);
-		~MeshComponent();
+		MeshComponent() : MeshComponent(Uuid::Zero) {}
+		MeshComponent(const Uuid& meshId) : meshId(meshId) {}
 
-		Uuid GetMeshId() const;
-
-		Uuid GetID() const;
-		static const Uuid ComponentTypeId;
-		static const std::string ComponentName;
-
-	private:
-		Uuid id;
 		Uuid meshId;
 
+		static const Uuid Type;
+
+	private:
 		friend class Streaming;
 		void Serialize(std::ostream& serializationStream) const;
 		static MeshComponent Deserialize(std::istream& deserializationStream);

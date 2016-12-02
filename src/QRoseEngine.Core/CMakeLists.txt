@@ -15,10 +15,13 @@ set(QROSEENGINE_CORE_HEADERS
 	../../include/QRoseEngine.Core/Entity.hpp
 	../../include/QRoseEngine.Core/SerializationException.hpp
 	../../include/QRoseEngine.Core/Vector.hpp
+	../../include/QRoseEngine.Core/Vector3.hpp
+	../../include/QRoseEngine.Core/Vector4.hpp
 	../../include/QRoseEngine.Core/ComponentsRepository.hpp
 	../../include/QRoseEngine.Core/EntitiesRepository.hpp
 	../../include/QRoseEngine.Core/EntitiesComponentsRepository.hpp
 	../../include/QRoseEngine.Core/EntitiesComponentsService.hpp
+	../../include/QRoseEngine.Core/Manager.hpp
 	../../include/QRoseEngine.Core/System.hpp
 	../../include/QRoseEngine.Core/ManagedPtr.hpp
 	../../include/QRoseEngine.Core/RenderSystem.hpp
@@ -41,6 +44,7 @@ set(QROSEENGINE_CORE_SOURCES
 	Scene.cpp
 	Streaming.cpp
 	Vector3.cpp
+	Vector4.cpp
 	EntitiesComponentsService.cpp
 	EntitiesRepository.cpp
 	EntitiesComponentsRepository.cpp

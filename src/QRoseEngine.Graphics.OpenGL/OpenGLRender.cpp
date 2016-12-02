@@ -3,7 +3,7 @@
 #include <sstream>
 using namespace QRose;
 
-OpenGLRender::OpenGLRender(MPtr<OpenGLResourcesManager> pResourcesManager, GLFWwindow* pWindow) : pResourcesManager(pResourcesManager),
+OpenGLRender::OpenGLRender(Ptr<OpenGLResourcesManager> pResourcesManager, GLFWwindow* pWindow) : pResourcesManager(pResourcesManager),
 	pWindow(pWindow)
 {
 	// TODO refactor

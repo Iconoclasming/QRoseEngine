@@ -4,7 +4,7 @@
 
 using namespace QRose;
 
-Win32Engine::Win32Engine(MPtr<EntitiesComponentsService> pEntitiesComponentsService)
+Win32Engine::Win32Engine(Ptr<EntitiesComponentsService> pEntitiesComponentsService)
 	: Engine(pEntitiesComponentsService)
 {
 }
@@ -17,7 +17,7 @@ void Win32Engine::Initialize(const GraphicsDesc& graphicsDesc)
 {
 	pGraphics = std::make_shared<OpenGLGraphics>();
 	pGraphics->Initialize(graphicsDesc);
-	MPtr<RenderSystem> pRenderSystem = Managed<RenderSystem>(pGraphics->GetRender(), pEntitiesComponentsService);
+	Ptr<RenderSystem> pRenderSystem = Managed<RenderSystem>(pGraphics->GetRender(), pEntitiesComponentsService);
 	systems.push_back(pRenderSystem);
 }
 
