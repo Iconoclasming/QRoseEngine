@@ -5,9 +5,6 @@ set(QROSEENGINE_NN_HEADERS
 	../../include/QRoseEngine.NN/NeuralNetwork.hpp
 	../../include/QRoseEngine.NN/Functions.hpp
 	../../include/QRoseEngine.NN/NeuralNetworkTrainer.hpp)
-#set(QROSEENGINE_NN_HEADERS_EXPORT
-#	../../include/QRoseEngine.NN/QRoseNN.hpp)
-#set(HEADERS ${HEADERS} ${QROSEENGINE_NN_HEADERS})
 set(QROSEENGINE_NN_SOURCES
 	Functions.cpp
 	NeuralNetwork.cpp

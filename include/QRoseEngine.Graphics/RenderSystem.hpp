@@ -1,11 +1,9 @@
 #pragma once
 
 #include <vector>
-#include "System.hpp"
+#include <QRoseEngine.Core/System.hpp>
+#include <QRoseEngine.Core/EntitiesComponentsService.hpp>
 #include "Render.hpp"
-#include "EntitiesComponentsService.hpp"
-#include "Components/MeshComponent.hpp"
-#include "Components/TransformationComponent.hpp"
 
 namespace QRose
 {

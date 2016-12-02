@@ -1,4 +1,4 @@
-#include "QRoseEngine.Core/Components/MeshComponent.hpp"
+#include <QRoseEngine.Graphics/Components/MeshComponent.hpp>
 
 using namespace QRose;
 

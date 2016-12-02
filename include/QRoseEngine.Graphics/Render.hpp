@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Uuid.hpp"
-#include "Vector.hpp"
-#include "Color.hpp"
+#include <QRoseEngine.Core/Uuid.hpp>
+#include <QRoseEngine.Core/Vector.hpp>
+#include <QRoseEngine.Core/Color.hpp>
 
 namespace QRose
 {

@@ -1,4 +1,4 @@
-#include "GraphicsDesc.hpp"
+#include <QRoseEngine.Graphics/GraphicsDesc.hpp>
 
 using namespace QRose;
 

@@ -1,15 +1,15 @@
 #pragma once
 
-#include <QRoseCore.hpp>
+#include <QRoseEngine.Platform/Engine.hpp>
 #include <QRoseEngine.Graphics.OpenGL/OpenGLGraphics.hpp>
 
 namespace QRose
 {
-	class Win32Engine : public Engine
+	class AgnosticEngine : public Engine
 	{
 	public:
-		Win32Engine(Ptr<EntitiesComponentsService> pEntitiesComponentsService);
-		virtual ~Win32Engine();
+		AgnosticEngine(Ptr<EntitiesComponentsService> pEntitiesComponentsService);
+		virtual ~AgnosticEngine();
 
 		void Initialize(const GraphicsDesc& graphicsDesc);
 

@@ -1,19 +1,19 @@
-#include "QRoseEngine.Platforms.Win32/Win32Engine.hpp"
+#include "QRoseEngine.Platform.Agnostic/AgnosticEngine.hpp"
 
-#include <QRoseCore.hpp>
+#include <QRoseEngine.Graphics/RenderSystem.hpp>
 
 using namespace QRose;
 
-Win32Engine::Win32Engine(Ptr<EntitiesComponentsService> pEntitiesComponentsService)
+AgnosticEngine::AgnosticEngine(Ptr<EntitiesComponentsService> pEntitiesComponentsService)
 	: Engine(pEntitiesComponentsService)
 {
 }
 
-Win32Engine::~Win32Engine()
+AgnosticEngine::~AgnosticEngine()
 {
 }
 
-void Win32Engine::Initialize(const GraphicsDesc& graphicsDesc)
+void AgnosticEngine::Initialize(const GraphicsDesc& graphicsDesc)
 {
 	pGraphics = std::make_shared<OpenGLGraphics>();
 	pGraphics->Initialize(graphicsDesc);
@@ -21,17 +21,17 @@ void Win32Engine::Initialize(const GraphicsDesc& graphicsDesc)
 	systems.push_back(pRenderSystem);
 }
 
-Uuid Win32Engine::LoadMesh(const std::string& path)
+Uuid AgnosticEngine::LoadMesh(const std::string& path)
 {
 	return pGraphics->LoadMesh(path);
 }
 
-Uuid Win32Engine::LoadBoxMesh(const Vector3& size)
+Uuid AgnosticEngine::LoadBoxMesh(const Vector3& size)
 {
 	return pGraphics->LoadBoxMesh(size);
 }
 
-void Win32Engine::PresentScene()
+void AgnosticEngine::PresentScene()
 {
 	while (!glfwWindowShouldClose(pGraphics->GetWindow()))
 	{

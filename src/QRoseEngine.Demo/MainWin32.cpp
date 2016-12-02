@@ -1,7 +1,6 @@
+#include <QRoseEngine.Platform/EngineFactory.hpp>
 #include <QRoseCore.hpp>
-#include <QRoseEngine.Core/Components/MeshComponent.hpp>
-#include <QRoseEngine.Core/Components/TransformationComponent.hpp>
-#include <QRoseEngine.Core/Manager.hpp>
+#include <QRoseEngine.Graphics/Components/MeshComponent.hpp>
 
 using namespace QRose;
 

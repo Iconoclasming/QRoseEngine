@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include "Size.hpp"
+#include <QRoseEngine.Core/Size.hpp>
 
 namespace QRose
 {

@@ -2,10 +2,6 @@
 
 #include <vector>
 #include <algorithm>
-#include "Entity.hpp"
-#include "EntitiesComponentsRepository.hpp"
-#include "ComponentsRepository.hpp"
-#include "EntitiesRepository.hpp"
 #include "ManagedPtr.hpp"
 #include "Manager.hpp"
 

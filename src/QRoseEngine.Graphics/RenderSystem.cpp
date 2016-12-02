@@ -1,4 +1,7 @@
-#include "QRoseEngine.Core/RenderSystem.hpp"
+#include <QRoseEngine.Graphics/RenderSystem.hpp>
+
+#include <QRoseEngine.Core/Components/TransformationComponent.hpp>
+#include <QRoseEngine.Graphics/Components/MeshComponent.hpp>
 
 using namespace QRose;
 

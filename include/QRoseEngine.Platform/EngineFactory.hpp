@@ -1,8 +1,8 @@
 #pragma once
 
 #include "Engine.hpp"
-#include "GraphicsDesc.hpp"
-#include "ManagedPtr.hpp"
+#include <QRoseEngine.Graphics/GraphicsDesc.hpp>
+#include <QRoseEngine.Core/ManagedPtr.hpp>
 
 namespace QRose
 {

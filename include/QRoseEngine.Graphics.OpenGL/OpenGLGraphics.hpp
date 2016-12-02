@@ -1,6 +1,6 @@
 #pragma once
 
-#include <QRoseCore.hpp>
+#include <QRoseEngine.Graphics/GraphicsDesc.hpp>
 #include "OpenGLRender.hpp"
 
 namespace QRose

@@ -1,4 +1,4 @@
-#include "QRoseEngine.Core/WindowDesc.hpp"
+#include <QRoseEngine.Graphics/WindowDesc.hpp>
 
 using namespace QRose;
 

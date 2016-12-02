@@ -1,12 +1,13 @@
-#include <QRoseEngine.Core/EngineFactory.hpp>
-#include "QRoseEngine.Platforms.Win32/Win32Engine.hpp"
+#include <QRoseEngine.Platform/EngineFactory.hpp>
+
+#include "QRoseEngine.Platform.Agnostic/AgnosticEngine.hpp"
 
 using namespace QRose;
 
 Ptr<Engine> EngineFactory::CreateEngine(const GraphicsDesc& graphicsDesc)
 {
 	Ptr<EntitiesComponentsService> pEntitiesComponentsService = Managed<EntitiesComponentsService>();
-	Ptr<Win32Engine> pEngine = Managed<Win32Engine>(pEntitiesComponentsService);
+	Ptr<AgnosticEngine> pEngine = Managed<AgnosticEngine>(pEntitiesComponentsService);
 	pEngine->Initialize(graphicsDesc);
 	return pEngine;
 }
