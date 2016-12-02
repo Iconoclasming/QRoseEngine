@@ -1,6 +1,6 @@
 #include "QRoseEngine.Core/EntitiesRepository.hpp"
 
-#include <algorithm>
+#include <QRoseEngine.Core/QCE.hpp>
 
 using namespace QRose;
 
@@ -11,15 +11,15 @@ void EntitiesRepository::Add(const Entity& entity)
 
 bool EntitiesRepository::Contains(const Entity& entity)
 {
-	return std::find(entities.begin(), entities.end(), entity) != entities.end();
+	return QCE::Contains(entities, entity);
 }
 
 bool EntitiesRepository::Contains(const Uuid& entityId)
 {
-	return std::find_if(entities.begin(), entities.end(), [&entityId](const Entity& entity) { return entity.GetID() == entityId; }) != entities.end();
+	return QCE::ContainsAny(entities, [&entityId](const Entity& entity) { return entity.GetID() == entityId; });
 }
 
 std::vector<Entity> EntitiesRepository::GetEntities() const
 {
-	return std::vector<Entity>(entities.begin(), entities.end());
+	return entities;
 }

@@ -13,9 +13,9 @@ namespace QRose
 		{}
 		virtual ~ComponentEventArgs() {}
 
-		Uuid GetAddedComponentTypeId() const { return componentTypeId; }
+		Uuid GetComponentTypeId() const { return componentTypeId; }
 		Uuid GetEntityId() const { return entityId; }
-		Uuid GetAddedComponentId() const { return componentId; }
+		Uuid GetComponentId() const { return componentId; }
 
 	private:
 		Uuid componentTypeId;

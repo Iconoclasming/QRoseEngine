@@ -17,7 +17,7 @@ std::list<std::tuple<Uuid, Uuid, Uuid>> EntitiesComponentsRepository::GetEntitie
 
 bool EntitiesComponentsRepository::ContainsComponent(const Uuid& entityId, const Uuid& componentId)
 {
-	return QCE::ContainsIf(entitiesComponents,
+	return QCE::ContainsAny(entitiesComponents,
 		[&entityId, &componentId](const std::tuple<Uuid, Uuid, Uuid>& entityComponent)
 	{
 		return std::get<0>(entityComponent) == entityId && std::get<2>(entityComponent) == componentId;
@@ -26,7 +26,7 @@ bool EntitiesComponentsRepository::ContainsComponent(const Uuid& entityId, const
 
 bool EntitiesComponentsRepository::ContainsComponentType(const Uuid& entityId, const Uuid& componentTypeId)
 {
-	return QCE::ContainsIf(entitiesComponents,
+	return QCE::ContainsAny(entitiesComponents,
 		[&entityId, &componentTypeId](const std::tuple<Uuid, Uuid, Uuid>& entityComponent)
 	{
 		return std::get<0>(entityComponent) == entityId && std::get<1>(entityComponent) == componentTypeId;

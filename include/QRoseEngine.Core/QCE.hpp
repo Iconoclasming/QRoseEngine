@@ -21,7 +21,7 @@ namespace QRose
 		}
 
 		template<typename TCollection, typename TPredicate>
-		static bool ContainsIf(TCollection& collection, TPredicate predicate)
+		static bool ContainsAny(TCollection& collection, TPredicate predicate)
 		{
 			return (std::find_if(collection.begin(), collection.end(), predicate) != collection.end());
 		}
@@ -29,7 +29,7 @@ namespace QRose
 		template<typename TCollection, typename TPredicate>
 		static bool RemoveIfContains(TCollection& collection, TPredicate predicate)
 		{
-			if (ContainsIf(collection, predicate))
+			if (ContainsAny(collection, predicate))
 			{
 				collection.remove_if(predicate);
 				return true;
@@ -43,7 +43,7 @@ namespace QRose
 		template<typename TEntity, typename TCollection, typename TPredicate>
 		static TEntity& Find(TCollection& collection, TPredicate predicate)
 		{
-			if (!ContainsIf(collection, predicate))
+			if (!ContainsAny(collection, predicate))
 			{
 				throw std::runtime_error("collection contains no matching elements");
 			}

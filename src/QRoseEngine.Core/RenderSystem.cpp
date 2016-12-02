@@ -68,7 +68,7 @@ void RenderSystem::AddEntityIfItMatches(const Uuid& entityId)
 {
 	auto entitiesInScene = pEntitiesComponentsService->GetEntities();
 	// if this entity isn't present on current scene then return
-	if (!QCE::ContainsIf(entitiesInScene, [&entityId](const Entity& entity)
+	if (!QCE::ContainsAny(entitiesInScene, [&entityId](const Entity& entity)
 	{
 		return entity.GetID() == entityId;
 	}))
@@ -77,7 +77,7 @@ void RenderSystem::AddEntityIfItMatches(const Uuid& entityId)
 	}
 
 	// if this entity is not already added
-	if (!QCE::ContainsIf(toDraw, [&entityId](const std::tuple<Uuid, MeshComponent, TransformationComponent>& tupleToDraw)
+	if (!QCE::ContainsAny(toDraw, [&entityId](const std::tuple<Uuid, MeshComponent, TransformationComponent>& tupleToDraw)
 	{
 		return std::get<0>(tupleToDraw) == entityId;
 	}))
@@ -88,8 +88,7 @@ void RenderSystem::AddEntityIfItMatches(const Uuid& entityId)
 		{
 			MeshComponent meshComponent = pEntitiesComponentsService->GetComponentForEntity<MeshComponent>(entityId);
 			TransformationComponent transformationComponent = pEntitiesComponentsService->GetComponentForEntity<TransformationComponent>(entityId);
-			toDraw.push_back(std::tuple<Uuid, MeshComponent, TransformationComponent>(entityId, meshComponent,
-						transformationComponent));
+			toDraw.push_back(std::make_tuple(entityId, meshComponent, transformationComponent));
 		}
 	}
 

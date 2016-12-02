@@ -1,8 +1,7 @@
 #pragma once
 
-#include <list>
-#include "Entity.hpp"
 #include <vector>
+#include "Entity.hpp"
 
 namespace QRose
 {
@@ -15,6 +14,6 @@ namespace QRose
 
 		std::vector<Entity> GetEntities() const;
 	private:
-		std::list<Entity> entities;	// TODO: replace with std::vector
+		std::vector<Entity> entities;
 	};
 }

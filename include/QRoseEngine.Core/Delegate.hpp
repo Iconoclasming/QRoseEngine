@@ -35,12 +35,12 @@ namespace QRose
 			});
 		}
 
-		TReturn inline Invoke(Types ... args)
+		TReturn Invoke(Types ... args)
 		{
 			return func(std::forward<Types>(args)...);
 		}
 
-		TReturn inline operator()(Types ... args)
+		TReturn operator()(Types ... args)
 		{
 			return Invoke(std::forward<Types>(args)...);
 		}
