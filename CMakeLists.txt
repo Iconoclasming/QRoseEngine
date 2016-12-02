@@ -21,6 +21,10 @@ add_subdirectory(thirdparty/glfw)
 add_definitions(-DGLEW_STATIC)
 include_directories(thirdparty/glew/include/)
 
+# Prepare Eigen and LBFGS++ libs
+include_directories(thirdparty/Eigen/)
+include_directories(thirdparty/LBFGSpp/include/)
+
 # Prepare GLM (OpenGL Maths) library
 include_directories(thirdparty/glm/include)
 
@@ -45,6 +49,7 @@ endif(UNIX)
 
 # Prepare OpenGL and utilities
 if(WIN32)
+	file(COPY thirdparty/glew/lib/Release/Win32/glew32s.lib DESTINATION thirdparty/glew/lib/Release/Win32)
 	set(OPENGL_AND_UTILS_LIBRARIES opengl32 thirdparty/glew/lib/Release/Win32/glew32s)
 endif(WIN32)
 if(UNIX)
