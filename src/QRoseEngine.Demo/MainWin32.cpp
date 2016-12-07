@@ -1,25 +1,55 @@
-#include <QRoseEngine.Platform/EngineFactory.hpp>
 #include <QRoseCore.hpp>
+#include <QRoseEngine.Platform/EngineFactory.hpp>
+#include <QRoseEngine.Platform/Scene.hpp>
 #include <QRoseEngine.Graphics/Components/MeshComponent.hpp>
 
 using namespace QRose;
+
+class DemoScene : public Scene
+{
+public:
+	DemoScene();
+	virtual ~DemoScene();
+
+	void OnLoad() override;
+	void OnUpdate(double millisecondsElapsed) override;
+
+private:
+	Uuid entity1;
+
+};
 
 int main()
 {
 	WindowDesc windowDesc("Awesome Sample Game", Size<int>(800, 600));
 	GraphicsDesc graphicsDesc(windowDesc, Color::Aqua);
 	Ptr<Engine> engine = EngineFactory::CreateEngine(graphicsDesc);
+	DemoScene scene;
+	engine->PresentScene(scene);
 
-	Uuid boxMeshId = engine->LoadBoxMesh(Vector3(0.5f, 0.5f, 0.5f));
+	return 0;
+}
 
-	Ptr<EntitiesComponentsService> ecs = engine->GetEntitiesComponentsService();
-	Uuid entity1 = ecs->CreateEntity();
+DemoScene::DemoScene()
+{
+}
+
+DemoScene::~DemoScene()
+{
+}
+
+void DemoScene::OnLoad()
+{
+	Uuid boxMeshId = GetEngine()->LoadBoxMesh(Vector3(0.5f, 0.5f, 0.5f));
+
+	Ptr<EntitiesComponentsService> ecs = GetEngine()->GetEntitiesComponentsService();
+	entity1 = ecs->CreateEntity();
 	Ptr<Manager<TransformationComponent>> transformComponentManager = ecs->GetManager<TransformationComponent>();
 	TransformationComponent& entity1Transform = transformComponentManager->CreateComponent(entity1);
 	entity1Transform.position += Vector3(1.0, 0.0, 0.0);
 	ecs->GetManager<MeshComponent>()->CreateComponent(entity1, boxMeshId);
+}
 
-	engine->PresentScene();
-
-	return 0;
+void DemoScene::OnUpdate(double millisecondsElapsed)
+{
 }

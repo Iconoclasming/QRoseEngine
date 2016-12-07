@@ -15,7 +15,7 @@ namespace QRose
 
 		Uuid LoadMesh(const std::string& path) override;
 		Uuid LoadBoxMesh(const Vector3& size) override;
-		void PresentScene() override;
+		void PresentScene(Scene& scene) override;
 
 	private:
 		std::vector<Ptr<System>> systems;
