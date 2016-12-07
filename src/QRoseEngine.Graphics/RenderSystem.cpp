@@ -28,8 +28,8 @@ void RenderSystem::Update(double millisecondsElapsed)
 	render->BeginDrawing();
 
 	Ptr<Manager<MeshComponent>> meshComponentsManager = ecs->GetManager<MeshComponent>();
-	const std::vector<std::pair<Uuid, MeshComponent>>& entitiesWithMeshes = meshComponentsManager->GetAllComponents();
-	std::vector<std::tuple<const Uuid*, const MeshComponent*, const TransformationComponent*>> toDraw;
+	const std::vector<std::pair<Handle, MeshComponent>>& entitiesWithMeshes = meshComponentsManager->GetAllComponents();
+	std::vector<std::tuple<const Handle*, const MeshComponent*, const TransformationComponent*>> toDraw;
 	toDraw.reserve(entitiesWithMeshes.size());
 	Ptr<Manager<TransformationComponent>> transformComponentsManager = ecs->GetManager<TransformationComponent>();
 	for (auto& entityWithMesh : entitiesWithMeshes)

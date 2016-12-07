@@ -82,7 +82,7 @@ void OpenGLRender::BeginDrawing()
 {
 }
 
-void OpenGLRender::DrawMesh(const Uuid& meshId, const Vector3& position)
+void OpenGLRender::DrawMesh(Handle meshId, const Vector3& position)
 {
 	GLuint meshVAO = pResourcesManager->GetMeshVertexArrayObject(meshId);
 	glUseProgram(shaderProgram);

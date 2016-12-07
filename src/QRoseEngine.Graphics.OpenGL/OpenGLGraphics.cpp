@@ -41,12 +41,12 @@ void OpenGLGraphics::Initialize(const GraphicsDesc& graphicsDesc)
 	pRender->SetClearColor(graphicsDesc.backgroundColor);
 }
 
-Uuid OpenGLGraphics::LoadMesh(const std::string& path)
+Handle OpenGLGraphics::LoadMesh(const std::string& path)
 {
 	return pResourcesManager->LoadMesh(path);
 }
 
-Uuid OpenGLGraphics::LoadBoxMesh(const Vector3& size)
+Handle OpenGLGraphics::LoadBoxMesh(const Vector3& size)
 {
 	return pResourcesManager->LoadBoxMesh(size);
 }

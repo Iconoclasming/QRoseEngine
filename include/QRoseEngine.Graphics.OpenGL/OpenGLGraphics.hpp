@@ -13,8 +13,8 @@ namespace QRose
 
 		void Initialize(const GraphicsDesc& graphicsDesc);
 
-		Uuid LoadMesh(const std::string& path);
-		Uuid LoadBoxMesh(const Vector3& size);
+		Handle LoadMesh(const std::string& path);
+		Handle LoadBoxMesh(const Vector3& size);
 
 		Ptr<OpenGLRender> GetRender() const;
 		GLFWwindow* GetWindow() const;

@@ -13,10 +13,10 @@ namespace QRose
 		Uuid LoadMesh(const std::string& path);
 		Uuid LoadBoxMesh(const Vector3& size);
 
-		GLuint GetMeshVertexArrayObject(const Uuid& meshId);
+		GLuint GetMeshVertexArrayObject(Handle meshId);
 
 	private:
-		std::map<Uuid, GLuint> meshesVertexArrayObjects;
+		std::map<Handle, GLuint> meshesVertexArrayObjects;
 
 	};
 }

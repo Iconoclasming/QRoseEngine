@@ -10,7 +10,7 @@ EntitiesComponentsService::~EntitiesComponentsService()
 {
 }
 
-Uuid EntitiesComponentsService::CreateEntity()
+Handle EntitiesComponentsService::CreateEntity()
 {
-	return Uuid();
+	return Handle();
 }

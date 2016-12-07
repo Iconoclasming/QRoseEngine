@@ -15,7 +15,7 @@ public:
 	void OnUpdate(double millisecondsElapsed) override;
 
 private:
-	Uuid entity1;
+	Handle entity1;
 
 };
 
@@ -40,7 +40,7 @@ DemoScene::~DemoScene()
 
 void DemoScene::OnLoad()
 {
-	Uuid boxMeshId = GetEngine()->LoadBoxMesh(Vector3(0.5f, 0.5f, 0.5f));
+	Handle boxMeshId = GetEngine()->LoadBoxMesh(Vector3(0.5f, 0.5f, 0.5f));
 
 	Ptr<EntitiesComponentsService> ecs = GetEngine()->GetEntitiesComponentsService();
 	entity1 = ecs->CreateEntity();

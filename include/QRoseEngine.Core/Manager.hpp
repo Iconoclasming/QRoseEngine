@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-#include "Uuid.hpp"
+#include "Handle.hpp"
 #include "QCE.hpp"
 
 namespace QRose
@@ -10,31 +10,31 @@ namespace QRose
 	class Manager
 	{
 	public:
-		bool Contains(const Uuid& id);
+		bool Contains(const Handle& id);
 
 		template<typename ... TArgs>
-		TComponent& CreateComponent(const Uuid& id, TArgs ... args);
+		TComponent& CreateComponent(const Handle& id, TArgs ... args);
 
-		TComponent& GetComponent(const Uuid& id);
-		void UpdateComponent(const TComponent& component, const Uuid& id);
-		void DeleteComponent(const Uuid& id);
+		TComponent& GetComponent(const Handle& id);
+		void UpdateComponent(const TComponent& component, const Handle& id);
+		void DeleteComponent(const Handle& id);
 
 		int ComponentsTotal() const { return components.size(); }
-		const std::vector<std::pair<Uuid, TComponent>>& GetAllComponents() { return components; }
+		const std::vector<std::pair<Handle, TComponent>>& GetAllComponents() { return components; }
 
 	private:
-		std::vector<std::pair<Uuid, TComponent>> components;
+		std::vector<std::pair<Handle, TComponent>> components;
 	};
 
 	template<typename TComponent>
-	inline bool Manager<TComponent>::Contains(const Uuid & id)
+	inline bool Manager<TComponent>::Contains(const Handle & id)
 	{
 		return QCE::ContainsAny(components, [&id](const auto& component){ return component.first == id; });
 	}
 
 	template<typename TComponent>
 	template<typename ... TArgs>
-	TComponent& Manager<TComponent>::CreateComponent(const Uuid& id, TArgs ... args)
+	TComponent& Manager<TComponent>::CreateComponent(const Handle& id, TArgs ... args)
 	{
 		if (!Contains(id))
 		{
@@ -44,9 +44,9 @@ namespace QRose
 	}
 
 	template<typename TComponent>
-	inline TComponent& Manager<TComponent>::GetComponent(const Uuid & id)
+	inline TComponent& Manager<TComponent>::GetComponent(const Handle & id)
 	{
-		return QCE::Find<std::pair<Uuid, TComponent>>(components,
+		return QCE::Find<std::pair<Handle, TComponent>>(components,
 			[&id](const auto& component){ return component.first == id; }).second;
 	}
 }

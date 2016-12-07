@@ -15,7 +15,7 @@ namespace QRose
 
 		void ClearView() override;
 		void BeginDrawing() override;
-		void DrawMesh(const Uuid& meshId, const Vector3& position) override;
+		void DrawMesh(Handle meshId, const Vector3& position) override;
 		void Present() override;
 		Color GetClearColor() override;
 		void SetClearColor(const Color& color) override;

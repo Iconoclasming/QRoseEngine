@@ -73,7 +73,7 @@ Uuid OpenGLResourcesManager::LoadBoxMesh(const Vector3& size)
 	return meshId;
 }
 
-GLuint OpenGLResourcesManager::GetMeshVertexArrayObject(const Uuid& meshId)
+GLuint OpenGLResourcesManager::GetMeshVertexArrayObject(Handle meshId)
 {
 	if(meshesVertexArrayObjects.count(meshId) == 0)
 	{

@@ -4,6 +4,7 @@
 #include <algorithm>
 #include "ManagedPtr.hpp"
 #include "Manager.hpp"
+#include "Handle.hpp"
 
 namespace QRose
 {
@@ -32,7 +33,7 @@ namespace QRose
 			}
 		}
 
-		Uuid CreateEntity();
+		Handle CreateEntity();
 		
 	private:
 		std::vector<std::pair<Uuid, Ptr<void>>> componentsManagers;
