@@ -17,6 +17,15 @@ namespace QRose
 	protected:
 		Ptr<Engine> GetEngine() { return engine; }
 
+		// TODO: remove GetEngine(), add instead:
+		// Handle CreateEntity();
+		// TransformationComponentManager GetTransformationComponentManager();
+		// MeshComponentManager GetMeshComponentManager();
+		// ... and so on.
+		// All static typed, without templates. 
+		// Try implement http://gameprogrammingpatterns.com/subclass-sandbox.html pattern. In fact, this should serve
+		// as an API for the actual game code.
+
 	private:
 		Ptr<Engine> engine;
 
