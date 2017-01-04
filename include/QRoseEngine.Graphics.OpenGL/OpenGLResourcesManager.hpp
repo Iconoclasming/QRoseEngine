@@ -16,14 +16,13 @@ namespace QRose
 		Uuid LoadMesh(const std::string& path);
 		Uuid LoadBoxMesh(const Vector3& size);
 
-		void LoadDefaultShaderProgram();
-
+		void LoadDefaultShaderProgram(const std::string& pathToVertexShader, const std::string& pathToFragmentShader);
 		GLuint GetDefaultShaderProgram() const;
 
-		GLuint defaultShaderProgram;
 		GLuint GetMeshVertexArrayObject(Handle meshId);
 
 	private:
 		std::map<Handle, GLuint> meshesVertexArrayObjects;
+		GLuint defaultShaderProgram;
 	};
 }

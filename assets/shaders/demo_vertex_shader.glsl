@@ -1,0 +1,12 @@
+#version 330 core
+layout (location = 0) in vec3 position; // The position variable has attribute position 0
+  
+out vec4 vertexColor; // Specify a color output to the fragment shader
+
+uniform mat4 transform;
+
+void main()
+{
+    gl_Position = transform * vec4(position, 1.0);
+    vertexColor = vec4(0.6f, 0.2f, 0.0f, 1.0f);
+}

@@ -5,7 +5,11 @@
 
 using namespace QRose;
 
-Vector3::Vector3(float x, float y, float z) : vecInternal(x, y, z)
+Vector3::Vector3(float x, float y, float z) : vec3(x, y, z)
+{
+}
+
+Vector3::Vector3(glm::vec3 vec3) : vec3(vec3)
 {
 }
 
@@ -15,24 +19,24 @@ Vector3::~Vector3()
 
 float Vector3::GetX() const
 {
-	return vecInternal.x;
+	return vec3.x;
 }
 
 float Vector3::GetY() const
 {
-	return vecInternal.y;
+	return vec3.y;
 }
 
 float Vector3::GetZ() const
 {
-	return vecInternal.z;
+	return vec3.z;
 }
 
 Vector3& QRose::Vector3::operator+=(const Vector3 & rhs)
 {
-	vecInternal.x += rhs.GetX();
-	vecInternal.y += rhs.GetY();
-	vecInternal.z += rhs.GetZ();
+	vec3.x += rhs.GetX();
+	vec3.y += rhs.GetY();
+	vec3.z += rhs.GetZ();
 	return *this;
 }
 

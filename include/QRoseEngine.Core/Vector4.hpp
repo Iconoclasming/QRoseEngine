@@ -2,8 +2,10 @@
 
 #ifdef QROSEENGINE_USE_OPENGL_MATHEMATICS
 #include <glm.hpp>
+#include <gtc/quaternion.hpp>
 #endif
 #include <istream>
+#include "Vector3.hpp"
 
 namespace QRose
 {
@@ -18,9 +20,13 @@ namespace QRose
 		float GetZ() const;
 		float GetW() const;
 
+		static Vector4 FromAxisAngle(const Vector3& axis, float angle);
+
 	private:
 #ifdef QROSEENGINE_USE_OPENGL_MATHEMATICS
-		glm::vec4 vecInternal;
+		friend class Matrix4x4;
+		Vector4(glm::quat& quat);
+		glm::quat quat;
 #endif
 		friend class Streaming;
 		void Serialize(std::ostream& serializationStream) const;

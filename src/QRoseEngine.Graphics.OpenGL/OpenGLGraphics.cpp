@@ -10,7 +10,7 @@ OpenGLGraphics::~OpenGLGraphics()
 {
 }
 
-void OpenGLGraphics::Initialize(const GraphicsDesc& graphicsDesc)
+void OpenGLGraphics::Initialize(const GraphicsDesc& graphicsDesc, const std::string& assetsDirectory)
 {
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -37,7 +37,8 @@ void OpenGLGraphics::Initialize(const GraphicsDesc& graphicsDesc)
 	glViewport(0, 0, width, height);
 
 	pResourcesManager = NewManaged<OpenGLResourcesManager>();
-	pResourcesManager->LoadDefaultShaderProgram();
+	pResourcesManager->LoadDefaultShaderProgram(assetsDirectory + "\\shaders\\demo_vertex_shader.glsl",
+		assetsDirectory + "\\shaders\\demo_fragment_shader.glsl");
 	pRender = NewManaged<OpenGLRender>(pResourcesManager, pWindow);
 	pRender->SetClearColor(graphicsDesc.backgroundColor);
 }

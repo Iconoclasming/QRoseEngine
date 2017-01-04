@@ -1,5 +1,6 @@
 #include "QRoseEngine.Graphics.OpenGL/OpenGLResourcesManager.hpp"
 
+#include <fstream>
 #include <sstream>
 
 using namespace QRose;
@@ -87,18 +88,20 @@ Uuid OpenGLResourcesManager::LoadBoxMesh(const Vector3& size)
 	return meshId;
 }
 
-void OpenGLResourcesManager::LoadDefaultShaderProgram()
+void OpenGLResourcesManager::LoadDefaultShaderProgram(const std::string& pathToVertexShader, 
+	const std::string& pathToFragmentShader)
 {
-	std::stringstream vertexShaderSS;
-	vertexShaderSS << "#version 330 core" << std::endl;
-	vertexShaderSS << "layout (location = 0) in vec3 position;" << std::endl;
-	vertexShaderSS << "void main()" << std::endl;
-	vertexShaderSS << "{" << std::endl;
-	vertexShaderSS << "gl_Position = vec4(position.x, position.y, position.z, 1.0);" << std::endl;
-	vertexShaderSS << "}" << std::endl;
+	std::fstream vertexShaderInputStream(pathToVertexShader);
+	if (!vertexShaderInputStream.is_open())
+	{
+		throw std::invalid_argument("vertex shader file not found: " + pathToVertexShader);
+	}
 	GLuint vertexShader;
 	vertexShader = glCreateShader(GL_VERTEX_SHADER);
-	std::string vertexShaderString = vertexShaderSS.str();
+	std::stringstream vertexShaderStringStream;
+	vertexShaderStringStream << vertexShaderInputStream.rdbuf();
+	vertexShaderInputStream.close();
+	std::string vertexShaderString = vertexShaderStringStream.str();
 	const char* vertexShaderSource = vertexShaderString.c_str();
 	glShaderSource(vertexShader, 1, &vertexShaderSource, nullptr);
 	glCompileShader(vertexShader);
@@ -111,16 +114,17 @@ void OpenGLResourcesManager::LoadDefaultShaderProgram()
 		throw std::runtime_error("failed to compile vertex shader:\n" + std::string(infoLog));
 	}
 
-	std::stringstream fragmentShaderSS;
-	fragmentShaderSS << "#version 330 core" << std::endl;
-	fragmentShaderSS << "out vec4 color;" << std::endl;
-	fragmentShaderSS << "void main()" << std::endl;
-	fragmentShaderSS << "{" << std::endl;
-	fragmentShaderSS << "color = vec4(1.0f, 0.5f, 0.2f, 1.0f);" << std::endl;
-	fragmentShaderSS << "}" << std::endl;
+	std::fstream fragmentShaderInputStream(pathToFragmentShader, std::fstream::in);
+	if (!fragmentShaderInputStream.is_open())
+	{
+		throw std::invalid_argument("fragment shader file not found: " + pathToFragmentShader);
+	}
 	GLuint fragmentShader;
 	fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-	std::string fragmentShaderString = fragmentShaderSS.str();
+	std::stringstream fragmentShaderStringStream;
+	fragmentShaderStringStream << fragmentShaderInputStream.rdbuf();
+	std::string fragmentShaderString = fragmentShaderStringStream.str();
+	fragmentShaderInputStream.close();
 	const char* fragmentShaderSource = fragmentShaderString.c_str();
 	glShaderSource(fragmentShader, 1, &fragmentShaderSource, nullptr);
 	glCompileShader(fragmentShader);

@@ -12,7 +12,7 @@ namespace QRose
 		OpenGLGraphics();
 		~OpenGLGraphics();
 
-		void Initialize(const GraphicsDesc& graphicsDesc);
+		void Initialize(const GraphicsDesc& graphicsDesc, const std::string& assetsDirectory);
 
 		Handle LoadMesh(const std::string& path) override;
 		Handle CreateBoxMesh(const Vector3& size) override;

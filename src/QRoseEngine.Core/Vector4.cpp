@@ -5,7 +5,11 @@
 
 using namespace QRose;
 
-Vector4::Vector4(float x, float y, float z, float w) : vecInternal(x, y, z, w)
+Vector4::Vector4(float x, float y, float z, float w) : quat(x, y, z, w)
+{
+}
+
+Vector4::Vector4(glm::quat& quat) : quat(quat)
 {
 }
 
@@ -15,22 +19,27 @@ Vector4::~Vector4()
 
 float Vector4::GetX() const
 {
-	return vecInternal.x;
+	return quat.x;
 }
 
 float Vector4::GetY() const
 {
-	return vecInternal.y;
+	return quat.y;
 }
 
 float Vector4::GetZ() const
 {
-	return vecInternal.z;
+	return quat.z;
 }
 
 float Vector4::GetW() const
 {
-	return vecInternal.w;
+	return quat.w;
+}
+
+Vector4 Vector4::FromAxisAngle(const Vector3& axis, float angle)
+{
+	return glm::angleAxis(angle, axis.vec3);
 }
 
 void Vector4::Serialize(std::ostream& serializationStream) const

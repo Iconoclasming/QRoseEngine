@@ -29,22 +29,26 @@ void RenderSystem::Update(double millisecondsElapsed)
 
 	Ptr<Manager<MeshComponent>> meshComponentsManager = ecs->GetManager<MeshComponent>();
 	const std::vector<std::pair<Handle, MeshComponent>>& entitiesWithMeshes = meshComponentsManager->GetAllComponents();
-	std::vector<std::tuple<const Handle*, const MeshComponent*, const TransformationComponent*>> toDraw;
+	std::vector<std::tuple<MeshComponent, TransformationComponent>> toDraw;
 	toDraw.reserve(entitiesWithMeshes.size());
 	Ptr<Manager<TransformationComponent>> transformComponentsManager = ecs->GetManager<TransformationComponent>();
 	for (auto& entityWithMesh : entitiesWithMeshes)
 	{
 		if (transformComponentsManager->Contains(entityWithMesh.first))
 		{
-			toDraw.push_back(std::make_tuple(&entityWithMesh.first, &entityWithMesh.second,
-				&transformComponentsManager->GetComponent(entityWithMesh.first)));
+			toDraw.push_back(std::make_tuple(entityWithMesh.second,
+				transformComponentsManager->GetComponent(entityWithMesh.first)));
 		}
 	}
 	for (const auto& toDrawTuple : toDraw)
 	{
-		const MeshComponent& meshComponent = *std::get<1>(toDrawTuple);
-		const TransformationComponent& transform = *std::get<2>(toDrawTuple);
-		render->DrawMesh(meshComponent.meshId, transform.position);
+		const MeshComponent& meshComponent = std::get<0>(toDrawTuple);
+		const TransformationComponent& transform = std::get<1>(toDrawTuple);
+		Matrix4x4 transformationMatrix;
+		transformationMatrix = transformationMatrix.Translate(transform.position);
+		transformationMatrix = transformationMatrix.Rotate(transform.rotation);
+		transformationMatrix = transformationMatrix.Scale(transform.scale);
+		render->DrawMesh(meshComponent.meshId, transformationMatrix);
 	}
 
 	render->Present();

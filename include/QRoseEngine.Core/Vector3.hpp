@@ -2,6 +2,8 @@
 
 #ifdef QROSEENGINE_USE_OPENGL_MATHEMATICS
 #include <glm.hpp>
+#else
+#error GLM required to compile mathematic classes
 #endif
 #include <istream>
 
@@ -21,7 +23,10 @@ namespace QRose
 
 	private:
 #ifdef QROSEENGINE_USE_OPENGL_MATHEMATICS
-		glm::vec3 vecInternal;
+		friend class Matrix4x4;
+		friend class Vector4;
+		Vector3(glm::vec3 vec3);
+		glm::vec3 vec3;
 #endif
 		friend class Streaming;
 		void Serialize(std::ostream& serializationStream) const;

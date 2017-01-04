@@ -21,10 +21,13 @@ void OpenGLRender::BeginDrawing()
 {
 }
 
-void OpenGLRender::DrawMesh(Handle meshId, const Vector3& position)
+void OpenGLRender::DrawMesh(Handle meshId, const Matrix4x4& transformation)
 {
 	GLuint meshVAO = pResourcesManager->GetMeshVertexArrayObject(meshId);
-	glUseProgram(pResourcesManager->GetDefaultShaderProgram());
+	GLuint shaderProgram = pResourcesManager->GetDefaultShaderProgram();
+	glUseProgram(shaderProgram);
+	GLuint transformLoc = glGetUniformLocation(shaderProgram, "transform");
+	glUniformMatrix4fv(transformLoc, 1, GL_FALSE, transformation.GetArray());
 	glBindVertexArray(meshVAO);
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 	glUseProgram(0);

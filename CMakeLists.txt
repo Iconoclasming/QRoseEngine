@@ -28,6 +28,9 @@ include_directories(thirdparty/LBFGSpp/include/)
 # Prepare GLM (OpenGL Maths) library
 include_directories(thirdparty/glm/include)
 
+# Prepare JSON library
+include_directories(thirdparty/json/include)
+
 # We are using GLM as our main mathematics library, so we set the flag
 add_definitions(-DQROSEENGINE_USE_OPENGL_MATHEMATICS=1)
 # Add QRose includes

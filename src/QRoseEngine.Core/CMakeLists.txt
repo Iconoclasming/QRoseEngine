@@ -20,6 +20,7 @@ set(QROSEENGINE_CORE_HEADERS
 	../../include/QRoseEngine.Core/Event.hpp
 	../../include/QRoseEngine.Core/EventInvoker.hpp
 	../../include/QRoseEngine.Core/Matrix.hpp
+	../../include/QRoseEngine.Core/Matrix4x4.hpp
 	../../include/QRoseEngine.Core/RNDGen.hpp)
 set(QROSEENGINE_CORE_COMPONENTS_HEADERS
 	../../include/QRoseEngine.Core/Components/TransformationComponent.hpp)
@@ -31,7 +32,8 @@ set(QROSEENGINE_CORE_SOURCES
 	Vector3.cpp
 	Vector4.cpp
 	EntitiesComponentsService.cpp
-	Matrix.cpp)
+	Matrix.cpp
+	Matrix4x4.cpp)
 set(QROSEENGINE_CORE_COMPONENTS_SOURCES
 	Components/TransformationComponent.cpp)
 source_group("Components" FILES ${QROSEENGINE_CORE_COMPONENTS_HEADERS} ${QROSEENGINE_CORE_COMPONENTS_SOURCES})
