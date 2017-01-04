@@ -26,7 +26,5 @@ namespace QRose
 		GLFWwindow* pWindow;
 
 		Color clearColor;
-
-		GLint shaderProgram;
 	};
 }

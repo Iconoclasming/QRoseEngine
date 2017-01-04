@@ -53,43 +53,4 @@ namespace QRose
 	private:
 		std::function<TReturn(Types ...)> func;
 	};
-
-	// Delegate implementation with variadic template parameters
-	// Signature: void Sample(TArg1 arg1, TArg2 arg2, ...)
-	template<typename ... Types>
-	class ReturnsNothingDelegate : public Delegate<void, Types ...>
-	{
-	public:
-		ReturnsNothingDelegate(std::function<void(Types ...)> func) : Delegate<void, Types ...>(func) {}
-		virtual ~ReturnsNothingDelegate() {}
-
-		// Binds a class method
-		template<class C, void(C::*TFunction)(Types ...)>
-		static ReturnsNothingDelegate inline Bind(C* instance)
-		{
-			return ReturnsNothingDelegate(std::function<void(Types ...)>([instance](Types ... args)
-			{
-				(static_cast<C*>(instance)->*TFunction)(std::forward<Types>(args)...);
-			}));
-		}
-	};
-
-	// Non-variadic Delegate implementation.
-	// Signature: void Command()
-	class CommandDelegate : public Delegate<void>
-	{
-	public:
-		CommandDelegate(std::function<void(void)> func) : Delegate(func) {}
-		virtual ~CommandDelegate() {}
-
-		// Binds a class method
-		template<class C, void(C::*TFunction)(void)>
-		static CommandDelegate inline Bind(C* instance)
-		{
-			return CommandDelegate(std::function<void(void)>([instance]()
-			{
-				(static_cast<C*>(instance)->*TFunction)();
-			}));
-		}
-	};
 }

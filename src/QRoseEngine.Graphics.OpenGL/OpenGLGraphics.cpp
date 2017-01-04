@@ -37,6 +37,7 @@ void OpenGLGraphics::Initialize(const GraphicsDesc& graphicsDesc)
 	glViewport(0, 0, width, height);
 
 	pResourcesManager = Managed<OpenGLResourcesManager>();
+	pResourcesManager->LoadDefaultShaderProgram();
 	pRender = Managed<OpenGLRender>(pResourcesManager, pWindow);
 	pRender->SetClearColor(graphicsDesc.backgroundColor);
 }
