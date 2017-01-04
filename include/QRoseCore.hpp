@@ -1,0 +1,22 @@
+#pragma once
+
+#include <QRoseEngine.Core/Color.hpp>
+#include <QRoseEngine.Core/Size.hpp>
+#include <QRoseEngine.Core/QCE.hpp>
+#include <QRoseEngine.Core/Streaming.hpp>
+#include <QRoseEngine.Core/Uuid.hpp>
+#include <QRoseEngine.Core/Handle.hpp>
+#include <QRoseEngine.Core/SerializationException.hpp>
+#include <QRoseEngine.Core/Vector.hpp>
+#include <QRoseEngine.Core/Vector3.hpp>
+#include <QRoseEngine.Core/Vector4.hpp>
+#include <QRoseEngine.Core/EntitiesComponentsService.hpp>
+#include <QRoseEngine.Core/Manager.hpp>
+#include <QRoseEngine.Core/System.hpp>
+#include <QRoseEngine.Core/ManagedPtr.hpp>
+#include <QRoseEngine.Core/Delegate.hpp>
+#include <QRoseEngine.Core/Event.hpp>
+#include <QRoseEngine.Core/EventInvoker.hpp>
+#include <QRoseEngine.Core/Matrix.hpp>
+#include <QRoseEngine.Core/RNDGen.hpp>
+#include <QRoseEngine.Core/Components/TransformationComponent.hpp>

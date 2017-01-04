@@ -1,9 +1,9 @@
-#include "OpenGLRender.hpp"
+#include "QRoseEngine.Graphics.OpenGL/OpenGLRender.hpp"
 
 using namespace QRose;
 
-OpenGLRender::OpenGLRender(MPtr<OpenGLResourcesManager> pResourcesManager, GLFWwindow* pWindow)
-	: pResourcesManager(pResourcesManager), pWindow(pWindow)
+OpenGLRender::OpenGLRender(Ptr<OpenGLResourcesManager> pResourcesManager, GLFWwindow* pWindow) : pResourcesManager(pResourcesManager),
+	pWindow(pWindow)
 {
 }
 
@@ -21,7 +21,7 @@ void OpenGLRender::BeginDrawing()
 {
 }
 
-void OpenGLRender::DrawMesh(const Uuid& meshId, const Vector3& position)
+void OpenGLRender::DrawMesh(Handle meshId, const Vector3& position)
 {
 	GLuint meshVAO = pResourcesManager->GetMeshVertexArrayObject(meshId);
 	glUseProgram(pResourcesManager->GetDefaultShaderProgram());

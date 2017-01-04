@@ -1,4 +1,4 @@
-#include "Color.hpp"
+#include "QRoseEngine.Core/Color.hpp"
 
 using namespace QRose;
 

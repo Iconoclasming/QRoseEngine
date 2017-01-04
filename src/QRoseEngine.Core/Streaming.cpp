@@ -1,4 +1,4 @@
-#include "Streaming.hpp"
+#include "QRoseEngine.Core/Streaming.hpp"
 
 using namespace QRose;
 

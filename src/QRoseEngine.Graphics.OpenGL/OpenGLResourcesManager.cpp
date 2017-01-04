@@ -1,4 +1,4 @@
-#include "OpenGLResourcesManager.hpp"
+#include "QRoseEngine.Graphics.OpenGL/OpenGLResourcesManager.hpp"
 
 #include <sstream>
 
@@ -149,7 +149,7 @@ void OpenGLResourcesManager::LoadDefaultShaderProgram()
 	glDeleteShader(fragmentShader);
 }
 
-GLuint OpenGLResourcesManager::GetMeshVertexArrayObject(const Uuid& meshId) const
+GLuint OpenGLResourcesManager::GetMeshVertexArrayObject(Handle meshId)
 {
 	if(meshesVertexArrayObjects.count(meshId) == 0)
 	{

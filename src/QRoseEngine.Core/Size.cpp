@@ -1,4 +1,4 @@
-#include "Size.hpp"
+#include "QRoseEngine.Core/Size.hpp"
 
 using namespace QRose;
 

@@ -1,4 +1,4 @@
-#include "OpenGLGraphics.hpp"
+#include "QRoseEngine.Graphics.OpenGL/OpenGLGraphics.hpp"
 
 using namespace QRose;
 
@@ -42,17 +42,17 @@ void OpenGLGraphics::Initialize(const GraphicsDesc& graphicsDesc)
 	pRender->SetClearColor(graphicsDesc.backgroundColor);
 }
 
-Uuid OpenGLGraphics::LoadMesh(const std::string& path)
+Handle OpenGLGraphics::LoadMesh(const std::string& path)
 {
 	return pResourcesManager->LoadMesh(path);
 }
 
-Uuid OpenGLGraphics::LoadBoxMesh(const Vector3& size)
+Handle OpenGLGraphics::LoadBoxMesh(const Vector3& size)
 {
 	return pResourcesManager->LoadBoxMesh(size);
 }
 
-MPtr<OpenGLRender> OpenGLGraphics::GetRender() const
+Ptr<OpenGLRender> OpenGLGraphics::GetRender() const
 {
 	return pRender;
 }

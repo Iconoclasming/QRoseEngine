@@ -2,9 +2,8 @@
 
 #include <string>
 #include <map>
-#include <Uuid.hpp>
-#include <Vector.hpp>
 #include <GL/glew.h>
+#include <QRoseCore.hpp>
 
 namespace QRose
 {
@@ -19,11 +18,12 @@ namespace QRose
 
 		void LoadDefaultShaderProgram();
 
-		GLuint GetMeshVertexArrayObject(const Uuid& meshId) const;
 		GLuint GetDefaultShaderProgram() const;
 
-	private:
-		std::map<Uuid, GLuint> meshesVertexArrayObjects;
 		GLuint defaultShaderProgram;
+		GLuint GetMeshVertexArrayObject(Handle meshId);
+
+	private:
+		std::map<Handle, GLuint> meshesVertexArrayObjects;
 	};
 }
