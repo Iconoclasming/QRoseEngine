@@ -37,8 +37,7 @@ include_directories(include)
 add_subdirectory(src/QRoseEngine.Core)
 add_subdirectory(src/QRoseEngine.Graphics)
 add_subdirectory(src/QRoseEngine.Graphics.OpenGL)
-add_subdirectory(src/QRoseEngine.Platform)
-add_subdirectory(src/QRoseEngine.Platform.Agnostic)
+add_subdirectory(src/QRoseEngine.Demo.Game)
 add_subdirectory(src/QRoseEngine.NN)
 
 # Prepare UUID library
@@ -66,8 +65,7 @@ add_executable(QRoseEngine.NNDemo src/QRoseEngine.Demo/NeuralNetworkDemo.cpp)
 
 # Link all libraries against all executables
 target_link_libraries(QRoseEngine.Demo
-	QRoseEngine.Platform.Agnostic
-	QRoseEngine.Platform
+	QRoseEngine.Demo.Game
 	QRoseEngine.Graphics.OpenGL
 	QRoseEngine.Graphics
 	QRoseEngine.Core

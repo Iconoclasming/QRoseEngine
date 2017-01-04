@@ -27,7 +27,7 @@ namespace QRose
 			}
 			else
 			{
-				Ptr<Manager<TComponent>> componentsManager = Managed<Manager<TComponent>>();
+				Ptr<Manager<TComponent>> componentsManager = NewManaged<Manager<TComponent>>();
 				componentsManagers.push_back(std::make_pair(TComponent::Type, componentsManager));
 				return componentsManager;
 			}

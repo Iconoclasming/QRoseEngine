@@ -1,11 +1,12 @@
 #pragma once
 
+#include <QRoseEngine.Graphics/Graphics.hpp>
 #include <QRoseEngine.Graphics/GraphicsDesc.hpp>
 #include "OpenGLRender.hpp"
 
 namespace QRose
 {
-	class OpenGLGraphics
+	class OpenGLGraphics : public Graphics
 	{
 	public:
 		OpenGLGraphics();
@@ -13,8 +14,8 @@ namespace QRose
 
 		void Initialize(const GraphicsDesc& graphicsDesc);
 
-		Handle LoadMesh(const std::string& path);
-		Handle LoadBoxMesh(const Vector3& size);
+		Handle LoadMesh(const std::string& path) override;
+		Handle CreateBoxMesh(const Vector3& size) override;
 
 		Ptr<OpenGLRender> GetRender() const;
 		GLFWwindow* GetWindow() const;

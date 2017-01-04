@@ -4,7 +4,8 @@ set(QROSEENGINE_GRAPHICS_HEADERS
 	../../include/QRoseEngine.Graphics/GraphicsDesc.hpp
 	../../include/QRoseEngine.Graphics/Render.hpp
 	../../include/QRoseEngine.Graphics/RenderSystem.hpp
-	../../include/QRoseEngine.Graphics/WindowDesc.hpp)
+	../../include/QRoseEngine.Graphics/WindowDesc.hpp
+	../../include/QRoseEngine.Graphics/Graphics.hpp)
 set(QROSEENGINE_GRAPHICS_COMPONENTS_HEADERS
 	../../include/QRoseEngine.Graphics/Components/MeshComponent.hpp)
 set(QROSEENGINE_GRAPHICS_SOURCES

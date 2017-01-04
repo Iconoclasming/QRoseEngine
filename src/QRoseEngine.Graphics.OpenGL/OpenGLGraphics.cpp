@@ -36,9 +36,9 @@ void OpenGLGraphics::Initialize(const GraphicsDesc& graphicsDesc)
 	glfwGetFramebufferSize(pWindow, &width, &height);
 	glViewport(0, 0, width, height);
 
-	pResourcesManager = Managed<OpenGLResourcesManager>();
+	pResourcesManager = NewManaged<OpenGLResourcesManager>();
 	pResourcesManager->LoadDefaultShaderProgram();
-	pRender = Managed<OpenGLRender>(pResourcesManager, pWindow);
+	pRender = NewManaged<OpenGLRender>(pResourcesManager, pWindow);
 	pRender->SetClearColor(graphicsDesc.backgroundColor);
 }
 
@@ -47,7 +47,7 @@ Handle OpenGLGraphics::LoadMesh(const std::string& path)
 	return pResourcesManager->LoadMesh(path);
 }
 
-Handle OpenGLGraphics::LoadBoxMesh(const Vector3& size)
+Handle OpenGLGraphics::CreateBoxMesh(const Vector3& size)
 {
 	return pResourcesManager->LoadBoxMesh(size);
 }
