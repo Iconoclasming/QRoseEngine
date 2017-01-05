@@ -25,6 +25,8 @@ namespace QRose
 
 		const float* GetArray() const;
 
+		static Matrix4x4 Projection(float fov, float aspect, float nearPlane, float farPlane);
+
 	private:
 #ifdef QROSEENGINE_USE_OPENGL_MATHEMATICS
 		Matrix4x4(glm::mat4& mat4);

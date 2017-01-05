@@ -15,7 +15,8 @@ namespace QRose
 
 		virtual void ClearView() abstract;
 		virtual void BeginDrawing() abstract;
-		virtual void DrawMesh(Handle meshId, const Matrix4x4& transformation) abstract;
+		virtual void SetViewMatrix(const Matrix4x4& viewMatrix) abstract;
+		virtual void DrawMesh(Handle meshId, const Matrix4x4& modelMatrix) abstract;
 		virtual void Present() abstract;
 
 		virtual Color GetClearColor() abstract;

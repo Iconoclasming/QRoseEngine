@@ -53,3 +53,8 @@ const float* Matrix4x4::GetArray() const
 {
 	return glm::value_ptr(mat4);
 }
+
+Matrix4x4 Matrix4x4::Projection(float fov, float aspect, float nearPlane, float farPlane)
+{
+	return glm::perspective(fov, aspect, nearPlane, farPlane);
+}

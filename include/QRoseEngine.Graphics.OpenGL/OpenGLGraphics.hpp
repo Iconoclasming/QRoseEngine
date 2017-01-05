@@ -26,3 +26,7 @@ namespace QRose
 		GLFWwindow* pWindow;
 	};
 }
+
+// TODO: preprocessor flag to define coordinate system:
+// QRE_GRAPHICS_AXES_X_RIGHT_Y_UP_Z_BACKWARD - opengl
+// QRE_GRAPHICS_AXES_X_RIGHT_Y_UP_Z_FORWARD - directx

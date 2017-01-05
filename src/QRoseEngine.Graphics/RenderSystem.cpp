@@ -27,6 +27,9 @@ void RenderSystem::Update(double millisecondsElapsed)
 	render->ClearView();
 	render->BeginDrawing();
 
+	Matrix4x4 viewMatrix;
+	viewMatrix = viewMatrix.Translate(Vector3(0.5f, 0.0f, -3.0f));
+
 	Ptr<Manager<MeshComponent>> meshComponentsManager = ecs->GetManager<MeshComponent>();
 	const std::vector<std::pair<Handle, MeshComponent>>& entitiesWithMeshes = meshComponentsManager->GetAllComponents();
 	std::vector<std::tuple<MeshComponent, TransformationComponent>> toDraw;
@@ -40,15 +43,16 @@ void RenderSystem::Update(double millisecondsElapsed)
 				transformComponentsManager->GetComponent(entityWithMesh.first)));
 		}
 	}
+	render->SetViewMatrix(viewMatrix);
 	for (const auto& toDrawTuple : toDraw)
 	{
 		const MeshComponent& meshComponent = std::get<0>(toDrawTuple);
 		const TransformationComponent& transform = std::get<1>(toDrawTuple);
-		Matrix4x4 transformationMatrix;
-		transformationMatrix = transformationMatrix.Translate(transform.position);
-		transformationMatrix = transformationMatrix.Rotate(transform.rotation);
-		transformationMatrix = transformationMatrix.Scale(transform.scale);
-		render->DrawMesh(meshComponent.meshId, transformationMatrix);
+		Matrix4x4 modelMatrix;
+		modelMatrix = modelMatrix.Translate(transform.position);
+		modelMatrix = modelMatrix.Rotate(transform.rotation);
+		modelMatrix = modelMatrix.Scale(transform.scale);
+		render->DrawMesh(meshComponent.meshId, modelMatrix);
 	}
 
 	render->Present();

@@ -2,9 +2,15 @@
 
 using namespace QRose;
 
-OpenGLRender::OpenGLRender(Ptr<OpenGLResourcesManager> pResourcesManager, GLFWwindow* pWindow) : pResourcesManager(pResourcesManager),
+OpenGLRender::OpenGLRender(Ptr<OpenGLResourcesManager> pResourcesManager, GLFWwindow* pWindow)
+	: pResourcesManager(pResourcesManager),
 	pWindow(pWindow)
 {
+	int windowWidth;
+	int windowHeight;
+	glfwGetWindowSize(pWindow, &windowWidth, &windowHeight);
+	projectionMatrix = Matrix4x4::Projection(45.0f, (float)windowWidth / windowHeight, 0.1f, 100.0f);
+	glEnable(GL_DEPTH_TEST);
 }
 
 OpenGLRender::~OpenGLRender()
@@ -14,20 +20,24 @@ OpenGLRender::~OpenGLRender()
 void OpenGLRender::ClearView()
 {
 	glClearColor(clearColor.GetRed(), clearColor.GetGreen(), clearColor.GetBlue(), clearColor.GetAlpha());
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void OpenGLRender::BeginDrawing()
 {
 }
 
-void OpenGLRender::DrawMesh(Handle meshId, const Matrix4x4& transformation)
+void OpenGLRender::DrawMesh(Handle meshId, const Matrix4x4& modelMatrix)
 {
 	GLuint meshVAO = pResourcesManager->GetMeshVertexArrayObject(meshId);
 	GLuint shaderProgram = pResourcesManager->GetDefaultShaderProgram();
 	glUseProgram(shaderProgram);
-	GLuint transformLoc = glGetUniformLocation(shaderProgram, "transform");
-	glUniformMatrix4fv(transformLoc, 1, GL_FALSE, transformation.GetArray());
+	GLuint modelLoc = glGetUniformLocation(shaderProgram, "model");
+	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, modelMatrix.GetArray());
+	GLuint viewLoc = glGetUniformLocation(shaderProgram, "view");
+	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, viewMatrix.GetArray());
+	GLuint projectionLoc = glGetUniformLocation(shaderProgram, "projection");
+	glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, projectionMatrix.GetArray());	// TODO: prepare array before draw
 	glBindVertexArray(meshVAO);
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 	glUseProgram(0);
@@ -47,4 +57,9 @@ Color OpenGLRender::GetClearColor()
 void OpenGLRender::SetClearColor(const Color& color)
 {
 	clearColor = color;
+}
+
+void OpenGLRender::SetViewMatrix(const Matrix4x4& viewMatrix)
+{
+	this->viewMatrix = viewMatrix;
 }

@@ -15,7 +15,8 @@ namespace QRose
 
 		void ClearView() override;
 		void BeginDrawing() override;
-		void DrawMesh(Handle meshId, const Matrix4x4& transformation) override;
+		void SetViewMatrix(const Matrix4x4 & viewMatrix) override;
+		void DrawMesh(Handle meshId, const Matrix4x4& modelMatrix) override;
 		void Present() override;
 		Color GetClearColor() override;
 		void SetClearColor(const Color& color) override;
@@ -25,5 +26,7 @@ namespace QRose
 		GLFWwindow* pWindow;
 
 		Color clearColor;
+		Matrix4x4 projectionMatrix;
+		Matrix4x4 viewMatrix;
 	};
 }
