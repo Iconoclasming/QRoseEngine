@@ -2,7 +2,10 @@
 
 #include <vector>
 #include <QRoseEngine.Core/System.hpp>
-#include <QRoseEngine.Core/EntitiesComponentsService.hpp>
+#include <QRoseEngine.Core/ManagedPtr.hpp>
+#include <QRoseEngine.Core/Manager.hpp>
+#include <QRoseEngine.Core/Components/TransformationComponent.hpp>
+#include "Components/MeshComponent.hpp"
 #include "Render.hpp"
 
 namespace QRose
@@ -10,13 +13,15 @@ namespace QRose
 	class RenderSystem : public System
 	{
 	public:
-		RenderSystem(Ptr<Render> render, Ptr<EntitiesComponentsService> ecs);
+		RenderSystem(Ptr<Render> pRender, Ptr<Manager<TransformationComponent>> pTransformationComponentManager,
+			Ptr<Manager<MeshComponent>> pMeshComponentManager);
 		virtual ~RenderSystem();
 
 		void Update(double millisecondsElapsed) override;
 
 	private:
-		Ptr<Render> render;
-		Ptr<EntitiesComponentsService> ecs;
+		Ptr<Render> pRender;
+		Ptr<Manager<TransformationComponent>> pTransformationComponentManager;
+		Ptr<Manager<MeshComponent>> pMeshComponentManager;
 	};
 }

@@ -40,6 +40,7 @@ include_directories(include)
 add_subdirectory(src/QRoseEngine.Core)
 add_subdirectory(src/QRoseEngine.Graphics)
 add_subdirectory(src/QRoseEngine.Graphics.OpenGL)
+add_subdirectory(src/QRoseEngine.Demo.Application)
 add_subdirectory(src/QRoseEngine.Demo.Game)
 add_subdirectory(src/QRoseEngine.NN)
 
@@ -63,11 +64,12 @@ if(UNIX)
 endif(UNIX)
 
 # Create executables
-add_executable(QRoseEngine.Demo src/QRoseEngine.Demo/MainWin32.cpp)
+add_executable(QRoseEngine.Demo	src/QRoseEngine.Demo/MainWin32.cpp)
 add_executable(QRoseEngine.NNDemo src/QRoseEngine.Demo/NeuralNetworkDemo.cpp)
 
 # Link all libraries against all executables
 target_link_libraries(QRoseEngine.Demo
+	QRoseEngine.Demo.Application
 	QRoseEngine.Demo.Game
 	QRoseEngine.Graphics.OpenGL
 	QRoseEngine.Graphics

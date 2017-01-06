@@ -2,18 +2,18 @@
 
 #include <vector>
 #include <algorithm>
-#include "ManagedPtr.hpp"
-#include "Manager.hpp"
-#include "Handle.hpp"
+#include <QRoseEngine.Core/ManagedPtr.hpp>
+#include <QRoseEngine.Core/Manager.hpp>
+#include <QRoseEngine.Core/EntitiesService.hpp>
 
 namespace QRose
 {
-	class EntitiesComponentsService
+	class EntitiesComponentsService : public EntitiesService
 	{
 	public:
 		EntitiesComponentsService();
 		~EntitiesComponentsService();
-
+		
 		template<typename TComponent>
 		Ptr<Manager<TComponent>> GetManager()
 		{
@@ -33,9 +33,10 @@ namespace QRose
 			}
 		}
 
-		Handle CreateEntity();
+		Handle CreateEntity() override;
 		
 	private:
 		std::vector<std::pair<Uuid, Ptr<void>>> componentsManagers;
+		// TODO: components managers are known at compile time and not stored in collection
 	};
 }

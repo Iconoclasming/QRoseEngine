@@ -12,7 +12,7 @@ set(QROSEENGINE_CORE_HEADERS
 	../../include/QRoseEngine.Core/Vector.hpp
 	../../include/QRoseEngine.Core/Vector3.hpp
 	../../include/QRoseEngine.Core/Vector4.hpp
-	../../include/QRoseEngine.Core/EntitiesComponentsService.hpp
+	../../include/QRoseEngine.Core/EntitiesService.hpp
 	../../include/QRoseEngine.Core/Manager.hpp
 	../../include/QRoseEngine.Core/System.hpp
 	../../include/QRoseEngine.Core/ManagedPtr.hpp
@@ -31,7 +31,6 @@ set(QROSEENGINE_CORE_SOURCES
 	Streaming.cpp
 	Vector3.cpp
 	Vector4.cpp
-	EntitiesComponentsService.cpp
 	Matrix.cpp
 	Matrix4x4.cpp)
 set(QROSEENGINE_CORE_COMPONENTS_SOURCES

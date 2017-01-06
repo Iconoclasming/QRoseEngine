@@ -5,16 +5,22 @@
 
 using namespace QRose;
 
-RenderSystem::RenderSystem(Ptr<Render> pRender, Ptr<EntitiesComponentsService> pEntitiesComponentsService)
-	: render(pRender), ecs(pEntitiesComponentsService)
+RenderSystem::RenderSystem(Ptr<Render> pRender, Ptr<Manager<TransformationComponent>> pTransformationComponentManager,
+	Ptr<Manager<MeshComponent>> pMeshComponentManager)
+	: pRender(pRender), pTransformationComponentManager(pTransformationComponentManager),
+	pMeshComponentManager(pMeshComponentManager)
 {
 	if(pRender == nullptr)
 	{
 		throw std::invalid_argument("pRender == nullptr");
 	}
-	if(pEntitiesComponentsService == nullptr)
+	if(pTransformationComponentManager == nullptr)
 	{
-		throw std::invalid_argument("pEntitiesComponentsService == nullptr");
+		throw std::invalid_argument("pTransformationComponentManager == nullptr");
+	}
+	if (pMeshComponentManager == nullptr)
+	{
+		throw std::invalid_argument("pMeshComponentManager == nullptr");
 	}
 }
 
@@ -24,26 +30,24 @@ RenderSystem::~RenderSystem()
 
 void RenderSystem::Update(double millisecondsElapsed)
 {
-	render->ClearView();
-	render->BeginDrawing();
+	pRender->ClearView();
+	pRender->BeginDrawing();
 
 	Matrix4x4 viewMatrix;
 	viewMatrix = viewMatrix.Translate(Vector3(0.5f, 0.0f, -3.0f));
 
-	Ptr<Manager<MeshComponent>> meshComponentsManager = ecs->GetManager<MeshComponent>();
-	const std::vector<std::pair<Handle, MeshComponent>>& entitiesWithMeshes = meshComponentsManager->GetAllComponents();
+	const std::vector<std::pair<Handle, MeshComponent>>& entitiesWithMeshes = pMeshComponentManager->GetAllComponents();
 	std::vector<std::tuple<MeshComponent, TransformationComponent>> toDraw;
 	toDraw.reserve(entitiesWithMeshes.size());
-	Ptr<Manager<TransformationComponent>> transformComponentsManager = ecs->GetManager<TransformationComponent>();
 	for (auto& entityWithMesh : entitiesWithMeshes)
 	{
-		if (transformComponentsManager->Contains(entityWithMesh.first))
+		if (pTransformationComponentManager->Contains(entityWithMesh.first))
 		{
 			toDraw.push_back(std::make_tuple(entityWithMesh.second,
-				transformComponentsManager->GetComponent(entityWithMesh.first)));
+				pTransformationComponentManager->GetComponent(entityWithMesh.first)));
 		}
 	}
-	render->SetViewMatrix(viewMatrix);
+	pRender->SetViewMatrix(viewMatrix);
 	for (const auto& toDrawTuple : toDraw)
 	{
 		const MeshComponent& meshComponent = std::get<0>(toDrawTuple);
@@ -52,8 +56,8 @@ void RenderSystem::Update(double millisecondsElapsed)
 		modelMatrix = modelMatrix.Translate(transform.position);
 		modelMatrix = modelMatrix.Rotate(transform.rotation);
 		modelMatrix = modelMatrix.Scale(transform.scale);
-		render->DrawMesh(meshComponent.meshId, modelMatrix);
+		pRender->DrawMesh(meshComponent.meshId, modelMatrix);
 	}
 
-	render->Present();
+	pRender->Present();
 }

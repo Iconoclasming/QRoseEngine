@@ -1,8 +1,9 @@
 #include <fstream>
+#include <json/json.hpp>
 #include <QRoseEngine.Graphics.OpenGL/OpenGLGraphics.hpp>
 #include <QRoseEngine.Graphics/RenderSystem.hpp>
 #include <QRoseEngine.Demo.Game/DemoGame.hpp>
-#include <json/json.hpp>
+#include <QRoseEngine.Demo.Application/EntitiesComponentsService.hpp>
 
 using namespace QRose;
 
@@ -21,8 +22,12 @@ int main()
 	Config config = LoadConfig("config.json");
 	Ptr<OpenGLGraphics> pGraphics = NewManaged<OpenGLGraphics>();
 	pGraphics->Initialize(graphicsDesc, config.assetsRoot);
-	Ptr<RenderSystem> pRenderSystem = NewManaged<RenderSystem>(pGraphics->GetRender(), pEntitiesComponentsService);
-	Ptr<DemoGame> pGame = NewManaged<DemoGame>(pEntitiesComponentsService, pGraphics);
+	Ptr<RenderSystem> pRenderSystem = NewManaged<RenderSystem>(pGraphics->GetRender(), 
+		pEntitiesComponentsService->GetManager<TransformationComponent>(),
+		pEntitiesComponentsService->GetManager<MeshComponent>());
+	Ptr<DemoGame> pGame = NewManaged<DemoGame>(pEntitiesComponentsService, pGraphics,
+		pEntitiesComponentsService->GetManager<TransformationComponent>(),
+		pEntitiesComponentsService->GetManager<MeshComponent>());
 
 	pGame->Load();
 
