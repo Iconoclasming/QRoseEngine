@@ -3,7 +3,9 @@
 #include <QRoseEngine.Graphics.OpenGL/OpenGLGraphics.hpp>
 #include <QRoseEngine.Graphics/RenderSystem.hpp>
 #include <QRoseEngine.Demo.Game/DemoGame.hpp>
+#include <QRoseEngine.Demo.Game/MovementSystem.hpp>
 #include <QRoseEngine.Demo.Application/EntitiesComponentsService.hpp>
+#include <QRoseEngine.Demo.Application/GLFWInput.hpp>
 
 using namespace QRose;
 
@@ -27,7 +29,11 @@ int main()
 		pEntitiesComponentsService->GetManager<MeshComponent>());
 	Ptr<DemoGame> pGame = NewManaged<DemoGame>(pEntitiesComponentsService, pGraphics,
 		pEntitiesComponentsService->GetManager<TransformationComponent>(),
-		pEntitiesComponentsService->GetManager<MeshComponent>());
+		pEntitiesComponentsService->GetManager<MeshComponent>(),
+		pEntitiesComponentsService->GetManager<MovableComponent>());
+	Ptr<Input> pGLFWInput = NewManaged<GLFWInput>(pGraphics->GetWindow());
+	MovementSystem movementSystem(pGLFWInput, pEntitiesComponentsService->GetManager<MovableComponent>(),
+		pEntitiesComponentsService->GetManager<TransformationComponent>());
 
 	pGame->Load();
 
@@ -36,6 +42,7 @@ int main()
 		glfwPollEvents();
 		pGame->Update(0.0);
 		pRenderSystem->Update(0.0);
+		movementSystem.Update(0.0);
 	}
 	glfwTerminate();
 	return 0;

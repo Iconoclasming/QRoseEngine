@@ -9,9 +9,11 @@ float angle = 0.78539f;
 
 DemoGame::DemoGame(Ptr<EntitiesService> pEntitiesService, Ptr<Graphics> pGraphics,
 	Ptr<Manager<TransformationComponent>> pTransformationComponentManager,
-	Ptr<Manager<MeshComponent>> pMeshComponentManager)
+	Ptr<Manager<MeshComponent>> pMeshComponentManager,
+	Ptr<Manager<MovableComponent>> pMovableComponentManager)
 	: pEntitiesService(pEntitiesService), pGraphics(pGraphics),
-	pTransformationComponentManager(pTransformationComponentManager), pMeshComponentManager(pMeshComponentManager)
+	pTransformationComponentManager(pTransformationComponentManager), pMeshComponentManager(pMeshComponentManager),
+	pMovableComponentManager(pMovableComponentManager)
 {
 }
 
@@ -29,6 +31,7 @@ void DemoGame::Load()
 	entity1Transform.rotation = Vector4::FromAxisAngle(Vector3(0.0f, 0.0f, 1.0f), angle);
 	entity1Transform.scale = Vector3(1.5f, 0.5f, 0.5f);
 	pMeshComponentManager->CreateComponent(entity1, boxMeshId);
+	pMovableComponentManager->CreateComponent(entity1, 1.0f, 1.0f, 1.0f, 1.0f);
 }
 
 void DemoGame::Update(double millisecondsElapsed)
