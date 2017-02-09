@@ -4,7 +4,9 @@ namespace QRose
 {
 	struct MovementData
 	{
-		float foreAft;
-		float rightLeft;
+		float forward;
+		float backward;
+		float right;
+		float left;
 	};
 }

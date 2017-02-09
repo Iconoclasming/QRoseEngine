@@ -6,6 +6,7 @@
 #include <QRoseEngine.Core/Manager.hpp>
 #include <QRoseEngine.Core/Components/TransformationComponent.hpp>
 #include "Components/MeshComponent.hpp"
+#include "Components/CameraComponent.hpp"
 #include "Render.hpp"
 
 namespace QRose
@@ -14,7 +15,7 @@ namespace QRose
 	{
 	public:
 		RenderSystem(Ptr<Render> pRender, Ptr<Manager<TransformationComponent>> pTransformationComponentManager,
-			Ptr<Manager<MeshComponent>> pMeshComponentManager);
+			Ptr<Manager<MeshComponent>> pMeshComponentManager, Ptr<Manager<CameraComponent>> pCameraComponentManager);
 		virtual ~RenderSystem();
 
 		void Update(double millisecondsElapsed) override;
@@ -23,5 +24,6 @@ namespace QRose
 		Ptr<Render> pRender;
 		Ptr<Manager<TransformationComponent>> pTransformationComponentManager;
 		Ptr<Manager<MeshComponent>> pMeshComponentManager;
+		Ptr<Manager<CameraComponent>> pCameraComponentManager;
 	};
 }

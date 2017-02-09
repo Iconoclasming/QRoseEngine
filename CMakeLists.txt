@@ -21,10 +21,6 @@ add_subdirectory(thirdparty/glfw)
 add_definitions(-DGLEW_STATIC)
 include_directories(thirdparty/glew/include/)
 
-# Prepare Eigen and LBFGS++ libs
-include_directories(thirdparty/Eigen/)
-include_directories(thirdparty/LBFGSpp/include/)
-
 # Prepare GLM (OpenGL Maths) library
 include_directories(thirdparty/glm/include)
 
@@ -42,7 +38,6 @@ add_subdirectory(src/QRoseEngine.Graphics)
 add_subdirectory(src/QRoseEngine.Graphics.OpenGL)
 add_subdirectory(src/QRoseEngine.Demo.Application)
 add_subdirectory(src/QRoseEngine.Demo.Game)
-add_subdirectory(src/QRoseEngine.NN)
 
 # Prepare UUID library
 if(WIN32)
@@ -65,7 +60,6 @@ endif(UNIX)
 
 # Create executables
 add_executable(QRoseEngine.Demo	src/QRoseEngine.Demo/MainWin32.cpp)
-add_executable(QRoseEngine.NNDemo src/QRoseEngine.Demo/NeuralNetworkDemo.cpp)
 
 # Link all libraries against all executables
 target_link_libraries(QRoseEngine.Demo
@@ -77,7 +71,3 @@ target_link_libraries(QRoseEngine.Demo
 	glfw
 	${UUID_LIBRARY}
 	${OPENGL_AND_UTILS_LIBRARIES})
-target_link_libraries(QRoseEngine.NNDemo
-	QRoseEngine.Core
-	QRoseEngine.NN
-	${UUID_LIBRARY})

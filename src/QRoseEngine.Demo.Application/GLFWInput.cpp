@@ -25,8 +25,10 @@ GLFWInput::~GLFWInput()
 MovementData GLFWInput::GetMovementData() const
 {
 	MovementData movementData;
-	movementData.foreAft = g_WKeyPressed * foreAftMovementSpeed - g_SKeyPressed * foreAftMovementSpeed;
-	movementData.rightLeft = g_DKeyPressed * rightLeftMovementSpeed - g_AKeyPressed * rightLeftMovementSpeed;
+	movementData.forward = g_WKeyPressed * foreAftMovementSpeed;
+	movementData.backward = g_SKeyPressed * foreAftMovementSpeed;
+	movementData.right = g_DKeyPressed * rightLeftMovementSpeed;
+	movementData.left = g_AKeyPressed * rightLeftMovementSpeed;
 	return movementData;
 }
 

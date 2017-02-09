@@ -19,7 +19,12 @@ namespace QRose
 		float GetY() const;
 		float GetZ() const;
 
-		Vector3& operator+=(const Vector3& rhs);
+		Vector3 operator+=(const Vector3& rhs);
+		Vector3 operator-=(const Vector3& rhs);
+		Vector3 operator*(float scalar) const;
+
+		Vector3 Normalize() const;
+		Vector3 Cross(const Vector3& rhs) const;
 
 	private:
 #ifdef QROSEENGINE_USE_OPENGL_MATHEMATICS
@@ -35,4 +40,5 @@ namespace QRose
 
 	std::ostream& operator<<(std::ostream& s, const Vector3& vector);
 	Vector3 operator >> (std::istream& s, Vector3& vector);
+	Vector3 operator*(float scalar, Vector3& rhs);
 }

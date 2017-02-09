@@ -8,6 +8,6 @@ namespace QRose
 		System() {}
 		virtual ~System() {}
 
-		virtual void Update(double millisecondsElapsed) abstract;
+		virtual void Update(double dt) abstract;
 	};
 }

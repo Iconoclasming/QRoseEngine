@@ -7,13 +7,8 @@ using namespace QRose;
 
 float angle = 0.78539f;
 
-DemoGame::DemoGame(Ptr<EntitiesService> pEntitiesService, Ptr<Graphics> pGraphics,
-	Ptr<Manager<TransformationComponent>> pTransformationComponentManager,
-	Ptr<Manager<MeshComponent>> pMeshComponentManager,
-	Ptr<Manager<MovableComponent>> pMovableComponentManager)
-	: pEntitiesService(pEntitiesService), pGraphics(pGraphics),
-	pTransformationComponentManager(pTransformationComponentManager), pMeshComponentManager(pMeshComponentManager),
-	pMovableComponentManager(pMovableComponentManager)
+DemoGame::DemoGame(Ptr<Graphics> pGraphics)
+	: pGraphics(pGraphics)
 {
 }
 
@@ -23,15 +18,26 @@ DemoGame::~DemoGame()
 
 void DemoGame::Load()
 {
+	pTransformationComponentManager = NewManaged<Manager<TransformationComponent>>();
+	pMeshComponentManager = NewManaged<Manager<MeshComponent>>();
+	pMovableComponentManager = NewManaged<Manager<MovableComponent>>();
+	pCameraComponentManager = NewManaged<Manager<CameraComponent>>();
+
 	Handle boxMeshId = pGraphics->CreateBoxMesh(Vector3(0.5f, 0.5f, 0.5f));
 
-	entity1 = pEntitiesService->CreateEntity();
+	entity1 = Handle();
 	TransformationComponent& entity1Transform = pTransformationComponentManager->CreateComponent(entity1);
 	entity1Transform.position = Vector3(0.5, 0.0, 0.0);
 	entity1Transform.rotation = Vector4::FromAxisAngle(Vector3(0.0f, 0.0f, 1.0f), angle);
 	entity1Transform.scale = Vector3(1.5f, 0.5f, 0.5f);
 	pMeshComponentManager->CreateComponent(entity1, boxMeshId);
-	pMovableComponentManager->CreateComponent(entity1, 1.0f, 1.0f, 1.0f, 1.0f);
+	pMovableComponentManager->CreateComponent(entity1, 1.0f, 1.0f, 1.0f, 1.0f, Vector3(0.0f, 1.0f, 0.0f),
+		Vector3(0.0f, 0.0f, -1.0f));
+
+	cameraEntity = Handle();
+	pCameraComponentManager->CreateComponent(cameraEntity, 45.0f);	// TODO: handle flipped z-axis (OpenGL vs DirectX) - and not here
+	TransformationComponent& cameraTransform = pTransformationComponentManager->CreateComponent(cameraEntity);
+	cameraTransform.position = Vector3(0.5f, 0.0f, -3.0f);
 }
 
 void DemoGame::Update(double millisecondsElapsed)

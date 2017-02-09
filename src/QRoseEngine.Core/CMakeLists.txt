@@ -12,16 +12,13 @@ set(QROSEENGINE_CORE_HEADERS
 	../../include/QRoseEngine.Core/Vector.hpp
 	../../include/QRoseEngine.Core/Vector3.hpp
 	../../include/QRoseEngine.Core/Vector4.hpp
-	../../include/QRoseEngine.Core/EntitiesService.hpp
 	../../include/QRoseEngine.Core/Manager.hpp
 	../../include/QRoseEngine.Core/System.hpp
 	../../include/QRoseEngine.Core/ManagedPtr.hpp
 	../../include/QRoseEngine.Core/Delegate.hpp
 	../../include/QRoseEngine.Core/Event.hpp
 	../../include/QRoseEngine.Core/EventInvoker.hpp
-	../../include/QRoseEngine.Core/Matrix.hpp
-	../../include/QRoseEngine.Core/Matrix4x4.hpp
-	../../include/QRoseEngine.Core/RNDGen.hpp)
+	../../include/QRoseEngine.Core/Matrix4x4.hpp)
 set(QROSEENGINE_CORE_COMPONENTS_HEADERS
 	../../include/QRoseEngine.Core/Components/TransformationComponent.hpp)
 set(QROSEENGINE_CORE_SOURCES
@@ -31,7 +28,6 @@ set(QROSEENGINE_CORE_SOURCES
 	Streaming.cpp
 	Vector3.cpp
 	Vector4.cpp
-	Matrix.cpp
 	Matrix4x4.cpp)
 set(QROSEENGINE_CORE_COMPONENTS_SOURCES
 	Components/TransformationComponent.cpp)

@@ -4,7 +4,6 @@
 #include <QRoseEngine.Graphics/RenderSystem.hpp>
 #include <QRoseEngine.Demo.Game/DemoGame.hpp>
 #include <QRoseEngine.Demo.Game/MovementSystem.hpp>
-#include <QRoseEngine.Demo.Application/EntitiesComponentsService.hpp>
 #include <QRoseEngine.Demo.Application/GLFWInput.hpp>
 
 using namespace QRose;
@@ -18,31 +17,33 @@ Config LoadConfig(const std::string& pathToConfig);
 
 int main()
 {
-	Ptr<EntitiesComponentsService> pEntitiesComponentsService = NewManaged<EntitiesComponentsService>();
 	WindowDesc windowDesc("Awesome Sample Game", Size<int>(800, 600));
 	GraphicsDesc graphicsDesc(windowDesc, Color::Aqua);
 	Config config = LoadConfig("config.json");
 	Ptr<OpenGLGraphics> pGraphics = NewManaged<OpenGLGraphics>();
 	pGraphics->Initialize(graphicsDesc, config.assetsRoot);
-	Ptr<RenderSystem> pRenderSystem = NewManaged<RenderSystem>(pGraphics->GetRender(), 
-		pEntitiesComponentsService->GetManager<TransformationComponent>(),
-		pEntitiesComponentsService->GetManager<MeshComponent>());
-	Ptr<DemoGame> pGame = NewManaged<DemoGame>(pEntitiesComponentsService, pGraphics,
-		pEntitiesComponentsService->GetManager<TransformationComponent>(),
-		pEntitiesComponentsService->GetManager<MeshComponent>(),
-		pEntitiesComponentsService->GetManager<MovableComponent>());
-	Ptr<Input> pGLFWInput = NewManaged<GLFWInput>(pGraphics->GetWindow());
-	MovementSystem movementSystem(pGLFWInput, pEntitiesComponentsService->GetManager<MovableComponent>(),
-		pEntitiesComponentsService->GetManager<TransformationComponent>());
-
+	Ptr<DemoGame> pGame = NewManaged<DemoGame>(pGraphics);
 	pGame->Load();
+	Ptr<RenderSystem> pRenderSystem = NewManaged<RenderSystem>(pGraphics->GetRender(), 
+		pGame->GetTransformationComponentManager(),
+		pGame->GetMeshComponentManager(), pGame->GetCameraComponentManager());
+	Ptr<Input> pGLFWInput = NewManaged<GLFWInput>(pGraphics->GetWindow());
+	MovementSystem movementSystem(pGLFWInput, pGame->GetMovableComponentManager(),
+		pGame->GetTransformationComponentManager());
 
+
+	double lastFrame = glfwGetTime();
+	double currentFrame = lastFrame;
+	double dt = 0.0f;
 	while (!glfwWindowShouldClose(pGraphics->GetWindow()))
 	{
+		currentFrame = glfwGetTime();
+		dt = currentFrame - lastFrame;
+		lastFrame = currentFrame;
 		glfwPollEvents();
-		pGame->Update(0.0);
-		pRenderSystem->Update(0.0);
-		movementSystem.Update(0.0);
+		pGame->Update(dt);
+		pRenderSystem->Update(dt);
+		movementSystem.Update(dt);
 	}
 	glfwTerminate();
 	return 0;

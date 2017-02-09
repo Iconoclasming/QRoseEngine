@@ -33,11 +33,11 @@ void OpenGLRender::DrawMesh(Handle meshId, const Matrix4x4& modelMatrix)
 	GLuint shaderProgram = pResourcesManager->GetDefaultShaderProgram();
 	glUseProgram(shaderProgram);
 	GLuint modelLoc = glGetUniformLocation(shaderProgram, "model");
-	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, modelMatrix.GetArray());
 	GLuint viewLoc = glGetUniformLocation(shaderProgram, "view");
-	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, viewMatrix.GetArray());
 	GLuint projectionLoc = glGetUniformLocation(shaderProgram, "projection");
-	glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, projectionMatrix.GetArray());	// TODO: prepare array before draw
+	glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, projectionMatrix.GetArray());
+	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, modelMatrix.GetArray());
+	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, viewMatrix.GetArray());
 	glBindVertexArray(meshVAO);
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 	glUseProgram(0);

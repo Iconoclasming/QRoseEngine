@@ -6,35 +6,41 @@
 using namespace QRose;
 
 RenderSystem::RenderSystem(Ptr<Render> pRender, Ptr<Manager<TransformationComponent>> pTransformationComponentManager,
-	Ptr<Manager<MeshComponent>> pMeshComponentManager)
+	Ptr<Manager<MeshComponent>> pMeshComponentManager, Ptr<Manager<CameraComponent>> pCameraComponentManager)
 	: pRender(pRender), pTransformationComponentManager(pTransformationComponentManager),
-	pMeshComponentManager(pMeshComponentManager)
+	pMeshComponentManager(pMeshComponentManager), pCameraComponentManager(pCameraComponentManager)
 {
-	if(pRender == nullptr)
-	{
-		throw std::invalid_argument("pRender == nullptr");
-	}
-	if(pTransformationComponentManager == nullptr)
-	{
+	if(pRender == nullptr) throw std::invalid_argument("pRender == nullptr");
+	if(pTransformationComponentManager == nullptr) 
 		throw std::invalid_argument("pTransformationComponentManager == nullptr");
-	}
-	if (pMeshComponentManager == nullptr)
-	{
-		throw std::invalid_argument("pMeshComponentManager == nullptr");
-	}
+	if (pMeshComponentManager == nullptr) throw std::invalid_argument("pMeshComponentManager == nullptr");
+	if (pCameraComponentManager == nullptr) throw std::invalid_argument("pCameraComponentManager == nullptr");
 }
 
 RenderSystem::~RenderSystem()
 {
 }
 
-void RenderSystem::Update(double millisecondsElapsed)
+void RenderSystem::Update(double dt)
 {
 	pRender->ClearView();
 	pRender->BeginDrawing();
 
-	Matrix4x4 viewMatrix;
-	viewMatrix = viewMatrix.Translate(Vector3(0.5f, 0.0f, -3.0f));
+	//Matrix4x4 viewMatrix;
+	//viewMatrix = viewMatrix.Translate(Vector3(0.5f, 0.0f, -3.0f));
+	//pRender->SetViewMatrix(viewMatrix);
+	if (pCameraComponentManager->ComponentsTotal() > 0)
+	{
+		// TODO: handle multiple cameras
+		std::pair<Handle, CameraComponent> camera = pCameraComponentManager->GetAllComponents()[0];
+		if (pTransformationComponentManager->Contains(camera.first))
+		{
+			TransformationComponent& cameraTransformationComponent = pTransformationComponentManager->GetComponent(camera.first);
+			Matrix4x4 viewMatrix;
+			viewMatrix = viewMatrix.Translate(cameraTransformationComponent.position);
+			pRender->SetViewMatrix(viewMatrix);
+		}
+	}
 
 	const std::vector<std::pair<Handle, MeshComponent>>& entitiesWithMeshes = pMeshComponentManager->GetAllComponents();
 	std::vector<std::tuple<MeshComponent, TransformationComponent>> toDraw;
@@ -47,7 +53,6 @@ void RenderSystem::Update(double millisecondsElapsed)
 				pTransformationComponentManager->GetComponent(entityWithMesh.first)));
 		}
 	}
-	pRender->SetViewMatrix(viewMatrix);
 	for (const auto& toDrawTuple : toDraw)
 	{
 		const MeshComponent& meshComponent = std::get<0>(toDrawTuple);

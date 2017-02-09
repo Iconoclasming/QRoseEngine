@@ -32,12 +32,32 @@ float Vector3::GetZ() const
 	return vec3.z;
 }
 
-Vector3& QRose::Vector3::operator+=(const Vector3 & rhs)
+Vector3 Vector3::operator+=(const Vector3 & rhs)
 {
 	vec3.x += rhs.GetX();
 	vec3.y += rhs.GetY();
 	vec3.z += rhs.GetZ();
 	return *this;
+}
+
+Vector3 Vector3::operator-=(const Vector3 & rhs)
+{
+	return this->vec3 - rhs.vec3;
+}
+
+Vector3 Vector3::operator*(float scalar) const
+{
+	return Vector3(scalar * vec3.x, scalar * vec3.y, scalar * vec3.z);
+}
+
+Vector3 Vector3::Normalize() const
+{
+	return glm::normalize(vec3);
+}
+
+Vector3 Vector3::Cross(const Vector3 & rhs) const
+{
+	return glm::cross(vec3, rhs.vec3);
 }
 
 void Vector3::Serialize(std::ostream& serializationStream) const
@@ -71,4 +91,9 @@ Vector3 QRose::operator>>(std::istream& s, Vector3& vector)
 	std::string y = results[2];
 	std::string z = results[3];
 	return Vector3(std::stod(x), std::stod(y), std::stod(z));
+}
+
+Vector3 QRose::operator*(float scalar, Vector3 & rhs)
+{
+	return rhs * scalar;
 }
