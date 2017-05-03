@@ -4,7 +4,7 @@
 #include <QRoseEngine.Graphics/RenderSystem.hpp>
 #include <QRoseEngine.Demo.Game/DemoGame.hpp>
 #include <QRoseEngine.Demo.Game/MovementSystem.hpp>
-#include <QRoseEngine.Demo.Application/GLFWInput.hpp>
+#include <QRoseEngine.Demo/GLFWInput.hpp>
 
 using namespace QRose;
 

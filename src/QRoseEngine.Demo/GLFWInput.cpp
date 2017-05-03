@@ -1,4 +1,4 @@
-#include <QRoseEngine.Demo.Application/GLFWInput.hpp>
+#include <QRoseEngine.Demo/GLFWInput.hpp>
 
 using namespace QRose;
 
