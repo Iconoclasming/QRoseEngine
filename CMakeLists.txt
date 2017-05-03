@@ -2,6 +2,13 @@ cmake_minimum_required(VERSION 3.5)
 
 project(QRoseEngine)
 
+# Copy all assets
+file(GLOB QROSEENGINE_DEMO_ASSETS_SHADERS_GLSL "assets/shaders/*.glsl")
+file(COPY ${QROSEENGINE_DEMO_ASSETS_SHADERS_GLSL} DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/${QROSE_BUILD_TYPE}/assets/shaders")
+
+# Add the config file as content in VS project
+file(COPY src/QRoseEngine.Demo/config.json DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/${QROSE_BUILD_TYPE})
+
 # We're gonna use C++11
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
@@ -26,6 +33,9 @@ include_directories(thirdparty/glm/include)
 
 # Prepare JSON library
 include_directories(thirdparty/json/include)
+
+# Prepare StructureOfArrays library
+include_directories(thirdparty/StructureOfArrays)
 
 # We are using GLM as our main mathematics library, so we set the flag
 add_definitions(-DQROSEENGINE_USE_OPENGL_MATHEMATICS=1)
