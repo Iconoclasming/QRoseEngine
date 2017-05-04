@@ -42,7 +42,10 @@ Vector3 Vector3::operator+=(const Vector3 & rhs)
 
 Vector3 Vector3::operator-=(const Vector3 & rhs)
 {
-	return this->vec3 - rhs.vec3;
+	vec3.x -= rhs.GetX();
+	vec3.y -= rhs.GetY();
+	vec3.z -= rhs.GetZ();
+	return *this;
 }
 
 Vector3 Vector3::operator*(float scalar) const

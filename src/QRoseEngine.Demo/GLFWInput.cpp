@@ -14,8 +14,8 @@ GLFWInput::GLFWInput(GLFWwindow* pWindow)
 {
 	glfwSetKeyCallback(pWindow, KeyCallback);
 	glfwSetCursorPosCallback(pWindow, CursorPositionCallback);
-	SetForeAftMovementSpeed(0.05f);
-	SetRightLeftMovementSpeed(0.05f);
+	SetForeAftMovementSpeed(0.0005f);
+	SetRightLeftMovementSpeed(0.0005f);
 }
 
 GLFWInput::~GLFWInput()

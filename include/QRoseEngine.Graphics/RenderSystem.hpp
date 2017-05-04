@@ -1,6 +1,5 @@
 #pragma once
 
-#include <vector>
 #include <QRoseEngine.Core/System.hpp>
 #include <QRoseEngine.Core/ManagedPtr.hpp>
 #include <QRoseEngine.Core/Manager.hpp>

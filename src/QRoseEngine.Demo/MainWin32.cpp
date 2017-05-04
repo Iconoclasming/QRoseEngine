@@ -22,16 +22,10 @@ int main()
 	Config config = LoadConfig("config.json");
 	Ptr<OpenGLGraphics> pGraphics = NewManaged<OpenGLGraphics>();
 	pGraphics->Initialize(graphicsDesc, config.assetsRoot);
-	Ptr<DemoGame> pGame = NewManaged<DemoGame>(pGraphics);
-	pGame->Load();
-	Ptr<RenderSystem> pRenderSystem = NewManaged<RenderSystem>(pGraphics->GetRender(), 
-		pGame->GetTransformationComponentManager(),
-		pGame->GetMeshComponentManager(), pGame->GetCameraComponentManager());
 	Ptr<Input> pGLFWInput = NewManaged<GLFWInput>(pGraphics->GetWindow());
-	MovementSystem movementSystem(pGLFWInput, pGame->GetMovableComponentManager(),
-		pGame->GetTransformationComponentManager());
-
-
+	Ptr<DemoGame> pGame = NewManaged<DemoGame>(pGraphics, pGraphics->GetRender(), pGLFWInput);
+	pGame->Load();
+	
 	double lastFrame = glfwGetTime();
 	double currentFrame = lastFrame;
 	double dt = 0.0f;
@@ -42,8 +36,6 @@ int main()
 		lastFrame = currentFrame;
 		glfwPollEvents();
 		pGame->Update(dt);
-		pRenderSystem->Update(dt);
-		movementSystem.Update(dt);
 	}
 	glfwTerminate();
 	return 0;
