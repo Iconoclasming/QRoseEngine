@@ -14,8 +14,8 @@ namespace QRose
 
 		void Initialize(const GraphicsDesc& graphicsDesc, const std::string& assetsDirectory);
 
-		Handle LoadMesh(const std::string& path) override;
-		Handle CreateBoxMesh(const Vector3& size) override;
+		MeshHandle LoadMesh(const std::string& path) override;
+		MeshHandle CreateBoxMesh(const Vector3& size) override;
 
 		Ptr<OpenGLRender> GetRender() const;
 		GLFWwindow* GetWindow() const;

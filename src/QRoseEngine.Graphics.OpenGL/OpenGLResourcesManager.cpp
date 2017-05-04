@@ -17,12 +17,12 @@ OpenGLResourcesManager::~OpenGLResourcesManager()
 	}
 }
 
-Uuid OpenGLResourcesManager::LoadMesh(const std::string& path)
+MeshHandle OpenGLResourcesManager::LoadMesh(const std::string& path)
 {
 	return Uuid::GenerateUuid();
 }
 
-Uuid OpenGLResourcesManager::LoadBoxMesh(const Vector3& size)
+MeshHandle OpenGLResourcesManager::LoadBoxMesh(const Vector3& size)
 {
 	float sizeX = size.GetX();
 	float sizeY = size.GetY();
@@ -153,7 +153,7 @@ void OpenGLResourcesManager::LoadDefaultShaderProgram(const std::string& pathToV
 	glDeleteShader(fragmentShader);
 }
 
-GLuint OpenGLResourcesManager::GetMeshVertexArrayObject(Handle meshId)
+GLuint OpenGLResourcesManager::GetMeshVertexArrayObject(MeshHandle meshId)
 {
 	if(meshesVertexArrayObjects.count(meshId) == 0)
 	{

@@ -22,9 +22,9 @@ void DemoGame::Load()
 	pMovementSystem = NewManaged<MovementSystem>(pInput, world.GetMovableComponentManager(),
 		world.GetTransformationComponentManager());
 
-	Handle boxMeshId = pGraphics->CreateBoxMesh(Vector3(0.5f, 0.5f, 0.5f));
+	EntityHandle boxMeshId = pGraphics->CreateBoxMesh(Vector3(0.5f, 0.5f, 0.5f));
 
-	entity1 = Handle();
+	entity1 = EntityHandle();
 	TransformationComponent& entity1Transform = world.GetTransformationComponentManager()->CreateComponent(entity1);
 	entity1Transform.position = Vector3(0.5, 0.0, 0.0);
 	entity1Transform.rotation = Vector4::FromAxisAngle(Vector3(0.0f, 0.0f, 1.0f), angle);
@@ -33,7 +33,7 @@ void DemoGame::Load()
 	world.GetMovableComponentManager()->CreateComponent(entity1, 1.0f, 1.0f, 1.0f, 1.0f, Vector3(0.0f, 0.0f, -1.0f),
 		Vector3(0.0f, 1.0f, 0.0f));
 
-	cameraEntity = Handle();
+	cameraEntity = EntityHandle();
 	world.GetCameraComponentManager()->CreateComponent(cameraEntity, 45.0f);	// TODO: handle flipped z-axis (OpenGL vs DirectX) - and not here
 	TransformationComponent& cameraTransform = world.GetTransformationComponentManager()->CreateComponent(cameraEntity);
 	cameraTransform.position = Vector3(0.5f, 0.0f, -3.0f);

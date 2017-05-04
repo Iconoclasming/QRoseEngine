@@ -27,7 +27,7 @@ void OpenGLRender::BeginDrawing()
 {
 }
 
-void OpenGLRender::DrawMesh(Handle meshId, const Matrix4x4& modelMatrix)
+void OpenGLRender::DrawMesh(EntityHandle meshId, const Matrix4x4& modelMatrix)
 {
 	GLuint meshVAO = pResourcesManager->GetMeshVertexArrayObject(meshId);
 	GLuint shaderProgram = pResourcesManager->GetDefaultShaderProgram();

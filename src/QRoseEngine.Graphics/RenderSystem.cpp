@@ -32,7 +32,7 @@ void RenderSystem::Update(double dt)
 	if (pCameraComponentManager->ComponentsTotal() > 0)
 	{
 		// TODO: handle multiple cameras
-		std::pair<Handle, CameraComponent> camera = pCameraComponentManager->GetAllComponents()[0];
+		std::pair<EntityHandle, CameraComponent> camera = pCameraComponentManager->GetAllComponents()[0];
 		if (pTransformationComponentManager->Contains(camera.first))
 		{
 			TransformationComponent& cameraTransformationComponent = pTransformationComponentManager->GetComponent(camera.first);
@@ -42,7 +42,7 @@ void RenderSystem::Update(double dt)
 		}
 	}
 
-	const std::vector<std::pair<Handle, MeshComponent>>& entitiesWithMeshes = pMeshComponentManager->GetAllComponents();
+	const std::vector<std::pair<EntityHandle, MeshComponent>>& entitiesWithMeshes = pMeshComponentManager->GetAllComponents();
 	std::vector<std::tuple<MeshComponent, TransformationComponent>> toDraw;
 	toDraw.reserve(entitiesWithMeshes.size());
 	for (auto& entityWithMesh : entitiesWithMeshes)

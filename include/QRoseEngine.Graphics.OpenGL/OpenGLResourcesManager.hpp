@@ -1,9 +1,9 @@
 #pragma once
 
-#include <string>
 #include <map>
 #include <GL/glew.h>
-#include <QRoseCore.hpp>
+#include <QRoseEngine.Core/Vector3.hpp>
+#include <QRoseEngine.Graphics/MeshHandle.hpp>
 
 namespace QRose
 {
@@ -13,16 +13,16 @@ namespace QRose
 		OpenGLResourcesManager();
 		~OpenGLResourcesManager();
 
-		Uuid LoadMesh(const std::string& path);
-		Uuid LoadBoxMesh(const Vector3& size);
+		MeshHandle LoadMesh(const std::string& path);
+		MeshHandle LoadBoxMesh(const Vector3& size);
 
 		void LoadDefaultShaderProgram(const std::string& pathToVertexShader, const std::string& pathToFragmentShader);
 		GLuint GetDefaultShaderProgram() const;
 
-		GLuint GetMeshVertexArrayObject(Handle meshId);
+		GLuint GetMeshVertexArrayObject(MeshHandle meshId);
 
 	private:
-		std::map<Handle, GLuint> meshesVertexArrayObjects;
+		std::map<MeshHandle, GLuint> meshesVertexArrayObjects;
 		GLuint defaultShaderProgram;
 	};
 }

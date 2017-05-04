@@ -5,7 +5,7 @@
 #include <QRoseEngine.Core/QCE.hpp>
 #include <QRoseEngine.Core/Streaming.hpp>
 #include <QRoseEngine.Core/Uuid.hpp>
-#include <QRoseEngine.Core/Handle.hpp>
+#include <QRoseEngine.Core/EntityHandle.hpp>
 #include <QRoseEngine.Core/SerializationException.hpp>
 #include <QRoseEngine.Core/Vector.hpp>
 #include <QRoseEngine.Core/Vector3.hpp>

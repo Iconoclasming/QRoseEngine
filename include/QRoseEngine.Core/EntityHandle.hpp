@@ -4,5 +4,5 @@
 
 namespace QRose
 {
-	typedef Uuid Handle;
+	typedef Uuid EntityHandle;
 }

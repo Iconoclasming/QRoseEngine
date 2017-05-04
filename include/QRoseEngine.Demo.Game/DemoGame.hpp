@@ -1,6 +1,6 @@
 #pragma once
 
-#include <QRoseEngine.Core/Handle.hpp>
+#include <QRoseEngine.Core/EntityHandle.hpp>
 #include <QRoseEngine.Core/ManagedPtr.hpp>
 #include <QRoseEngine.Graphics/Graphics.hpp>
 #include <QRoseEngine.Core/Components/TransformationComponent.hpp>
@@ -20,8 +20,8 @@ namespace QRose
 		void Update(double millisecondsElapsed);
 
 	private:
-		Handle entity1;
-		Handle cameraEntity;
+		EntityHandle entity1;
+		EntityHandle cameraEntity;
 
 		World world;
 

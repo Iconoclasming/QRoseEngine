@@ -3,6 +3,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <QRoseEngine.Graphics/Render.hpp>
+#include <QRoseEngine.Core/ManagedPtr.hpp>
 #include "OpenGLResourcesManager.hpp"
 
 namespace QRose
@@ -16,7 +17,7 @@ namespace QRose
 		void ClearView() override;
 		void BeginDrawing() override;
 		void SetViewMatrix(const Matrix4x4 & viewMatrix) override;
-		void DrawMesh(Handle meshId, const Matrix4x4& modelMatrix) override;
+		void DrawMesh(EntityHandle meshId, const Matrix4x4& modelMatrix) override;
 		void Present() override;
 		Color GetClearColor() override;
 		void SetClearColor(const Color& color) override;

@@ -19,7 +19,7 @@ MovementSystem::~MovementSystem()
 
 void MovementSystem::Update(double dt)
 {
-	std::vector<std::pair<Handle, MovableComponent>> movableComponents = pMovableComponentManager->GetAllComponents();
+	std::vector<std::pair<EntityHandle, MovableComponent>> movableComponents = pMovableComponentManager->GetAllComponents();
 	MovementData movementData = pInput->GetMovementData();
 	for (int i = 0; i < movableComponents.size(); i++)
 	{

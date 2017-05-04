@@ -5,7 +5,8 @@ set(QROSEENGINE_GRAPHICS_HEADERS
 	../../include/QRoseEngine.Graphics/Render.hpp
 	../../include/QRoseEngine.Graphics/RenderSystem.hpp
 	../../include/QRoseEngine.Graphics/WindowDesc.hpp
-	../../include/QRoseEngine.Graphics/Graphics.hpp)
+	../../include/QRoseEngine.Graphics/Graphics.hpp
+	../../include/QRoseEngine.Graphics/MeshHandle.hpp)
 set(QROSEENGINE_GRAPHICS_COMPONENTS_HEADERS
 	../../include/QRoseEngine.Graphics/Components/MeshComponent.hpp
 	../../include/QRoseEngine.Graphics/Components/CameraComponent.hpp)

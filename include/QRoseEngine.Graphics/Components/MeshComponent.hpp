@@ -1,18 +1,18 @@
 #pragma once
 
-#include "QRoseEngine.Core/Handle.hpp"
+#include "QRoseEngine.Core/EntityHandle.hpp"
 
 namespace QRose
 {
 	class MeshComponent
 	{
 	public:
-		MeshComponent() : MeshComponent(Handle()) {}
-		MeshComponent(const Handle& meshId) : meshId(meshId) {}
+		MeshComponent() : MeshComponent(EntityHandle()) {}
+		MeshComponent(const EntityHandle& meshId) : meshId(meshId) {}
 
-		Handle meshId;
+		EntityHandle meshId;
 
-		static const Handle Type;
+		static const EntityHandle Type;
 
 	private:
 		friend class Streaming;
