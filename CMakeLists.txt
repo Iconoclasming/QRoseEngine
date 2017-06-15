@@ -4,13 +4,12 @@ project(QRoseEngine)
 
 # Copy all assets
 file(GLOB QROSEENGINE_DEMO_ASSETS_SHADERS_GLSL "assets/shaders/*.glsl")
-file(COPY ${QROSEENGINE_DEMO_ASSETS_SHADERS_GLSL} DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/${QROSE_BUILD_TYPE}/assets/shaders")
-
+file(COPY ${QROSEENGINE_DEMO_ASSETS_SHADERS_GLSL} DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/assets/shaders")
 # Add the config file as content in VS project
-file(COPY src/QRoseEngine.Demo/config.json DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/${QROSE_BUILD_TYPE})
+file(COPY src/QRoseEngine.Demo/config.json DESTINATION "${CMAKE_CURRENT_BINARY_DIR}")
 
-# We're gonna use C++11
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+# We're gonna use C++14
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
 
 # g++ doesn't have "abstract" keyword - it's MSVC only feature, thus we substitute "abstract" by "=0"
 if(NOT MSVC)
@@ -59,7 +58,7 @@ endif(UNIX)
 # Prepare OpenGL and utilities
 if(WIN32)
 	file(COPY thirdparty/glew/lib/Release/Win32/glew32s.lib DESTINATION thirdparty/glew/lib/Release/Win32)
-	set(OPENGL_AND_UTILS_LIBRARIES opengl32 thirdparty/glew/lib/Release/Win32/glew32s)
+	set(OPENGL_AND_UTILS_LIBRARIES opengl32 ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/glew/lib/Release/Win32/glew32s.lib)
 endif(WIN32)
 if(UNIX)
 	find_package(OpenGL REQUIRED)
