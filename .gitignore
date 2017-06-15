@@ -215,3 +215,8 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
+
+# CLion directories
+.idea/
+cmake-build-debug
+cmake-build-release
