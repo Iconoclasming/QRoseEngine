@@ -2,7 +2,7 @@
 
 #include <QRoseEngine.Graphics/Graphics.hpp>
 #include <QRoseEngine.Graphics/GraphicsDesc.hpp>
-#include "OpenGLRender.hpp"
+#include <QRoseEngine.Graphics.OpenGL/OpenGLRender.hpp>
 
 namespace QRose
 {

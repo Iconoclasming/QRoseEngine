@@ -1,8 +1,8 @@
 #pragma once
 
-#include <QRoseEngine.Core/EntityHandle.hpp>
 #include <QRoseEngine.Core/Color.hpp>
 #include <QRoseEngine.Core/Matrix4x4.hpp>
+#include <QRoseEngine.Graphics/MeshHandle.hpp>
 
 namespace QRose
 {
@@ -15,7 +15,7 @@ namespace QRose
 		virtual void ClearView() abstract;
 		virtual void BeginDrawing() abstract;
 		virtual void SetViewMatrix(const Matrix4x4& viewMatrix) abstract;
-		virtual void DrawMesh(EntityHandle meshId, const Matrix4x4& modelMatrix) abstract;
+		virtual void DrawMesh(MeshHandle meshId, const Matrix4x4& modelMatrix) abstract;
 		virtual void Present() abstract;
 
 		virtual Color GetClearColor() abstract;

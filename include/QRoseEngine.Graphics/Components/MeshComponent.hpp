@@ -1,5 +1,7 @@
 #pragma once
 
+#include <iostream>
+#include <QRoseEngine.Core/Uuid.hpp>
 #include "QRoseEngine.Core/EntityHandle.hpp"
 
 namespace QRose
@@ -12,7 +14,7 @@ namespace QRose
 
 		EntityHandle meshId;
 
-		static const EntityHandle Type;
+		static const Uuid Type;
 
 	private:
 		friend class Streaming;
