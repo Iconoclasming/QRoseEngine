@@ -39,7 +39,9 @@ float Vector4::GetW() const
 
 Vector4 Vector4::FromAxisAngle(const Vector3& axis, float angle)
 {
-	return glm::angleAxis(angle, axis.vec3);
+	auto angleAxis = glm::angleAxis(angle, axis.vec3);
+	glm::quat quat1(angleAxis);
+	return Vector4(quat1);
 }
 
 void Vector4::Serialize(std::ostream& serializationStream) const
