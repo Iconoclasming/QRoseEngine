@@ -45,7 +45,6 @@ include_directories(include)
 add_subdirectory(src/QRoseEngine.Core)
 add_subdirectory(src/QRoseEngine.Graphics)
 add_subdirectory(src/QRoseEngine.Graphics.OpenGL)
-add_subdirectory(src/QRoseEngine.Demo.Game)
 
 # Prepare UUID library
 if(WIN32)
@@ -68,12 +67,18 @@ endif(UNIX)
 
 # Create executables
 add_executable(QRoseEngine.Demo
+	include/QRoseEngine.Demo/Input.hpp
+	include/QRoseEngine.Demo/GLFWInput.hpp
+	include/QRoseEngine.Demo/MovableComponent.hpp
+	include/QRoseEngine.Demo/MovementData.hpp
+	include/QRoseEngine.Demo/MovementSystem.hpp
 	src/QRoseEngine.Demo/GLFWInput.cpp
-	src/QRoseEngine.Demo/MainWin32.cpp)
+	src/QRoseEngine.Demo/MainWin32.cpp
+	src/QRoseEngine.Demo/MovementSystem.cpp
+	src/QRoseEngine.Demo/World.cpp)
 
 # Link all libraries against all executables
 target_link_libraries(QRoseEngine.Demo
-	QRoseEngine.Demo.Game
 	QRoseEngine.Graphics.OpenGL
 	QRoseEngine.Graphics
 	QRoseEngine.Core

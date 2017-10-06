@@ -1,20 +1,13 @@
 #include <QRoseEngine.Graphics/RenderSystem.hpp>
 
-#include <QRoseEngine.Core/Components/TransformationComponent.hpp>
-#include <QRoseEngine.Graphics/Components/MeshComponent.hpp>
-
 using namespace QRose;
 
-RenderSystem::RenderSystem(Ptr<Render> pRender, Ptr<Manager<TransformationComponent>> pTransformationComponentManager,
-	Ptr<Manager<MeshComponent>> pMeshComponentManager, Ptr<Manager<CameraComponent>> pCameraComponentManager)
-	: pRender(pRender), pTransformationComponentManager(pTransformationComponentManager),
-	pMeshComponentManager(pMeshComponentManager), pCameraComponentManager(pCameraComponentManager)
+RenderSystem::RenderSystem(Ptr<Render> pRender, Ptr<World> pWorld)
+	: pRender(pRender), pWorld(pWorld), pCameraComponentStorage(nullptr),
+	  pTransformComponentStorage(nullptr), pMeshComponentStorage(nullptr)
 {
-	if(pRender == nullptr) throw std::invalid_argument("pRender == nullptr");
-	if(pTransformationComponentManager == nullptr) 
-		throw std::invalid_argument("pTransformationComponentManager == nullptr");
-	if (pMeshComponentManager == nullptr) throw std::invalid_argument("pMeshComponentManager == nullptr");
-	if (pCameraComponentManager == nullptr) throw std::invalid_argument("pCameraComponentManager == nullptr");
+	if (pRender == nullptr) throw std::invalid_argument("pRender == nullptr");
+	if (pWorld == nullptr) throw std::invalid_argument("pWorld == nullptr");
 }
 
 RenderSystem::~RenderSystem()
@@ -23,46 +16,54 @@ RenderSystem::~RenderSystem()
 
 void RenderSystem::Update(double dt)
 {
+	if(pCameraComponentStorage == nullptr)
+	{
+		pCameraComponentStorage = pWorld->Get<Storage<CameraComponent>>();
+	}
+	if(pTransformComponentStorage == nullptr)
+	{
+		pTransformComponentStorage = pWorld->Get<Storage<TransformComponent>>();
+	}
+	if(pMeshComponentStorage == nullptr)
+	{
+		pMeshComponentStorage = pWorld->Get<Storage<MeshComponent>>();
+	}
+
 	pRender->ClearView();
 	pRender->BeginDrawing();
 
-	//Matrix4x4 viewMatrix;
-	//viewMatrix = viewMatrix.Translate(Vector3(0.5f, 0.0f, -3.0f));
-	//pRender->SetViewMatrix(viewMatrix);
-	if (pCameraComponentManager->ComponentsTotal() > 0)
+	if (pCameraComponentStorage->Size() > 0)
 	{
+		CameraComponent cameraComponent = pCameraComponentStorage->At(0);
 		// TODO: handle multiple cameras
-		std::pair<EntityHandle, CameraComponent> camera = pCameraComponentManager->GetAllComponents()[0];
-		if (pTransformationComponentManager->Contains(camera.first))
+		if(pTransformComponentStorage->Has(cameraComponent.id))
 		{
-			TransformationComponent& cameraTransformationComponent = pTransformationComponentManager->GetComponent(camera.first);
+			TransformComponent& cameraTransform = pTransformComponentStorage->Get(cameraComponent.id);
 			Matrix4x4 viewMatrix;
-			viewMatrix = viewMatrix.Translate(cameraTransformationComponent.position);
+			viewMatrix = viewMatrix.Translate(cameraTransform.position);
 			pRender->SetViewMatrix(viewMatrix);
 		}
 	}
 
-	const std::vector<std::pair<EntityHandle, MeshComponent>>& entitiesWithMeshes = pMeshComponentManager->GetAllComponents();
-	std::vector<std::tuple<MeshComponent, TransformationComponent>> toDraw;
-	toDraw.reserve(entitiesWithMeshes.size());
-	for (auto& entityWithMesh : entitiesWithMeshes)
+	std::vector<std::tuple<MeshComponent*, TransformComponent*>> toDraw;
+	MeshComponent* meshComponents = pMeshComponentStorage->GetAll();
+	for(int i = 0; i < pMeshComponentStorage->Size(); i++)
 	{
-		if (pTransformationComponentManager->Contains(entityWithMesh.first))
+		if(pTransformComponentStorage->Has(meshComponents[i].id))
 		{
-			toDraw.push_back(std::make_tuple(entityWithMesh.second,
-				pTransformationComponentManager->GetComponent(entityWithMesh.first)));
+			TransformComponent* pTransformComponent = &pTransformComponentStorage->Get(meshComponents[i].id);
+			toDraw.push_back(std::make_tuple(&meshComponents[i], pTransformComponent));
 		}
 	}
-	for (const auto& toDrawTuple : toDraw)
+	for(const auto& toDrawTuple : toDraw)
 	{
-		const MeshComponent& meshComponent = std::get<0>(toDrawTuple);
-		const TransformationComponent& transform = std::get<1>(toDrawTuple);
+		const MeshComponent* meshComponent = std::get<0>(toDrawTuple);
+		const TransformComponent* transform = std::get<1>(toDrawTuple);
 		Matrix4x4 modelMatrix;
-		modelMatrix = modelMatrix.Translate(transform.position);
-		modelMatrix = modelMatrix.Rotate(transform.rotation);
-		modelMatrix = modelMatrix.Scale(transform.scale);
-		pRender->DrawMesh(meshComponent.meshId, modelMatrix);
+		modelMatrix = modelMatrix.Translate(transform->position);
+		modelMatrix = modelMatrix.Rotate(transform->rotation);
+		modelMatrix = modelMatrix.Scale(transform->scale);
+		pRender->DrawMesh(meshComponent->meshId, modelMatrix);
 	}
-
 	pRender->Present();
 }

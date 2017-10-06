@@ -15,8 +15,7 @@ set(QROSEENGINE_GRAPHICS_SOURCES
 	RenderSystem.cpp
 	WindowDesc.cpp)
 set(QROSEENGINE_GRAPHICS_COMPONENTS_SOURCES
-	Components/MeshComponent.cpp
-	Components/CameraComponent.cpp)
+	Components/MeshComponent.cpp)
 source_group("Components" FILES ${QROSEENGINE_GRAPHICS_COMPONENTS_HEADERS} ${QROSEENGINE_GRAPHICS_COMPONENTS_SOURCES})
 add_library(QRoseEngine.Graphics STATIC 
 	${QROSEENGINE_GRAPHICS_HEADERS} 

@@ -16,4 +16,4 @@
 #include <QRoseEngine.Core/Delegate.hpp>
 #include <QRoseEngine.Core/Event.hpp>
 #include <QRoseEngine.Core/EventInvoker.hpp>
-#include <QRoseEngine.Core/Components/TransformationComponent.hpp>
+#include <QRoseEngine.Core/Components/TransformComponent.hpp>

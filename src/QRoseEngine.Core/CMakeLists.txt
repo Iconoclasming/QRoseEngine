@@ -18,9 +18,12 @@ set(QROSEENGINE_CORE_HEADERS
 	../../include/QRoseEngine.Core/Delegate.hpp
 	../../include/QRoseEngine.Core/Event.hpp
 	../../include/QRoseEngine.Core/EventInvoker.hpp
-	../../include/QRoseEngine.Core/Matrix4x4.hpp)
+	../../include/QRoseEngine.Core/Matrix4x4.hpp
+	../../include/QRoseEngine.Core/World.hpp
+	../../include/QRoseEngine.Core/Storage.hpp
+	../../include/QRoseEngine.Core/Assert.hpp)
 set(QROSEENGINE_CORE_COMPONENTS_HEADERS
-	../../include/QRoseEngine.Core/Components/TransformationComponent.hpp)
+	../../include/QRoseEngine.Core/Components/TransformComponent.hpp)
 set(QROSEENGINE_CORE_SOURCES
 	Color.cpp
 	Size.cpp
@@ -30,7 +33,7 @@ set(QROSEENGINE_CORE_SOURCES
 	Vector4.cpp
 	Matrix4x4.cpp)
 set(QROSEENGINE_CORE_COMPONENTS_SOURCES
-	Components/TransformationComponent.cpp)
+	Components/TransformComponent.cpp)
 source_group("Components" FILES ${QROSEENGINE_CORE_COMPONENTS_HEADERS} ${QROSEENGINE_CORE_COMPONENTS_SOURCES})
 add_library(QRoseEngine.Core STATIC 
 	${QROSEENGINE_CORE_HEADERS} 

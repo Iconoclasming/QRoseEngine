@@ -1,16 +1,16 @@
 #pragma once
 
-#include <QRoseEngine.Core/Vector3.hpp>
-#include <QRoseEngine.Core/Uuid.hpp>
+#include <QRoseEngine.Core/EntityHandle.hpp>
 
 namespace QRose
 {
 	struct CameraComponent
 	{
+		CameraComponent(EntityHandle id, float fov) : id(id), fov(fov) {}
+
+		static const unsigned int Type = 3;
+
+		const EntityHandle id;
 		float fov;
-
-		static const Uuid Type;
-
-		CameraComponent(float fov) : fov(fov) {}
 	};
 }

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <GLFW/glfw3.h>
-#include <QRoseEngine.Demo.Game/Input.hpp>
+#include <QRoseEngine.Demo/Input.hpp>
 
 namespace QRose
 {

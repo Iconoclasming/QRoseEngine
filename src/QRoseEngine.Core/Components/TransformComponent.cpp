@@ -1,25 +1,26 @@
-#include "QRoseEngine.Core/Components/TransformationComponent.hpp"
+#include <QRoseEngine.Core/Components/TransformComponent.hpp>
 
 using namespace QRose;
 
-const Uuid TransformationComponent::Type = Uuid::FromString("843CE3F3-AE74-4A85-8801-515A37F4B3E8");
-
-void TransformationComponent::Serialize(std::ostream& serializationStream) const
+void TransformComponent::Serialize(std::ostream& serializationStream) const
 {
+	serializationStream << id << std::endl;
 	serializationStream << position << std::endl;
 	serializationStream << rotation << std::endl;
 	serializationStream << scale << std::endl;
 }
 
-TransformationComponent TransformationComponent::Deserialize(std::istream& deserializationStream)
+TransformComponent TransformComponent::Deserialize(std::istream& deserializationStream)
 {
+	EntityHandle id;
 	Vector3 position(0, 0, 0);
 	Vector4 rotation(0, 0, 0, 0);
 	Vector3 scale(0, 0, 0);
+	deserializationStream >> id;
 	deserializationStream >> position;
 	deserializationStream >> rotation;
 	deserializationStream >> scale;
-	TransformationComponent transformationComponent;
+	TransformComponent transformationComponent(id);
 	transformationComponent.position = position;
 	transformationComponent.rotation = rotation;
 	transformationComponent.scale = scale;

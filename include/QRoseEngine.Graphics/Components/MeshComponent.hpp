@@ -1,20 +1,21 @@
 #pragma once
 
 #include <iostream>
-#include <QRoseEngine.Core/Uuid.hpp>
-#include "QRoseEngine.Core/EntityHandle.hpp"
+#include <QRoseEngine.Core/EntityHandle.hpp>
+#include <QRoseEngine.Graphics/MeshHandle.hpp>
 
 namespace QRose
 {
 	class MeshComponent
 	{
 	public:
-		MeshComponent() : MeshComponent(EntityHandle()) {}
-		MeshComponent(const EntityHandle& meshId) : meshId(meshId) {}
+		MeshComponent(EntityHandle id) : MeshComponent(id, MeshHandle()) {}
+		MeshComponent(EntityHandle id, const MeshHandle& meshId) : id(id), meshId(meshId) {}
 
-		EntityHandle meshId;
+		const EntityHandle id;
+		MeshHandle meshId;
 
-		static const Uuid Type;
+		static const unsigned int Type = 4;
 
 	private:
 		friend class Streaming;
