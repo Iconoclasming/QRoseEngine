@@ -22,14 +22,15 @@ int main()
 	Config config = LoadConfig("config.json");
 	Ptr<OpenGlGraphics> pGraphics = NewManaged<OpenGlGraphics>();
 	pGraphics->Initialize(graphicsDesc, config.assetsRoot);
-	Ptr<Input> pGLFWInput = NewManaged<GlfwInput>(pGraphics->GetWindow());
+	Ptr<Input> pGlfwInput = NewManaged<GlfwInput>(pGraphics->GetWindow());
 
 	Ptr<World> pWorld = NewManaged<World>();
-	//pWorld->Add(new Storage<MovableComponent>());
 	pWorld->Add(new Storage<CameraComponent>());
 	pWorld->Add(new Storage<TransformComponent>());
 	pWorld->Add(new Storage<MeshComponent>());
+	pWorld->Add(new Storage<MovableComponent>());
 
+	Ptr<MovementSystem> pMovementSystem = NewManaged<MovementSystem>(pGlfwInput, pWorld);
 	Ptr<RenderSystem> pRenderSystem = NewManaged<RenderSystem>(pGraphics->GetRender(), pWorld);
 
 	MeshHandle boxMeshId = pGraphics->CreateBoxMesh(Vector3(0.5f, 0.5f, 0.5f));
@@ -46,6 +47,9 @@ int main()
 	pWorld->Get<Storage<TransformComponent>>()->Add(boxTransformComponent);
 	MeshComponent meshComponent(boxEntityId, boxMeshId);
 	pWorld->Get<Storage<MeshComponent>>()->Add(meshComponent);
+	MovableComponent boxMovableComponent(boxEntityId, 1.0f, 1.0f, 1.0f, 1.0f, Vector3(0.0f, 0.0f, -1.0f),
+		Vector3(0.0f, 1.0f, 0.0f));
+	pWorld->Get<Storage<MovableComponent>>()->Add(boxMovableComponent);
 
 	double lastFrame = glfwGetTime();
 	double currentFrame = lastFrame;
@@ -57,6 +61,8 @@ int main()
 		dt = currentFrame - lastFrame;
 		lastFrame = currentFrame;
 		glfwPollEvents();
+		
+		pMovementSystem->Update(dt);
 
 		TransformComponent& transform = pWorld->Get<Storage<TransformComponent>>()->Get(boxEntityId);
 		angle += 0.005f;

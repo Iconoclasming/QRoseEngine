@@ -2,36 +2,43 @@
 
 using namespace QRose;
 
-MovementSystem::MovementSystem(Ptr<Input> pInput)
-	: pInput(pInput)
+MovementSystem::MovementSystem(Ptr<Input> pInput, Ptr<World> pWorld)
+	: pInput(pInput), pWorld(pWorld), pMovableComponents(nullptr), pTransformComponents(nullptr)
 {
 	if (pInput == nullptr) throw std::invalid_argument("pInput == nullptr");
+	if (pWorld == nullptr) throw std::invalid_argument("pWorld == nullptr");
 }
 
 MovementSystem::~MovementSystem()
 {
 }
 
-void MovementSystem::Update(double msElapsed, World& world)
+void MovementSystem::Update(double msElapsed)
 {
-	/*std::vector<std::pair<EntityHandle, MovableComponent>> movableComponents = pMovableComponentManager->GetAllComponents();
-	MovementData movementData = pInput->GetMovementData();
-	for (int i = 0; i < movableComponents.size(); i++)
+	if(pMovableComponents == nullptr)
 	{
-		if (pTransformComponentStorage->Contains(movableComponents[i].first))
+		pMovableComponents = pWorld->Get<Storage<MovableComponent>>();
+	}
+	if(pTransformComponents == nullptr)
+	{
+		pTransformComponents = pWorld->Get<Storage<TransformComponent>>();
+	}
+
+	MovementData movementData = pInput->GetMovementData();
+	MovableComponent* movableComponents = pMovableComponents->GetAll();
+	for (int i = 0; i < pMovableComponents->Size(); i++)
+	{
+		if(pTransformComponents->Has(movableComponents[i].id))
 		{
-			TransformComponent& rTransformationComponent = 
-				pTransformComponentStorage->GetComponent(movableComponents[i].first);
-			rTransformationComponent.position -= movableComponents[i].second.front * movementData.forward
-				* movableComponents[i].second.forwardSpeed;
-			rTransformationComponent.position += movementData.backward * movableComponents[i].second.backwardSpeed
-				* movableComponents[i].second.front;
-			rTransformationComponent.position +=
-				movableComponents[i].second.front.Cross(movableComponents[i].second.up).Normalize()
-				* movableComponents[i].second.leftSpeed * movementData.left;
-			rTransformationComponent.position -=
-				movableComponents[i].second.front.Cross(movableComponents[i].second.up).Normalize()
-				* movableComponents[i].second.rightSpeed * movementData.right;
+			TransformComponent& transformComponent = pTransformComponents->Get(movableComponents[i].id);
+			transformComponent.position -= movableComponents[i].front * movementData.forward
+				* movableComponents[i].forwardSpeed;
+			transformComponent.position += movementData.backward * movableComponents[i].backwardSpeed
+				* movableComponents[i].front;
+			transformComponent.position += movableComponents[i].front.Cross(movableComponents[i].up).Normalize()
+				* movableComponents[i].leftSpeed * movementData.left;
+			transformComponent.position -= movableComponents[i].front.Cross(movableComponents[i].up).Normalize()
+				* movableComponents[i].rightSpeed * movementData.right;
 		}
-	}*/
+	}
 }

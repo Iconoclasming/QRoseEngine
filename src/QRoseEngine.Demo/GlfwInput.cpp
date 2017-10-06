@@ -14,8 +14,8 @@ GlfwInput::GlfwInput(GLFWwindow* pWindow)
 {
 	glfwSetKeyCallback(pWindow, KeyCallback);
 	glfwSetCursorPosCallback(pWindow, CursorPositionCallback);
-	SetForeAftMovementSpeed(0.0005f);
-	SetRightLeftMovementSpeed(0.0005f);
+	SetForeAftMovementSpeed(0.05f);
+	SetRightLeftMovementSpeed(0.05f);
 }
 
 GlfwInput::~GlfwInput()
@@ -47,20 +47,21 @@ void KeyCallback(GLFWwindow* pWindow, int key, int scancode, int action, int mod
 	switch (key)
 	{
 	case GLFW_KEY_W:
-		g_WKeyPressed = action;
+		g_WKeyPressed = action > 0;
 		break;
 
 	case GLFW_KEY_A:
-		g_AKeyPressed = action;
+		g_AKeyPressed = action > 0;
 		break;
 
 	case GLFW_KEY_S:
-		g_SKeyPressed = action;
+		g_SKeyPressed = action > 0;
 		break;
 
 	case GLFW_KEY_D:
-		g_DKeyPressed = action;
+		g_DKeyPressed = action > 0;
 		break;
+	default: ;
 	}
 }
 
