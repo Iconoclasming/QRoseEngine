@@ -1,9 +1,9 @@
 #include <fstream>
 #include <json/json.hpp>
-#include <QRoseEngine.Graphics.OpenGL/OpenGLGraphics.hpp>
+#include <QRoseEngine.Graphics.OpenGL/OpenGlGraphics.hpp>
 #include <QRoseEngine.Graphics/RenderSystem.hpp>
 #include <QRoseEngine.Demo/MovementSystem.hpp>
-#include <QRoseEngine.Demo/GLFWInput.hpp>
+#include <QRoseEngine.Demo/GlfwInput.hpp>
 #include <QRoseEngine.Core/Storage.hpp>
 
 using namespace QRose;
@@ -20,9 +20,9 @@ int main()
 	WindowDesc windowDesc("Awesome Sample Game", Size<int>(800, 600));
 	GraphicsDesc graphicsDesc(windowDesc, Color::Aqua);
 	Config config = LoadConfig("config.json");
-	Ptr<OpenGLGraphics> pGraphics = NewManaged<OpenGLGraphics>();
+	Ptr<OpenGlGraphics> pGraphics = NewManaged<OpenGlGraphics>();
 	pGraphics->Initialize(graphicsDesc, config.assetsRoot);
-	Ptr<Input> pGLFWInput = NewManaged<GLFWInput>(pGraphics->GetWindow());
+	Ptr<Input> pGLFWInput = NewManaged<GlfwInput>(pGraphics->GetWindow());
 
 	Ptr<World> pWorld = NewManaged<World>();
 	//pWorld->Add(new Storage<MovableComponent>());
