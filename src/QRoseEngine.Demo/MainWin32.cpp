@@ -17,9 +17,10 @@ Config LoadConfig(const std::string& pathToConfig);
 
 int main()
 {
+	Config config = LoadConfig("config.json");
+
 	WindowDesc windowDesc("Awesome Sample Game", Size<int>(800, 600));
 	GraphicsDesc graphicsDesc(windowDesc, Color::Aqua);
-	Config config = LoadConfig("config.json");
 	Ptr<OpenGlGraphics> pGraphics = NewManaged<OpenGlGraphics>();
 	pGraphics->Initialize(graphicsDesc, config.assetsRoot);
 	Ptr<Input> pGlfwInput = NewManaged<GlfwInput>(pGraphics->GetWindow());
@@ -41,15 +42,24 @@ int main()
 	TransformComponent cameraTransformComponent(cameraEntityId);
 	cameraTransformComponent.position = Vector3(0.5f, 0.0f, -3.0f);
 	pWorld->Get<Storage<TransformComponent>>()->Add(cameraTransformComponent);
+	MovableComponent movableComponent(cameraEntityId, 1.0f, 1.0f, 1.0f, 1.0f, Vector3(0.0f, 0.0f, -1.0f),
+		Vector3(0.0f, 1.0f, 0.0f));
+	pWorld->Get<Storage<MovableComponent>>()->Add(movableComponent);
 
 	const EntityHandle boxEntityId = 2;
 	TransformComponent boxTransformComponent(boxEntityId);
+	boxTransformComponent.position = Vector3(0.0f, -0.5f, 0.0f);
 	pWorld->Get<Storage<TransformComponent>>()->Add(boxTransformComponent);
 	MeshComponent meshComponent(boxEntityId, boxMeshId);
-	pWorld->Get<Storage<MeshComponent>>()->Add(meshComponent);
-	MovableComponent boxMovableComponent(boxEntityId, 1.0f, 1.0f, 1.0f, 1.0f, Vector3(0.0f, 0.0f, -1.0f),
-		Vector3(0.0f, 1.0f, 0.0f));
-	pWorld->Get<Storage<MovableComponent>>()->Add(boxMovableComponent);
+	//pWorld->Get<Storage<MeshComponent>>()->Add(meshComponent);
+
+	MeshHandle humanMeshId = pGraphics->LoadMesh(config.assetsRoot + "/models/human.fbx");
+	const EntityHandle humanEntityId = 3;
+	TransformComponent humanTransformComponent(humanEntityId);
+	humanTransformComponent.position = Vector3(0.0f, 18.0f, 0.0f);
+	pWorld->Get<Storage<TransformComponent>>()->Add(humanTransformComponent);
+	MeshComponent humanMeshComponent(humanEntityId, humanMeshId);
+	pWorld->Get<Storage<MeshComponent>>()->Add(humanMeshComponent);
 
 	double lastFrame = glfwGetTime();
 	double currentFrame = lastFrame;
@@ -64,9 +74,9 @@ int main()
 		
 		pMovementSystem->Update(dt);
 
-		TransformComponent& transform = pWorld->Get<Storage<TransformComponent>>()->Get(boxEntityId);
+		TransformComponent& transform = pWorld->Get<Storage<TransformComponent>>()->Get(humanEntityId);
 		angle += 0.005f;
-		transform.rotation = Vector4::FromAxisAngle(Vector3(0.0f, 1.0f, 0.0f), angle);
+		//transform.rotation = Vector4::FromAxisAngle(Vector3(0.0f, 1.0f, 0.0f), angle);
 
 		pRenderSystem->Update(dt);
 	}

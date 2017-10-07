@@ -3,8 +3,10 @@ cmake_minimum_required(VERSION 3.5)
 project(QRoseEngine)
 
 # Copy all assets
-file(GLOB QROSEENGINE_DEMO_ASSETS_SHADERS_GLSL "assets/shaders/*.glsl")
-file(COPY ${QROSEENGINE_DEMO_ASSETS_SHADERS_GLSL} DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/assets/shaders")
+file(GLOB QROSEENGINE_DEMO_ASSETS_SHADERS "assets/shaders/*.glsl")
+file(COPY ${QROSEENGINE_DEMO_ASSETS_SHADERS} DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/assets/shaders")
+file(GLOB QROSEENGINE_DEMO_ASSETS_MODELS "assets/models/*.fbx")
+file(COPY ${QROSEENGINE_DEMO_ASSETS_MODELS} DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/assets/models")
 # Add the config file as content in VS project
 file(COPY src/QRoseEngine.Demo/config.json DESTINATION "${CMAKE_CURRENT_BINARY_DIR}")
 
@@ -22,19 +24,20 @@ set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 add_subdirectory(thirdparty/glfw)
-
 # Prepare GLEW library
 add_definitions(-DGLEW_STATIC)
 include_directories(thirdparty/glew/include/)
-
 # Prepare GLM (OpenGL Maths) library
 include_directories(thirdparty/glm/include)
-
 # Prepare JSON library
 include_directories(thirdparty/json/include)
-
 # Prepare StructureOfArrays library
 include_directories(thirdparty/StructureOfArrays)
+# Prepare assimp library
+include_directories(thirdparty/assimp/include)
+file(COPY thirdparty/assimp/bin/assimp-vc140-mt.dll DESTINATION "${CMAKE_CURRENT_BINARY_DIR}")
+file(COPY thirdparty/assimp/bin/assimp-vc140-mt.lib DESTINATION thirdparty/assimp/bin)
+set(THIRDPARTY_LIBS ${THIRDPARTY_LIBS} ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/assimp/bin/assimp-vc140-mt.lib)
 
 # We are using GLM as our main mathematics library, so we set the flag
 add_definitions(-DQROSEENGINE_USE_OPENGL_MATHEMATICS=1)
@@ -48,21 +51,21 @@ add_subdirectory(src/QRoseEngine.Graphics.OpenGL)
 
 # Prepare UUID library
 if(WIN32)
-	set(UUID_LIBRARY Rpcrt4.lib)
+	set(THIRDPARTY_LIBS ${THIRDPARTY_LIBS} Rpcrt4.lib)
 endif(WIN32)
 if(UNIX)
-	set(UUID_LIBRARY /usr/lib/x86_64-linux-gnu/libuuid.a)
+	set(THIRDPARTY_LIBS ${THIRDPARTY_LIBS} /usr/lib/x86_64-linux-gnu/libuuid.a)
 endif(UNIX)
 
 # Prepare OpenGL and utilities
 if(WIN32)
 	file(COPY thirdparty/glew/lib/Release/Win32/glew32s.lib DESTINATION thirdparty/glew/lib/Release/Win32)
-	set(OPENGL_AND_UTILS_LIBRARIES opengl32 ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/glew/lib/Release/Win32/glew32s.lib)
+	set(THIRDPARTY_LIBS ${THIRDPARTY_LIBS} opengl32 ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/glew/lib/Release/Win32/glew32s.lib)
 endif(WIN32)
 if(UNIX)
 	find_package(OpenGL REQUIRED)
 	file(COPY thirdparty/glew/lib/Release/Linux64/libGLEW.a DESTINATION thirdparty/glew/lib/Release/Linux64)
-	set(OPENGL_AND_UTILS_LIBRARIES ${OPENGL_LIBRARIES} ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/glew/lib/Release/Linux64/libGLEW.a)
+	set(THIRDPARTY_LIBS ${THIRDPARTY_LIBS} ${OPENGL_LIBRARIES} ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/glew/lib/Release/Linux64/libGLEW.a)
 endif(UNIX)
 
 # Create executables
@@ -83,5 +86,4 @@ target_link_libraries(QRoseEngine.Demo
 	QRoseEngine.Graphics
 	QRoseEngine.Core
 	glfw
-	${UUID_LIBRARY}
-	${OPENGL_AND_UTILS_LIBRARIES})
+	${THIRDPARTY_LIBS})

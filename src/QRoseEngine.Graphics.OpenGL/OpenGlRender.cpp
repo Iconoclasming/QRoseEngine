@@ -29,7 +29,7 @@ void OpenGlRender::BeginDrawing()
 
 void OpenGlRender::DrawMesh(MeshHandle meshId, const Matrix4x4& modelMatrix)
 {
-	GLuint meshVAO = pResourcesManager->GetMeshVertexArrayObject(meshId);
+	const OpenGlMesh* pMesh = pResourcesManager->GetMeshVertexArrayObject(meshId);
 	GLuint shaderProgram = pResourcesManager->GetDefaultShaderProgram();
 	glUseProgram(shaderProgram);
 	GLuint modelLoc = glGetUniformLocation(shaderProgram, "model");
@@ -38,8 +38,16 @@ void OpenGlRender::DrawMesh(MeshHandle meshId, const Matrix4x4& modelMatrix)
 	glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, projectionMatrix.GetArray());
 	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, modelMatrix.GetArray());
 	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, viewMatrix.GetArray());
-	glBindVertexArray(meshVAO);
-	glDrawArrays(GL_TRIANGLES, 0, 36);
+	glBindVertexArray(pMesh->vao);
+	if(pMesh->numIndices == 0)
+	{
+		glDrawArrays(GL_TRIANGLES, 0, pMesh->numVertices);		
+	}
+	else
+	{
+		glDrawElements(GL_TRIANGLES, pMesh->numIndices, OpenGlResourcesManager::IndexType, 
+			static_cast<void*>(nullptr));
+	}
 	glUseProgram(0);
 	glBindVertexArray(0);
 }
