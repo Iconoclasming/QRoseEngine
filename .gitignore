@@ -24,6 +24,7 @@ bld/
 [Oo]bj/
 [Bb]uild/
 
+
 # VS Code
 .vscode/
 
@@ -220,3 +221,6 @@ ModelManifest.xml
 .idea/
 cmake-build-debug
 cmake-build-release
+
+# assimp library binaries
+!/thirdparty/assimp/bin
