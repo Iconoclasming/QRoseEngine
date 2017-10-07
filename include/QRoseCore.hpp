@@ -10,7 +10,6 @@
 #include <QRoseEngine.Core/Vector.hpp>
 #include <QRoseEngine.Core/Vector3.hpp>
 #include <QRoseEngine.Core/Vector4.hpp>
-#include <QRoseEngine.Core/Manager.hpp>
 #include <QRoseEngine.Core/System.hpp>
 #include <QRoseEngine.Core/ManagedPtr.hpp>
 #include <QRoseEngine.Core/Delegate.hpp>
