@@ -222,5 +222,15 @@ ModelManifest.xml
 cmake-build-debug
 cmake-build-release
 
-# assimp library binaries
+# unignore assimp library binaries
 !/thirdparty/assimp/bin
+
+# unignore glew library binaries
+!/thirdparty/glew/bin
+!/thirdparty/glew/bin/Release
+!/thirdparty/glew/bin/Release/Win32
+!/thirdparty/glew/bin/Release/x64
+!/thirdparty/glew/lib/Release
+!/thirdparty/glew/lib/Release/Linux64
+!/thirdparty/glew/lib/Release/Win32
+!/thirdparty/glew/lib/Release/x64
