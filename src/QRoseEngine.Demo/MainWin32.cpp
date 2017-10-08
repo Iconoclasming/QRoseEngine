@@ -53,10 +53,10 @@ int main()
 	MeshComponent meshComponent(boxEntityId, boxMeshId);
 	//pWorld->Get<Storage<MeshComponent>>()->Add(meshComponent);
 
-	MeshHandle humanMeshId = pGraphics->LoadMesh(config.assetsRoot + "/models/human.fbx");
+	MeshHandle humanMeshId = pGraphics->LoadMesh(config.assetsRoot + "/models/BaseHuman.blend");
 	const EntityHandle humanEntityId = 3;
 	TransformComponent humanTransformComponent(humanEntityId);
-	humanTransformComponent.position = Vector3(0.0f, 18.0f, 0.0f);
+	humanTransformComponent.rotation = Vector4::FromAxisAngle(Vector3(-1.0f, 0.0f, 0.0f), 90.0f);
 	pWorld->Get<Storage<TransformComponent>>()->Add(humanTransformComponent);
 	MeshComponent humanMeshComponent(humanEntityId, humanMeshId);
 	pWorld->Get<Storage<MeshComponent>>()->Add(humanMeshComponent);
@@ -76,7 +76,7 @@ int main()
 
 		TransformComponent& transform = pWorld->Get<Storage<TransformComponent>>()->Get(humanEntityId);
 		angle += 0.005f;
-		//transform.rotation = Vector4::FromAxisAngle(Vector3(0.0f, 1.0f, 0.0f), angle);
+		transform.rotation = Vector4::FromAxisAngle(Vector3(1.0f, 0.0f, 0.0f), angle);
 
 		pRenderSystem->Update(dt);
 	}

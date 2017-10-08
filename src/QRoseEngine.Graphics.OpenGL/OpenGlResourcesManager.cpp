@@ -14,7 +14,7 @@ using namespace QRose;
 void LoadMesh(const aiScene *pScene, const aiNode* pNode, std::vector<GLfloat>& vertices, 
 	std::vector<QRose::OpenGlResourcesManager::Index>& indices);
 OpenGlMesh RegisterMesh(const std::vector<GLfloat>& vertices,
-	const std::vector<QRose::OpenGlResourcesManager::Index>& indices, int numComponents = 3);
+	const std::vector<QRose::OpenGlResourcesManager::Index>& indices);
 
 OpenGlResourcesManager::OpenGlResourcesManager() : defaultShaderProgram(-1)
 {
@@ -180,7 +180,7 @@ GLuint OpenGlResourcesManager::GetDefaultShaderProgram() const
 }
 
 OpenGlMesh RegisterMesh(const std::vector<GLfloat>& vertices, 
-	const std::vector<OpenGlResourcesManager::Index>& indices, int numComponents)
+	const std::vector<OpenGlResourcesManager::Index>& indices)
 {
 	GLuint vao;
 	glGenVertexArrays(1, &vao);
@@ -189,16 +189,16 @@ OpenGlMesh RegisterMesh(const std::vector<GLfloat>& vertices,
 	glGenBuffers(1, &vertexBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
 	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(GLfloat), vertices.data(), GL_STATIC_DRAW);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, static_cast<void*>(nullptr));
+	glEnableVertexAttribArray(0);
 	GLuint elementBuffer;
 	glGenBuffers(1, &elementBuffer);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementBuffer);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(OpenGlResourcesManager::Index), 
 		indices.data(), GL_STATIC_DRAW);
-	glVertexAttribPointer(0, numComponents, GL_FLOAT, GL_FALSE, 0, static_cast<GLvoid*>(nullptr));
-	glEnableVertexAttribArray(0);
 	glBindVertexArray(0);
-	return OpenGlMesh(Uuid::GenerateUuid(), vao, vertexBuffer, elementBuffer, vertices.size(),
-		indices.size());
+	return OpenGlMesh(Uuid::GenerateUuid(), vao, vertexBuffer, elementBuffer, vertices.data(), indices.data(),
+		vertices.size(),indices.size());
 }
 
 void LoadMesh(const aiScene *pScene, const aiNode* pNode, std::vector<GLfloat>& vertices,
@@ -207,23 +207,20 @@ void LoadMesh(const aiScene *pScene, const aiNode* pNode, std::vector<GLfloat>& 
 	for(unsigned i = 0; i < pScene->mNumMeshes; i++)
 	{
 		const aiMesh* pMesh = pScene->mMeshes[i];
-		vertices.reserve(3 * pMesh->mNumVertices);
-		for(unsigned j = 0; j < pMesh->mNumVertices; j++)
-		{
-			if(pMesh->HasPositions())
-			{
-				const aiVector3D* vp = &pMesh->mVertices[j];
-				vertices.push_back(vp->x);
-				vertices.push_back(vp->y);
-				vertices.push_back(vp->z);
-			}			
-		}
 		for(unsigned j = 0; j < pMesh->mNumFaces; j++)
 		{
 			const aiFace* pFace = &pMesh->mFaces[j];
-			for(unsigned k = 0; k < pFace->mNumIndices; k++)
+			if(pFace->mNumIndices != 3)
 			{
-				indices.push_back(pFace->mIndices[k]);
+				// TODO: log to errors channel this case
+				continue;
+			}
+			for(int k = 0; k < 3; k++)
+			{
+				const aiVector3D& vertex = pMesh->mVertices[pFace->mIndices[k]];
+				vertices.push_back(vertex.x);
+				vertices.push_back(vertex.y);
+				vertices.push_back(vertex.z);
 			}
 		}
 	}
