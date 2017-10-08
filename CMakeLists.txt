@@ -11,7 +11,9 @@ file(COPY ${QROSEENGINE_DEMO_ASSETS_MODELS} DESTINATION "${CMAKE_CURRENT_BINARY_
 file(COPY src/QRoseEngine.Demo/config.json DESTINATION "${CMAKE_CURRENT_BINARY_DIR}")
 
 # We're gonna use C++14
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
+if(NOT MSVC)
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
+endif(NOT MSVC)
 
 # g++ doesn't have "abstract" keyword - it's MSVC only feature, thus we substitute "abstract" by "=0"
 if(NOT MSVC)

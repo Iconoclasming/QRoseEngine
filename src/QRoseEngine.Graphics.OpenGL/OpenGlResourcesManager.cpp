@@ -204,11 +204,11 @@ OpenGlMesh RegisterMesh(const std::vector<GLfloat>& vertices,
 void LoadMesh(const aiScene *pScene, const aiNode* pNode, std::vector<GLfloat>& vertices,
 	std::vector<OpenGlResourcesManager::Index>& indices)
 {
-	for(int i = 0; i < pScene->mNumMeshes; i++)
+	for(unsigned i = 0; i < pScene->mNumMeshes; i++)
 	{
 		const aiMesh* pMesh = pScene->mMeshes[i];
 		vertices.reserve(3 * pMesh->mNumVertices);
-		for(int j = 0; j < pMesh->mNumVertices; j++)
+		for(unsigned j = 0; j < pMesh->mNumVertices; j++)
 		{
 			if(pMesh->HasPositions())
 			{
@@ -218,10 +218,10 @@ void LoadMesh(const aiScene *pScene, const aiNode* pNode, std::vector<GLfloat>& 
 				vertices.push_back(vp->z);
 			}			
 		}
-		for(int j = 0; j < pMesh->mNumFaces; j++)
+		for(unsigned j = 0; j < pMesh->mNumFaces; j++)
 		{
 			const aiFace* pFace = &pMesh->mFaces[j];
-			for(int k = 0; k < pFace->mNumIndices; k++)
+			for(unsigned k = 0; k < pFace->mNumIndices; k++)
 			{
 				indices.push_back(pFace->mIndices[k]);
 			}

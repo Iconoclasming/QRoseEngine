@@ -75,5 +75,5 @@ Vector4 QRose::operator >> (std::istream& s, Vector4& vector)
 	std::string y = results[2];
 	std::string z = results[3];
 	std::string w = results[4];
-	return Vector4(std::stod(x), std::stod(y), std::stod(z), std::stod(w));
+	return Vector4(std::stof(x), std::stof(y), std::stof(z), std::stof(w));
 }
