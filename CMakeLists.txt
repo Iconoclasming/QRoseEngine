@@ -5,7 +5,12 @@ project(QRoseEngine)
 # Copy all assets
 file(GLOB QROSEENGINE_DEMO_ASSETS_SHADERS "assets/shaders/*.glsl")
 file(COPY ${QROSEENGINE_DEMO_ASSETS_SHADERS} DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/assets/shaders")
-file(GLOB QROSEENGINE_DEMO_ASSETS_MODELS "assets/models/*.fbx")
+file(GLOB QROSEENGINE_DEMO_ASSETS_MODELS 
+	"assets/models/*.blend"
+	"assets/models/*.dae"
+	"assets/models/*.fbx" 
+	"assets/models/*.mtl"
+	"assets/models/*.obj")
 file(COPY ${QROSEENGINE_DEMO_ASSETS_MODELS} DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/assets/models")
 # Add the config file as content in VS project
 file(COPY src/QRoseEngine.Demo/config.json DESTINATION "${CMAKE_CURRENT_BINARY_DIR}")
