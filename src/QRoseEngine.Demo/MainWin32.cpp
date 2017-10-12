@@ -30,6 +30,7 @@ int main()
 	pWorld->Add(new Storage<TransformComponent>());
 	pWorld->Add(new Storage<MeshComponent>());
 	pWorld->Add(new Storage<MovableComponent>());
+	pWorld->Add(new Storage<LightComponent>());
 
 	Ptr<MovementSystem> pMovementSystem = NewManaged<MovementSystem>(pGlfwInput, pWorld);
 	Ptr<RenderSystem> pRenderSystem = NewManaged<RenderSystem>(pGraphics->GetRender(), pWorld);
@@ -60,6 +61,13 @@ int main()
 	MeshComponent humanMeshComponent(humanEntityId, humanMeshId);
 	//pWorld->Get<Storage<MeshComponent>>()->Add(humanMeshComponent);
 
+	const EntityHandle lightEntityId = 4;
+	TransformComponent lightTransformComponent(lightEntityId);
+	lightTransformComponent.position = Vector3(0.0f, -15.0f, 20.0f);
+	LightComponent lightComponent(lightEntityId);
+	pWorld->Get<Storage<TransformComponent>>()->Add(lightTransformComponent);
+	pWorld->Get<Storage<LightComponent>>()->Add(lightComponent);
+
 	double lastFrame = glfwGetTime();
 	double currentFrame = lastFrame;
 	double dt = 0.0f;
@@ -76,6 +84,7 @@ int main()
 		TransformComponent& transform = pWorld->Get<Storage<TransformComponent>>()->Get(boxEntityId);
 		angle += 0.005f;
 		transform.rotation = Vector4::FromAxisAngle(Vector3(0.0f, 1.0f, 0.0f), angle);
+		
 		pGraphics->GetRender()->ClearView();
 		pRenderSystem->Update(dt);
 	}

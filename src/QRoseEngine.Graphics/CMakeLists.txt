@@ -9,7 +9,8 @@ set(QROSEENGINE_GRAPHICS_HEADERS
 	../../include/QRoseEngine.Graphics/MeshHandle.hpp)
 set(QROSEENGINE_GRAPHICS_COMPONENTS_HEADERS
 	../../include/QRoseEngine.Graphics/Components/MeshComponent.hpp
-	../../include/QRoseEngine.Graphics/Components/CameraComponent.hpp)
+	../../include/QRoseEngine.Graphics/Components/CameraComponent.hpp
+	../../include/QRoseEngine.Graphics/Components/LightComponent.hpp)
 set(QROSEENGINE_GRAPHICS_SOURCES
 	GraphicsDesc.cpp
 	RenderSystem.cpp

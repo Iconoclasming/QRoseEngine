@@ -4,7 +4,7 @@ using namespace QRose;
 
 RenderSystem::RenderSystem(Ptr<Render> pRender, Ptr<World> pWorld)
 	: pRender(pRender), pWorld(pWorld), pCameraComponentStorage(nullptr),
-	  pTransformComponentStorage(nullptr), pMeshComponentStorage(nullptr)
+	  pTransformComponentStorage(nullptr), pMeshComponentStorage(nullptr), pLightComponentStorage(nullptr)
 {
 	if (pRender == nullptr) throw std::invalid_argument("pRender == nullptr");
 	if (pWorld == nullptr) throw std::invalid_argument("pWorld == nullptr");
@@ -28,6 +28,10 @@ void RenderSystem::Update(double dt)
 	{
 		pMeshComponentStorage = pWorld->Get<Storage<MeshComponent>>();
 	}
+	if(pLightComponentStorage == nullptr)
+	{
+		pLightComponentStorage = pWorld->Get<Storage<LightComponent>>();
+	}
 
 	if (pCameraComponentStorage->Size() > 0)
 	{
@@ -39,6 +43,19 @@ void RenderSystem::Update(double dt)
 			Matrix4x4 viewMatrix;
 			viewMatrix = viewMatrix.Translate(cameraTransform.position);
 			pRender->SetViewMatrix(viewMatrix);
+		}
+	}
+
+	if(pLightComponentStorage->Size() > 0)
+	{
+		LightComponent* lightComponents = pLightComponentStorage->GetAll();
+		for(int i = 0; i < pLightComponentStorage->Size(); i++)
+		{
+			if(pTransformComponentStorage->Has(lightComponents[i].id))
+			{
+				pRender->AddPointLight(pTransformComponentStorage->Get(lightComponents[i].id).position,
+					lightComponents[i].intensity);
+			}
 		}
 	}
 

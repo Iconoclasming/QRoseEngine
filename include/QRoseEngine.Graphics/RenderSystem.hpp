@@ -7,6 +7,7 @@
 #include "Render.hpp"
 #include "Components/CameraComponent.hpp"
 #include "Components/MeshComponent.hpp"
+#include "Components/LightComponent.hpp"
 
 namespace QRose
 {
@@ -24,5 +25,6 @@ namespace QRose
 		Storage<CameraComponent>* pCameraComponentStorage;
 		Storage<TransformComponent>* pTransformComponentStorage;
 		Storage<MeshComponent>* pMeshComponentStorage;
+		Storage<LightComponent>* pLightComponentStorage;
 	};
 }
