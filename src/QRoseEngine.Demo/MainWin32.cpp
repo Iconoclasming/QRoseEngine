@@ -76,7 +76,7 @@ int main()
 		TransformComponent& transform = pWorld->Get<Storage<TransformComponent>>()->Get(boxEntityId);
 		angle += 0.005f;
 		transform.rotation = Vector4::FromAxisAngle(Vector3(0.0f, 1.0f, 0.0f), angle);
-
+		pGraphics->GetRender()->ClearView();
 		pRenderSystem->Update(dt);
 	}
 	glfwTerminate();

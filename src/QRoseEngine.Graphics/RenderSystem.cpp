@@ -29,9 +29,6 @@ void RenderSystem::Update(double dt)
 		pMeshComponentStorage = pWorld->Get<Storage<MeshComponent>>();
 	}
 
-	pRender->ClearView();
-	pRender->BeginDrawing();
-
 	if (pCameraComponentStorage->Size() > 0)
 	{
 		CameraComponent cameraComponent = pCameraComponentStorage->At(0);

@@ -26,10 +26,6 @@ void OpenGlRender::ClearView()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void OpenGlRender::BeginDrawing()
-{
-}
-
 void OpenGlRender::DrawMesh(MeshHandle meshId, const Matrix4x4& modelMatrix)
 {
 	const OpenGlMesh* pMesh = pResourcesManager->GetMeshVertexArrayObject(meshId);

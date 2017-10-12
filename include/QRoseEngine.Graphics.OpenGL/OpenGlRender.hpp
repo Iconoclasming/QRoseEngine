@@ -6,6 +6,7 @@
 #include <QRoseEngine.Graphics/Render.hpp>
 #include <QRoseEngine.Graphics.OpenGL/OpenGlResourcesManager.hpp>
 
+
 namespace QRose
 {
 	class OpenGlRender : public Render
@@ -15,7 +16,6 @@ namespace QRose
 		virtual ~OpenGlRender();
 
 		void ClearView() override;
-		void BeginDrawing() override;
 		void SetViewMatrix(const Matrix4x4 & viewMatrix) override;
 		void DrawMesh(MeshHandle meshId, const Matrix4x4& modelMatrix) override;
 		void Present() override;

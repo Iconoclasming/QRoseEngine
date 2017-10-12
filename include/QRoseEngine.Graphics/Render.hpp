@@ -13,7 +13,6 @@ namespace QRose
 		virtual ~Render() {}
 
 		virtual void ClearView() abstract;
-		virtual void BeginDrawing() abstract;
 		virtual void SetViewMatrix(const Matrix4x4& viewMatrix) abstract;
 		virtual void DrawMesh(MeshHandle meshId, const Matrix4x4& modelMatrix) abstract;
 		virtual void Present() abstract;
