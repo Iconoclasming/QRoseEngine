@@ -1,5 +1,8 @@
 #include "QRoseEngine.Graphics.OpenGL/OpenGlGraphics.hpp"
 
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+
 using namespace QRose;
 
 OpenGlGraphics::OpenGlGraphics() : pWindow(nullptr)
