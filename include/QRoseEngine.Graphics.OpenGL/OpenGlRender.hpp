@@ -1,11 +1,10 @@
 #pragma once
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
 #include <QRoseEngine.Core/ManagedPtr.hpp>
 #include <QRoseEngine.Graphics/Render.hpp>
 #include <QRoseEngine.Graphics.OpenGL/OpenGlResourcesManager.hpp>
 
+struct GLFWwindow;
 
 namespace QRose
 {
@@ -21,13 +20,18 @@ namespace QRose
 		void Present() override;
 		Color GetClearColor() override;
 		void SetClearColor(const Color& color) override;
+		void AddPointLight(const Vector3& position, const Color& intensity) override;
 
 	private:
+		struct PointLight;
+
 		Ptr<OpenGlResourcesManager> pResourcesManager;
 		GLFWwindow* pWindow;
 
 		Color clearColor;
 		Matrix4x4 projectionMatrix;
 		Matrix4x4 viewMatrix;
+
+		std::vector<PointLight> _pointLights;
 	};
 }
