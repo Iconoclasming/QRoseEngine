@@ -12,9 +12,10 @@
 using namespace QRose;
 
 void LoadMesh(const aiScene *pScene, const aiNode* pNode, std::vector<GLfloat>& vertices, 
-	std::vector<QRose::OpenGlResourcesManager::Index>& indices);
-OpenGlMesh RegisterMesh(const std::vector<GLfloat>& vertices,
-	const std::vector<QRose::OpenGlResourcesManager::Index>& indices);
+	std::vector<OpenGlResourcesManager::Index>& indices, std::vector<GLfloat>& normals);
+OpenGlMesh RegisterMesh(const std::vector<GLfloat>& vertices, const std::vector<OpenGlResourcesManager::Index>& indices,
+	const std::vector<GLfloat>& normals);
+std::vector<GLfloat> CalculateNormals(const std::vector<GLfloat>& vertices, int stride);
 
 OpenGlResourcesManager::OpenGlResourcesManager() : defaultShaderProgram(-1)
 {
@@ -34,8 +35,9 @@ MeshHandle OpenGlResourcesManager::LoadMesh(const std::string& path)
 	const aiScene* pScene = importer.ReadFile(path, aiProcessPreset_TargetRealtime_Fast);
 	std::vector<GLfloat> vertices;
 	std::vector<Index> indices;
-	::LoadMesh(pScene, pScene->mRootNode, vertices, indices);
-	OpenGlMesh mesh = RegisterMesh(vertices, indices);
+	std::vector<GLfloat> normals;
+	::LoadMesh(pScene, pScene->mRootNode, vertices, indices, normals);
+	OpenGlMesh mesh = RegisterMesh(vertices, indices, normals);
 	meshes.push_back(mesh);
 	return mesh.id;
 }
@@ -45,50 +47,92 @@ MeshHandle OpenGlResourcesManager::LoadBoxMesh(const Vector3& size)
 	float sizeX = size.GetX();
 	float sizeY = size.GetY();
 	float sizeZ = size.GetZ();
-	std::vector<GLfloat> vertices = {
+	std::vector<GLfloat> vertices = 
+	{
 		-sizeX, -sizeY, -sizeZ,
-		sizeX, -sizeY, -sizeZ,
-		sizeX,  sizeY, -sizeZ,
-		sizeX,  sizeY, -sizeZ,
 		-sizeX,  sizeY, -sizeZ,
-		-sizeX, -sizeY, -sizeZ,
-
-		-sizeX, -sizeY,  sizeZ,
-		sizeX, -sizeY,  sizeZ,
-		sizeX,  sizeY,  sizeZ,
-		sizeX,  sizeY,  sizeZ,
-		-sizeX,  sizeY,  sizeZ,
-		-sizeX, -sizeY,  sizeZ,
-
-		-sizeX,  sizeY,  sizeZ,
-		-sizeX,  sizeY, -sizeZ,
-		-sizeX, -sizeY, -sizeZ,
-		-sizeX, -sizeY, -sizeZ,
-		-sizeX, -sizeY,  sizeZ,
-		-sizeX,  sizeY,  sizeZ,
-
-		sizeX,  sizeY,  sizeZ,
-		sizeX,  sizeY, -sizeZ,
+		sizeX, sizeY, -sizeZ,
 		sizeX, -sizeY, -sizeZ,
-		sizeX, -sizeY, -sizeZ,
-		sizeX, -sizeY,  sizeZ,
-		sizeX,  sizeY,  sizeZ,
+
+		-sizeX, -sizeY, sizeZ,
+		sizeX, -sizeY, sizeZ,
+		sizeX,  sizeY, sizeZ,
+		-sizeX,  sizeY, sizeZ,
+
+		-sizeX, sizeY, -sizeZ,
+		-sizeX, sizeY,  sizeZ,
+		sizeX, sizeY,  sizeZ,
+		sizeX, sizeY, -sizeZ,
 
 		-sizeX, -sizeY, -sizeZ,
 		sizeX, -sizeY, -sizeZ,
 		sizeX, -sizeY,  sizeZ,
-		sizeX, -sizeY,  sizeZ,
 		-sizeX, -sizeY,  sizeZ,
-		-sizeX, -sizeY, -sizeZ,
 
-		-sizeX,  sizeY, -sizeZ,
-		sizeX,  sizeY, -sizeZ,
-		sizeX,  sizeY,  sizeZ,
-		sizeX,  sizeY,  sizeZ,
+		-sizeX, -sizeY,  sizeZ,
 		-sizeX,  sizeY,  sizeZ,
 		-sizeX,  sizeY, -sizeZ,
+		-sizeX, -sizeY, -sizeZ,
+
+		sizeX, -sizeY, -sizeZ,
+		sizeX,  sizeY, -sizeZ,
+		sizeX,  sizeY,  sizeZ,
+		sizeX, -sizeY,  sizeZ,
 	};
-	OpenGlMesh mesh = RegisterMesh(vertices, std::vector<Index>());
+	std::vector<Index> indices =
+	{ 
+		0, 1, 2,
+		0, 2, 3,
+
+		4, 5, 6,
+		4, 6, 7,
+
+		8, 9, 10,
+		8, 10, 11,
+
+		12, 13, 14,
+		12, 14, 15,
+
+		16, 17, 18,
+		16, 18, 19,
+
+		20, 21, 22,
+		20, 22, 23
+	};
+	std::vector<GLfloat> normals =
+	{ 
+		-1.0f, -1.0f, -1.0f,
+		-1.0f,  1.0f, -1.0f,
+		1.0f,  1.0f, -1.0f,
+		1.0f, -1.0f, -1.0f,
+
+		-1.0f, -1.0f, 1.0f,
+		1.0f, -1.0f, 1.0f,
+		1.0f,  1.0f, 1.0f,
+		-1.0f,  1.0f, 1.0f,
+
+		-1.0f, 1.0f, -1.0f,
+		-1.0f, 1.0f,  1.0f,
+		1.0f, 1.0f,  1.0f,
+		1.0f, 1.0f, -1.0f,
+
+		-1.0f, -1.0f, -1.0f,
+		1.0f, -1.0f, -1.0f,
+		1.0f, -1.0f,  1.0f,
+		-1.0f, -1.0f,  1.0f,
+
+		-1.0f, -1.0f,  1.0f,
+		-1.0f,  1.0f,  1.0f,
+		-1.0f,  1.0f, -1.0f,
+		-1.0f, -1.0f, -1.0f,
+
+		1.0f, -1.0f, -1.0f,
+		1.0f,  1.0f, -1.0f,
+		1.0f,  1.0f,  1.0f,
+		1.0f, -1.0f,  1.0f,
+	};
+
+	OpenGlMesh mesh = RegisterMesh(vertices, indices, normals);
 	meshes.push_back(mesh);
 	return mesh.id;
 }
@@ -179,8 +223,8 @@ GLuint OpenGlResourcesManager::GetDefaultShaderProgram() const
 	return defaultShaderProgram;
 }
 
-OpenGlMesh RegisterMesh(const std::vector<GLfloat>& vertices, 
-	const std::vector<OpenGlResourcesManager::Index>& indices)
+OpenGlMesh RegisterMesh(const std::vector<GLfloat>& vertices, const std::vector<OpenGlResourcesManager::Index>& indices,
+	const std::vector<GLfloat>& normals)
 {
 	GLuint vao;
 	glGenVertexArrays(1, &vao);
@@ -191,18 +235,26 @@ OpenGlMesh RegisterMesh(const std::vector<GLfloat>& vertices,
 	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(GLfloat), vertices.data(), GL_STATIC_DRAW);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, static_cast<void*>(nullptr));
 	glEnableVertexAttribArray(0);
-	GLuint elementBuffer;
-	glGenBuffers(1, &elementBuffer);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementBuffer);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(OpenGlResourcesManager::Index), 
-		indices.data(), GL_STATIC_DRAW);
+	if(indices.size() > 0)
+	{
+		GLuint elementBuffer;
+		glGenBuffers(1, &elementBuffer);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementBuffer);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(OpenGlResourcesManager::Index),
+			indices.data(), GL_STATIC_DRAW);		
+	}
+	GLuint normalBuffer;
+	glGenBuffers(1, &normalBuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, normalBuffer);
+	glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(GLfloat), normals.data(), GL_STATIC_DRAW);
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, static_cast<void*>(nullptr));
 	glBindVertexArray(0);
-	return OpenGlMesh(Uuid::GenerateUuid(), vao, vertexBuffer, elementBuffer, vertices.data(), indices.data(),
-		vertices.size(),indices.size());
+	return OpenGlMesh(Uuid::GenerateUuid(), vao, vertices.size(),indices.size());
 }
 
 void LoadMesh(const aiScene *pScene, const aiNode* pNode, std::vector<GLfloat>& vertices,
-	std::vector<OpenGlResourcesManager::Index>& indices)
+	std::vector<OpenGlResourcesManager::Index>& indices, std::vector<GLfloat>& normals)
 {
 	for(unsigned i = 0; i < pScene->mNumMeshes; i++)
 	{
@@ -223,5 +275,21 @@ void LoadMesh(const aiScene *pScene, const aiNode* pNode, std::vector<GLfloat>& 
 				vertices.push_back(vertex.z);
 			}
 		}
+		if (pMesh->HasNormals())
+		{
+			for (unsigned j = 0; j < pMesh->mNumVertices; j++)
+			{
+				normals.push_back(pMesh->mNormals[j].x);
+				normals.push_back(pMesh->mNormals[j].y);
+				normals.push_back(pMesh->mNormals[j].z);
+			}			
+		}
 	}
+}
+
+std::vector<GLfloat> CalculateNormals(const std::vector<GLfloat>& vertices, int stride)
+{
+	std::vector<GLfloat> normals;
+
+	return normals;
 }

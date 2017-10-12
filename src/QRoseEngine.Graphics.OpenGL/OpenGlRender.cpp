@@ -1,5 +1,8 @@
 #include <QRoseEngine.Graphics.OpenGL/OpenGlRender.hpp>
 
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+
 using namespace QRose;
 
 OpenGlRender::OpenGlRender(Ptr<OpenGlResourcesManager> pResourcesManager, GLFWwindow* pWindow)
@@ -35,17 +38,23 @@ void OpenGlRender::DrawMesh(MeshHandle meshId, const Matrix4x4& modelMatrix)
 	GLuint modelLoc = glGetUniformLocation(shaderProgram, "model");
 	GLuint viewLoc = glGetUniformLocation(shaderProgram, "view");
 	GLuint projectionLoc = glGetUniformLocation(shaderProgram, "projection");
+	GLuint lightPositionLoc = glGetUniformLocation(shaderProgram, "light.position");
+	GLuint lightIntensitiesLoc = glGetUniformLocation(shaderProgram, "light.intensity");
 	glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, projectionMatrix.GetArray());
 	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, modelMatrix.GetArray());
 	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, viewMatrix.GetArray());
+	GLfloat lightPosition[3] = { 0.0f, 0.0f, 5.0f };
+	GLfloat lightIntensities[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	glUniform3fv(lightPositionLoc, 1, lightPosition);
+	glUniform3fv(lightIntensitiesLoc, 1, lightIntensities);
 	glBindVertexArray(pMesh->vao);
-	if(pMesh->numIndices == 0)
+	if (pMesh->numIndices == 0)
 	{
-		glDrawArrays(GL_TRIANGLES, 0, pMesh->numVertices);		
+		glDrawArrays(GL_TRIANGLES, 0, pMesh->numVertices);
 	}
 	else
 	{
-		glDrawElements(GL_TRIANGLES, pMesh->numIndices, OpenGlResourcesManager::IndexType, 
+		glDrawElements(GL_TRIANGLES, pMesh->numIndices, OpenGlResourcesManager::IndexType,
 			static_cast<void*>(nullptr));
 	}
 	glUseProgram(0);
