@@ -5,7 +5,7 @@
 
 using namespace QRose;
 
-Vector4::Vector4(float x, float y, float z, float w) : quat(x, y, z, w)
+Vector4::Vector4(float x, float y, float z, float w) : quat(w, x, y, z)
 {
 }
 
