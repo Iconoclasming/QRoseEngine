@@ -282,12 +282,6 @@ void LoadMesh(const aiScene *pScene, const aiNode* pNode, std::vector<GLfloat>& 
 				}
 			}
 		}
-		/*if (pMesh->HasNormals())
-		{
-			for (unsigned j = 0; j < pMesh->mNumVertices; j++)
-			{
-			}			
-		}*/
 	}
 }
 
