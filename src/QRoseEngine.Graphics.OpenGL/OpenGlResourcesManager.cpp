@@ -273,17 +273,21 @@ void LoadMesh(const aiScene *pScene, const aiNode* pNode, std::vector<GLfloat>& 
 				vertices.push_back(vertex.x);
 				vertices.push_back(vertex.y);
 				vertices.push_back(vertex.z);
+				if (pMesh->HasNormals())
+				{
+					const aiVector3D& normal = pMesh->mNormals[pFace->mIndices[k]];
+					normals.push_back(normal.x);
+					normals.push_back(normal.y);
+					normals.push_back(normal.z);
+				}
 			}
 		}
-		if (pMesh->HasNormals())
+		/*if (pMesh->HasNormals())
 		{
 			for (unsigned j = 0; j < pMesh->mNumVertices; j++)
 			{
-				normals.push_back(pMesh->mNormals[j].x);
-				normals.push_back(pMesh->mNormals[j].y);
-				normals.push_back(pMesh->mNormals[j].z);
 			}			
-		}
+		}*/
 	}
 }
 
