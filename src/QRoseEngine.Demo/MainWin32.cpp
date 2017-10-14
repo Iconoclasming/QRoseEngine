@@ -41,7 +41,7 @@ int main()
 	CameraComponent cameraComponent(cameraEntityId, 45.0f);
 	pWorld->Get<Storage<CameraComponent>>()->Add(cameraComponent);
 	TransformComponent cameraTransformComponent(cameraEntityId);
-	cameraTransformComponent.position = Vector3(0.5f, 0.0f, -3.0f);
+	cameraTransformComponent.position = Vector3(0.0f, -1.0f, -2.0f);
 	pWorld->Get<Storage<TransformComponent>>()->Add(cameraTransformComponent);
 	MovableComponent movableComponent(cameraEntityId, 1.0f, 1.0f, 1.0f, 1.0f, Vector3(0.0f, 0.0f, -1.0f),
 		Vector3(0.0f, 1.0f, 0.0f));
@@ -53,17 +53,16 @@ int main()
 	MeshComponent meshComponent(boxEntityId, boxMeshId);
 	//pWorld->Get<Storage<MeshComponent>>()->Add(meshComponent);
 
-	MeshHandle humanMeshId = pGraphics->LoadMesh(config.assetsRoot + "/models/BaseHuman.blend");
+	MeshHandle humanMeshId = pGraphics->LoadMesh(config.assetsRoot + "/models/characterlowpoly2.dae");
 	const EntityHandle humanEntityId = 3;
 	TransformComponent humanTransformComponent(humanEntityId);
-	humanTransformComponent.rotation = Vector4::FromAxisAngle(Vector3(-1.0f, 0.0f, 0.0f), 90.0f);
 	pWorld->Get<Storage<TransformComponent>>()->Add(humanTransformComponent);
 	MeshComponent humanMeshComponent(humanEntityId, humanMeshId);
 	pWorld->Get<Storage<MeshComponent>>()->Add(humanMeshComponent);
 
 	const EntityHandle lightEntityId = 4;
 	TransformComponent lightTransformComponent(lightEntityId);
-	lightTransformComponent.position = Vector3(0.0f, -15.0f, 20.0f);
+	lightTransformComponent.position = Vector3(10.0f, 20.0f, 20.0f);
 	LightComponent lightComponent(lightEntityId);
 	pWorld->Get<Storage<TransformComponent>>()->Add(lightTransformComponent);
 	pWorld->Get<Storage<LightComponent>>()->Add(lightComponent);
@@ -83,7 +82,7 @@ int main()
 
 		TransformComponent& transform = pWorld->Get<Storage<TransformComponent>>()->Get(humanEntityId);
 		angle += 0.005f;
-		transform.rotation = Vector4::FromAxisAngle(Vector3(1.0f, 0.0f, 0.0f), angle);
+		//transform.rotation = Vector4::FromAxisAngle(Vector3(0.0f, 1.0f, 0.0f), 45);
 		
 		pGraphics->GetRender()->ClearView();
 		pRenderSystem->Update(dt);

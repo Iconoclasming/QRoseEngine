@@ -12,7 +12,8 @@
 using namespace QRose;
 
 void LoadMesh(const aiScene *pScene, const aiNode* pNode, std::vector<GLfloat>& vertices, 
-	std::vector<OpenGlResourcesManager::Index>& indices, std::vector<GLfloat>& normals);
+	std::vector<OpenGlResourcesManager::Index>& indices, std::vector<GLfloat>& normals,
+	bool flipY);
 OpenGlMesh RegisterMesh(const std::vector<GLfloat>& vertices, const std::vector<OpenGlResourcesManager::Index>& indices,
 	const std::vector<GLfloat>& normals);
 std::vector<GLfloat> CalculateNormals(const std::vector<GLfloat>& vertices, int stride);
@@ -36,7 +37,7 @@ MeshHandle OpenGlResourcesManager::LoadMesh(const std::string& path)
 	std::vector<GLfloat> vertices;
 	std::vector<Index> indices;
 	std::vector<GLfloat> normals;
-	::LoadMesh(pScene, pScene->mRootNode, vertices, indices, normals);
+	::LoadMesh(pScene, pScene->mRootNode, vertices, indices, normals, true);
 	OpenGlMesh mesh = RegisterMesh(vertices, indices, normals);
 	meshes.push_back(mesh);
 	return mesh.id;
@@ -254,7 +255,8 @@ OpenGlMesh RegisterMesh(const std::vector<GLfloat>& vertices, const std::vector<
 }
 
 void LoadMesh(const aiScene *pScene, const aiNode* pNode, std::vector<GLfloat>& vertices,
-	std::vector<OpenGlResourcesManager::Index>& indices, std::vector<GLfloat>& normals)
+	std::vector<OpenGlResourcesManager::Index>& indices, std::vector<GLfloat>& normals,
+	bool flipY)
 {
 	for(unsigned i = 0; i < pScene->mNumMeshes; i++)
 	{
@@ -271,13 +273,13 @@ void LoadMesh(const aiScene *pScene, const aiNode* pNode, std::vector<GLfloat>& 
 			{
 				const aiVector3D& vertex = pMesh->mVertices[pFace->mIndices[k]];
 				vertices.push_back(vertex.x);
-				vertices.push_back(vertex.y);
+				vertices.push_back(flipY ? -vertex.y : vertex.y);
 				vertices.push_back(vertex.z);
 				if (pMesh->HasNormals())
 				{
 					const aiVector3D& normal = pMesh->mNormals[pFace->mIndices[k]];
 					normals.push_back(normal.x);
-					normals.push_back(normal.y);
+					normals.push_back(flipY ? -normal.y : vertex.y);
 					normals.push_back(normal.z);
 				}
 			}
