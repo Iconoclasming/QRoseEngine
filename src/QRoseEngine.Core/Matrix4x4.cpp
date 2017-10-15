@@ -45,7 +45,12 @@ Matrix4x4 Matrix4x4::operator*(const Matrix4x4& rhs) const
 	return Matrix4x4(mat4 * rhs.mat4);
 }
 
-const float* Matrix4x4::GetArray() const
+float* Matrix4x4::operator[](int row)
+{
+	return glm::value_ptr(mat4[row]);
+}
+
+const float* Matrix4x4::Flatten() const
 {
 	return glm::value_ptr(mat4);
 }
@@ -53,5 +58,18 @@ const float* Matrix4x4::GetArray() const
 Matrix4x4 Matrix4x4::Projection(float fov, float aspect, float nearPlane, float farPlane)
 {
 	return Matrix4x4(glm::perspective(fov, aspect, nearPlane, farPlane));
+}
+
+Matrix4x4 Matrix4x4::FromArrays(float array[4][4])
+{
+	glm::mat4 mat4;
+	for(int i = 0; i < 4; i++)
+	{
+		for(int j = 0; j < 4; j++)
+		{
+			mat4[i][j] = array[i][j];			
+		}
+	}
+	return Matrix4x4(mat4);
 }
 

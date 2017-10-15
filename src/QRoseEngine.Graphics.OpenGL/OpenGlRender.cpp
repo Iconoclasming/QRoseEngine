@@ -49,9 +49,9 @@ void OpenGlRender::DrawMesh(MeshHandle meshId, const Matrix4x4& modelMatrix)
 	GLuint projectionLoc = glGetUniformLocation(shaderProgram, "projection");
 	GLuint lightPositionLoc = glGetUniformLocation(shaderProgram, "light.position");
 	GLuint lightIntensitiesLoc = glGetUniformLocation(shaderProgram, "light.intensity");
-	glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, projectionMatrix.GetArray());
-	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, modelMatrix.GetArray());
-	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, viewMatrix.GetArray());
+	glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, projectionMatrix.Flatten());
+	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, modelMatrix.Flatten());
+	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, viewMatrix.Flatten());
 	if (_pointLights.size() > 0)
 	{
 		const PointLight& light = _pointLights[0];

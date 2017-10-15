@@ -22,10 +22,12 @@ namespace QRose
 		Matrix4x4 Scale(const Vector3& vector) const;
 
 		Matrix4x4 operator*(const Matrix4x4& rhs) const;
+		float* operator[](int row);
 
-		const float* GetArray() const;
+		const float* Flatten() const;
 
 		static Matrix4x4 Projection(float fov, float aspect, float nearPlane, float farPlane);
+		static Matrix4x4 FromArrays(float array[4][4]);
 
 	private:
 #ifdef QROSEENGINE_USE_OPENGL_MATHEMATICS
