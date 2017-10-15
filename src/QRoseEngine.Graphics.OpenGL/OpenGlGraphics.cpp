@@ -2,6 +2,7 @@
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include "QRoseEngine.Core/DebugRender.hpp"
 
 using namespace QRose;
 
@@ -44,6 +45,8 @@ void OpenGlGraphics::Initialize(const GraphicsDesc& graphicsDesc, const std::str
 		assetsDirectory + "\\shaders\\demo_fragment_shader.glsl");
 	pRender = NewManaged<OpenGlRender>(pResourcesManager, pWindow);
 	pRender->SetClearColor(graphicsDesc.backgroundColor);
+	pRender->InitializeDebugDrawing();
+	DebugRender::SetDebugRender(pRender);
 }
 
 MeshHandle OpenGlGraphics::LoadMesh(const std::string& path)

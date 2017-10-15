@@ -1,14 +1,15 @@
 #pragma once
 
-#include <QRoseEngine.Core/ManagedPtr.hpp>
-#include <QRoseEngine.Graphics/Render.hpp>
-#include <QRoseEngine.Graphics.OpenGL/OpenGlResourcesManager.hpp>
+#include "QRoseEngine.Core/ManagedPtr.hpp"
+#include "QRoseEngine.Graphics/Render.hpp"
+#include "QRoseEngine.Graphics.OpenGL/OpenGlResourcesManager.hpp"
+#include "QRoseEngine.Core/IDebugRender.hpp"
 
 struct GLFWwindow;
 
 namespace QRose
 {
-	class OpenGlRender : public Render
+	class OpenGlRender : public Render, public IDebugRender
 	{
 	public:
 		OpenGlRender(Ptr<OpenGlResourcesManager> pResourcesManager, GLFWwindow* pWindow);
@@ -22,8 +23,13 @@ namespace QRose
 		void SetClearColor(const Color& color) override;
 		void AddPointLight(const Vector3& position, const Color& intensity) override;
 
+		void DrawLine(Vector3 from, Vector3 to, float thickness, Color colorStart, Color colorEnd) override;
+
+		void InitializeDebugDrawing();
+
 	private:
 		struct PointLight;
+		struct Line;
 
 		Ptr<OpenGlResourcesManager> pResourcesManager;
 		GLFWwindow* pWindow;
@@ -33,5 +39,9 @@ namespace QRose
 		Matrix4x4 viewMatrix;
 
 		std::vector<PointLight> _pointLights;
+
+		bool isDebugDrawingInitialized;
+		GLuint lineShaderProgram;
+		std::vector<Line> lines;
 	};
 }

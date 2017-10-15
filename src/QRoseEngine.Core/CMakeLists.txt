@@ -20,7 +20,9 @@ set(QROSEENGINE_CORE_HEADERS
 	../../include/QRoseEngine.Core/Matrix4x4.hpp
 	../../include/QRoseEngine.Core/World.hpp
 	../../include/QRoseEngine.Core/Storage.hpp
-	../../include/QRoseEngine.Core/Assert.hpp)
+	../../include/QRoseEngine.Core/DebugRender.hpp
+	../../include/QRoseEngine.Core/IDebugRender.hpp
+	../../include/QRoseEngine.Core/NullDebugRender.hpp)
 set(QROSEENGINE_CORE_COMPONENTS_HEADERS
 	../../include/QRoseEngine.Core/Components/TransformComponent.hpp)
 set(QROSEENGINE_CORE_SOURCES
@@ -30,7 +32,8 @@ set(QROSEENGINE_CORE_SOURCES
 	Streaming.cpp
 	Vector3.cpp
 	Vector4.cpp
-	Matrix4x4.cpp)
+	Matrix4x4.cpp
+	DebugRender.cpp)
 set(QROSEENGINE_CORE_COMPONENTS_SOURCES
 	Components/TransformComponent.cpp)
 source_group("Components" FILES ${QROSEENGINE_CORE_COMPONENTS_HEADERS} ${QROSEENGINE_CORE_COMPONENTS_SOURCES})
