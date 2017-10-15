@@ -2,6 +2,7 @@
 
 #include <string>
 #include <regex>
+#include "gtc/type_ptr.inl"
 
 using namespace QRose;
 
@@ -53,6 +54,11 @@ Vector3 Vector3::operator*(float scalar) const
 	return Vector3(scalar * vec3.x, scalar * vec3.y, scalar * vec3.z);
 }
 
+Vector3 Vector3::operator-(const Vector3& rhs) const
+{
+	return Vector3(GetX() - rhs.GetX(), GetY() - rhs.GetY(), GetZ() - rhs.GetZ());
+}
+
 Vector3 Vector3::Normalize() const
 {
 	return glm::normalize(vec3);
@@ -61,6 +67,11 @@ Vector3 Vector3::Normalize() const
 Vector3 Vector3::Cross(const Vector3 & rhs) const
 {
 	return glm::cross(vec3, rhs.vec3);
+}
+
+const float* Vector3::Flatten() const
+{
+	return glm::value_ptr(vec3);
 }
 
 void Vector3::Serialize(std::ostream& serializationStream) const

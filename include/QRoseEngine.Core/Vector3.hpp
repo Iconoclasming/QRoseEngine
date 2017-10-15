@@ -22,9 +22,12 @@ namespace QRose
 		Vector3 operator+=(const Vector3& rhs);
 		Vector3 operator-=(const Vector3& rhs);
 		Vector3 operator*(float scalar) const;
+		Vector3 operator-(const Vector3& rhs) const;
 
 		Vector3 Normalize() const;
 		Vector3 Cross(const Vector3& rhs) const;
+
+		const float* Flatten() const;
 
 	private:
 #ifdef QROSEENGINE_USE_OPENGL_MATHEMATICS
