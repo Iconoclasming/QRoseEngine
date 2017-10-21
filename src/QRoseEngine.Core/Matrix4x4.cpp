@@ -60,16 +60,3 @@ Matrix4x4 Matrix4x4::Projection(float fov, float aspect, float nearPlane, float 
 	return Matrix4x4(glm::perspective(fov, aspect, nearPlane, farPlane));
 }
 
-Matrix4x4 Matrix4x4::FromArrays(float array[4][4])
-{
-	glm::mat4 mat4;
-	for(int i = 0; i < 4; i++)
-	{
-		for(int j = 0; j < 4; j++)
-		{
-			mat4[i][j] = array[i][j];			
-		}
-	}
-	return Matrix4x4(mat4);
-}
-
