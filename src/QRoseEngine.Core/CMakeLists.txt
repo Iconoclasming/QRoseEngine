@@ -23,7 +23,8 @@ set(QROSEENGINE_CORE_HEADERS
 	../../include/QRoseEngine.Core/Storage.hpp
 	../../include/QRoseEngine.Core/DebugRender.hpp
 	../../include/QRoseEngine.Core/IDebugRender.hpp
-	../../include/QRoseEngine.Core/NullDebugRender.hpp)
+	../../include/QRoseEngine.Core/NullDebugRender.hpp
+	../../include/QRoseEngine.Core/Angle.hpp)
 set(QROSEENGINE_CORE_COMPONENTS_HEADERS
 	../../include/QRoseEngine.Core/Components/TransformComponent.hpp)
 set(QROSEENGINE_CORE_SOURCES
@@ -35,7 +36,8 @@ set(QROSEENGINE_CORE_SOURCES
 	Vector3.cpp
 	Vector4.cpp
 	Matrix4x4.cpp
-	DebugRender.cpp)
+	DebugRender.cpp
+	Angle.cpp)
 set(QROSEENGINE_CORE_COMPONENTS_SOURCES
 	Components/TransformComponent.cpp)
 source_group("Components" FILES ${QROSEENGINE_CORE_COMPONENTS_HEADERS} ${QROSEENGINE_CORE_COMPONENTS_SOURCES})
