@@ -10,6 +10,7 @@ set(QROSEENGINE_CORE_HEADERS
 	../../include/QRoseEngine.Core/EntityHandle.hpp
 	../../include/QRoseEngine.Core/SerializationException.hpp
 	../../include/QRoseEngine.Core/Vector.hpp
+	../../include/QRoseEngine.Core/Vector2.hpp
 	../../include/QRoseEngine.Core/Vector3.hpp
 	../../include/QRoseEngine.Core/Vector4.hpp
 	../../include/QRoseEngine.Core/System.hpp
@@ -30,6 +31,7 @@ set(QROSEENGINE_CORE_SOURCES
 	Size.cpp
 	Uuid.cpp
 	Streaming.cpp
+	Vector2.cpp
 	Vector3.cpp
 	Vector4.cpp
 	Matrix4x4.cpp
