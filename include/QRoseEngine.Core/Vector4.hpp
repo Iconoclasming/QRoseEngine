@@ -30,7 +30,7 @@ namespace QRose
 	private:
 #ifdef QROSEENGINE_USE_OPENGL_MATHEMATICS
 		friend class Matrix4x4;
-		Vector4(glm::quat& quat);
+		explicit Vector4(glm::quat& quat);
 		glm::quat quat;
 #endif
 		friend class Streaming;
