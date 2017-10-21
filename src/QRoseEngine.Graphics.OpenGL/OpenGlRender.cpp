@@ -19,14 +19,24 @@ struct OpenGlRender::PointLight
 	GLfloat intensity[4];
 };
 
-struct OpenGlRender::Line
+struct OpenGlRender::Line2D
 {
-	Line(const Vector3& from, const Vector3& to, float thickness, const Color& colorStart, const Color& colorEnd)
-		: from(from),
-		to(to),
-		thickness(thickness),
-		colorStart(colorStart),
-		colorEnd(colorEnd)
+	Line2D(const Vector2& from, const Vector2& to, float thickness, const Color& colorStart, const Color& colorEnd)
+		: from(from), to(to), thickness(thickness), colorStart(colorStart), colorEnd(colorEnd)
+	{
+	}
+
+	const Vector2 from;
+	const Vector2 to;
+	const float thickness;
+	const Color colorStart;
+	const Color colorEnd;
+};
+
+struct OpenGlRender::Line3D
+{
+	Line3D(const Vector3& from, const Vector3& to, float thickness, const Color& colorStart, const Color& colorEnd)
+		: from(from), to(to), thickness(thickness), colorStart(colorStart), colorEnd(colorEnd)
 	{
 	}
 
@@ -39,7 +49,7 @@ struct OpenGlRender::Line
 
 OpenGlRender::OpenGlRender(Ptr<OpenGlResourcesManager> pResourcesManager, GLFWwindow* pWindow)
 	: pResourcesManager(pResourcesManager), pWindow(pWindow), isDebugDrawingInitialized(false),
-	lineShaderProgram(0)
+	lineScreenShaderProgram(0)
 {
 	int windowWidth;
 	int windowHeight;
@@ -98,20 +108,18 @@ void OpenGlRender::Present()
 {
 	if(isDebugDrawingInitialized)
 	{
-		glUseProgram(lineShaderProgram);
+		glUseProgram(lineScreenShaderProgram);
 		GLuint lineVao;
 		glGenVertexArrays(1, &lineVao);
 		glBindVertexArray(lineVao);
 		std::vector<GLfloat> vertices;
 		std::vector<GLfloat> colors;
-		for(auto& line : lines)
+		for(auto& line : linesScreenSpace)
 		{
 			vertices.push_back(line.from.GetX());
 			vertices.push_back(line.from.GetY());
-			vertices.push_back(line.from.GetZ());
 			vertices.push_back(line.to.GetX());
 			vertices.push_back(line.to.GetY());
-			vertices.push_back(line.to.GetZ());
 			colors.push_back(line.colorStart.GetRed());
 			colors.push_back(line.colorStart.GetGreen());
 			colors.push_back(line.colorStart.GetBlue());
@@ -126,17 +134,18 @@ void OpenGlRender::Present()
 		glBindBuffer(GL_ARRAY_BUFFER, lineVertexBuffer);
 		glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(GLfloat), vertices.data(), GL_STATIC_DRAW);
 		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
 		GLuint lineColorBuffer;
 		glGenBuffers(1, &lineColorBuffer);
 		glBindBuffer(GL_ARRAY_BUFFER, lineColorBuffer);
 		glBufferData(GL_ARRAY_BUFFER, colors.size() * sizeof(GLfloat), colors.data(), GL_STATIC_DRAW);
 		glEnableVertexAttribArray(1);
 		glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, nullptr);
-		glDrawArrays(GL_LINES, 0, lines.size() * 2);
+		glDrawArrays(GL_LINES, 0, linesScreenSpace.size() * 2);
 		glBindVertexArray(0);
 		glUseProgram(0);
 		glDeleteVertexArrays(1, &lineVao);
+		linesScreenSpace.clear();
 	}
 	glfwSwapBuffers(pWindow);
 }
@@ -171,23 +180,28 @@ void OpenGlRender::AddPointLight(const Vector3& position, const Color& intensity
 	}
 }
 
+void OpenGlRender::DrawLine(Vector2 from, Vector2 to, float thickness, Color colorStart, Color colorEnd)
+{
+	assert(isDebugDrawingInitialized);
+	linesScreenSpace.push_back(Line2D(from, to, thickness, colorStart, colorEnd));
+}
+
 void OpenGlRender::DrawLine(Vector3 from, Vector3 to, float thickness, Color colorStart, Color colorEnd)
 {
 	assert(isDebugDrawingInitialized);
-
-	lines.push_back(Line(from, to, thickness, colorStart, colorEnd));
+	linesWorldSpace.push_back(Line3D(from, to, thickness, colorStart, colorEnd));
 }
 
 void OpenGlRender::InitializeDebugDrawing()
 {
 	std::stringstream ss;
 	ss << "#version 330 core\n";
-	ss << "layout(location = 0) in vec3 position;\n";
+	ss << "layout(location = 0) in vec2 position;\n";
 	ss << "layout(location = 1) in vec4 color;\n";
 	ss << "out vec4 fragmentColor;\n";
 	ss << "void main()\n";
 	ss << "{\n";
-	ss << "gl_Position = vec4(position.xyz, 1.0f);\n";
+	ss << "gl_Position = vec4(position.xy, 0.0f, 1.0f);\n";
 	ss << "fragmentColor = color;\n";
 	ss << "}\n";
 	std::string vertexShaderString = ss.str();
@@ -225,16 +239,16 @@ void OpenGlRender::InitializeDebugDrawing()
 		throw std::runtime_error("failed to compile vertex shader:\n" + std::string(infoLog));
 	}
 
-	lineShaderProgram = glCreateProgram();
-	glAttachShader(lineShaderProgram, lineVertexShaderId);
-	glAttachShader(lineShaderProgram, lineFragmentShaderId);
-	glLinkProgram(lineShaderProgram);
+	lineScreenShaderProgram = glCreateProgram();
+	glAttachShader(lineScreenShaderProgram, lineVertexShaderId);
+	glAttachShader(lineScreenShaderProgram, lineFragmentShaderId);
+	glLinkProgram(lineScreenShaderProgram);
 	GLint programLinkSuccess;
-	glGetShaderiv(lineShaderProgram, GL_LINK_STATUS, &programLinkSuccess);
+	glGetShaderiv(lineScreenShaderProgram, GL_LINK_STATUS, &programLinkSuccess);
 	if (!programLinkSuccess)
 	{
 		GLchar infoLog[512];
-		glGetShaderInfoLog(lineShaderProgram, 512, nullptr, infoLog);
+		glGetShaderInfoLog(lineScreenShaderProgram, 512, nullptr, infoLog);
 		throw std::runtime_error("failed to link shader program:\n" + std::string(infoLog));
 	}
 

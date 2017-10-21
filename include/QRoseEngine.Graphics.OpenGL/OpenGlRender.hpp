@@ -23,13 +23,15 @@ namespace QRose
 		void SetClearColor(const Color& color) override;
 		void AddPointLight(const Vector3& position, const Color& intensity) override;
 
+		void DrawLine(Vector2 from, Vector2 to, float thickness, Color colorStart, Color colorEnd) override;
 		void DrawLine(Vector3 from, Vector3 to, float thickness, Color colorStart, Color colorEnd) override;
 
 		void InitializeDebugDrawing();
 
 	private:
 		struct PointLight;
-		struct Line;
+		struct Line2D;
+		struct Line3D;
 
 		Ptr<OpenGlResourcesManager> pResourcesManager;
 		GLFWwindow* pWindow;
@@ -41,7 +43,8 @@ namespace QRose
 		std::vector<PointLight> _pointLights;
 
 		bool isDebugDrawingInitialized;
-		GLuint lineShaderProgram;
-		std::vector<Line> lines;
+		GLuint lineScreenShaderProgram;
+		std::vector<Line2D> linesScreenSpace;
+		std::vector<Line3D> linesWorldSpace;
 	};
 }
