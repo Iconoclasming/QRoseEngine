@@ -9,7 +9,7 @@ namespace QRose
 	{
 	public:
 		virtual void DrawLine(Vector2 from, Vector2 to, float thickness, Color colorStart, Color colorEnd) abstract;
-		virtual void DrawLine(Vector3 from, Vector3 to, float thickness, Color colorStart, Color colorEnd) abstract;
+		virtual void DrawLine(Vector3 from, Vector3 to, Vector4 rotation, float thickness, Color colorStart, Color colorEnd) abstract;
 
 	protected:
 		~IDebugRender() = default;

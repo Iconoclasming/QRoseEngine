@@ -35,13 +35,15 @@ struct OpenGlRender::Line2D
 
 struct OpenGlRender::Line3D
 {
-	Line3D(const Vector3& from, const Vector3& to, float thickness, const Color& colorStart, const Color& colorEnd)
-		: from(from), to(to), thickness(thickness), colorStart(colorStart), colorEnd(colorEnd)
+	Line3D(const Vector3& from, const Vector3& to, const Vector4& rotation, float thickness, const Color& colorStart,
+		const Color& colorEnd)
+		: from(from), to(to), rotation(rotation), thickness(thickness), colorStart(colorStart), colorEnd(colorEnd)
 	{
 	}
 
 	const Vector3 from;
 	const Vector3 to;
+	const Vector4 rotation;
 	const float thickness;
 	const Color colorStart;
 	const Color colorEnd;
@@ -169,9 +171,17 @@ void OpenGlRender::Present()
 				verticesWorldSpace.push_back(line.from.GetX());
 				verticesWorldSpace.push_back(line.from.GetY());
 				verticesWorldSpace.push_back(line.from.GetZ());
+				verticesWorldSpace.push_back(line.rotation.GetX());
+				verticesWorldSpace.push_back(line.rotation.GetY());
+				verticesWorldSpace.push_back(line.rotation.GetZ());
+				verticesWorldSpace.push_back(line.rotation.GetW());
 				verticesWorldSpace.push_back(line.to.GetX());
 				verticesWorldSpace.push_back(line.to.GetY());
 				verticesWorldSpace.push_back(line.to.GetZ());
+				verticesWorldSpace.push_back(line.rotation.GetX());
+				verticesWorldSpace.push_back(line.rotation.GetY());
+				verticesWorldSpace.push_back(line.rotation.GetZ());
+				verticesWorldSpace.push_back(line.rotation.GetW());
 				colorsWorldSpace.push_back(line.colorStart.GetRed());
 				colorsWorldSpace.push_back(line.colorStart.GetGreen());
 				colorsWorldSpace.push_back(line.colorStart.GetBlue());
@@ -187,14 +197,17 @@ void OpenGlRender::Present()
 			glBufferData(GL_ARRAY_BUFFER, verticesWorldSpace.size() * sizeof(GLfloat),
 				verticesWorldSpace.data(), GL_STATIC_DRAW);
 			glEnableVertexAttribArray(0);
-			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 7 * sizeof(GLfloat), nullptr);
+			glEnableVertexAttribArray(1);
+			glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 7 * sizeof(GLfloat),
+				reinterpret_cast<const GLvoid*>(3u * sizeof(GLfloat)));
 			GLuint linesWorldSpaceColorBuffer;
 			glGenBuffers(1, &linesWorldSpaceColorBuffer);
 			glBindBuffer(GL_ARRAY_BUFFER, linesWorldSpaceColorBuffer);
-			glBufferData(GL_ARRAY_BUFFER, colorsWorldSpace.size() * sizeof(GLfloat),
-				colorsWorldSpace.data(), GL_STATIC_DRAW);
-			glEnableVertexAttribArray(1);
-			glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, nullptr);
+			glBufferData(GL_ARRAY_BUFFER, colorsWorldSpace.size() * sizeof(GLfloat), colorsWorldSpace.data(),
+				GL_STATIC_DRAW);
+			glEnableVertexAttribArray(2);
+			glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, 0, nullptr);
 			GLuint viewLoc = glGetUniformLocation(lineWorldSpaceShaderProgram, "view");
 			GLuint projectionLoc = glGetUniformLocation(lineWorldSpaceShaderProgram, "projection");
 			glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, projectionMatrix.Flatten());
@@ -245,10 +258,11 @@ void OpenGlRender::DrawLine(Vector2 from, Vector2 to, float thickness, Color col
 	linesScreenSpace.push_back(Line2D(from, to, thickness, colorStart, colorEnd));
 }
 
-void OpenGlRender::DrawLine(Vector3 from, Vector3 to, float thickness, Color colorStart, Color colorEnd)
+void OpenGlRender::DrawLine(Vector3 from, Vector3 to, Vector4 rotation, float thickness, Color colorStart,
+	Color colorEnd)
 {
 	assert(isDebugDrawingInitialized);
-	linesWorldSpace.push_back(Line3D(from, to, thickness, colorStart, colorEnd));
+	linesWorldSpace.push_back(Line3D(from, to, rotation, thickness, colorStart, colorEnd));
 }
 
 void OpenGlRender::InitializeDebugDrawing()
@@ -281,11 +295,13 @@ void OpenGlRender::InitializeDebugDrawing()
 	ss << "uniform mat4 view;\n";
 	ss << "uniform mat4 projection;\n";
 	ss << "layout (location = 0) in vec3 position;\n";
-	ss << "layout (location = 1) in vec4 color;\n";
+	ss << "layout (location = 1) in vec4 rotation;\n";
+	ss << "layout (location = 2) in vec4 color;\n";
 	ss << "out vec4 fragmentColor;\n";
 	ss << "void main()\n";
 	ss << "{\n";
-	ss << "gl_Position = projection * view * vec4(position, 1.0f);\n";
+	ss << "vec3 rotatedPosition = position + 2.0 * cross(cross(position, rotation.xyz) + rotation.w * position, rotation.xyz);\n";
+	ss << "gl_Position = projection * view * vec4(rotatedPosition, 1.0f);\n";
 	ss << "fragmentColor = color;\n";
 	ss << "}\n";
 	std::string worldSpaceVertexShader = ss.str();

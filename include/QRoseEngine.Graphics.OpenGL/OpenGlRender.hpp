@@ -24,7 +24,7 @@ namespace QRose
 		void AddPointLight(const Vector3& position, const Color& intensity) override;
 
 		void DrawLine(Vector2 from, Vector2 to, float thickness, Color colorStart, Color colorEnd) override;
-		void DrawLine(Vector3 from, Vector3 to, float thickness, Color colorStart, Color colorEnd) override;
+		void DrawLine(Vector3 from, Vector3 to, Vector4 rotation, float thickness, Color colorStart, Color colorEnd) override;
 
 		void InitializeDebugDrawing();
 

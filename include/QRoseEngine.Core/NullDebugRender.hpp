@@ -13,7 +13,7 @@ namespace QRose
 		{
 		}
 
-		void DrawLine(Vector3 from, Vector3 to, float thickness, Color colorStart, Color colorEnd) override 
+		void DrawLine(Vector3 from, Vector3 to, Vector4 rotation, float thickness, Color colorStart, Color colorEnd) override 
 		{
 		}
 	};	
