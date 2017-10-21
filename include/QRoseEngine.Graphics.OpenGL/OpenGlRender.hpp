@@ -43,7 +43,8 @@ namespace QRose
 		std::vector<PointLight> _pointLights;
 
 		bool isDebugDrawingInitialized;
-		GLuint lineScreenShaderProgram;
+		GLuint lineScreenSpaceShaderProgram;
+		GLuint lineWorldSpaceShaderProgram;
 		std::vector<Line2D> linesScreenSpace;
 		std::vector<Line3D> linesWorldSpace;
 	};

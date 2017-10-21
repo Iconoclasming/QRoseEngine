@@ -47,9 +47,11 @@ struct OpenGlRender::Line3D
 	const Color colorEnd;
 };
 
+GLuint CreateShaderProgram(const std::string& vertexShaderText, const std::string& fragmentShaderText);
+
 OpenGlRender::OpenGlRender(Ptr<OpenGlResourcesManager> pResourcesManager, GLFWwindow* pWindow)
 	: pResourcesManager(pResourcesManager), pWindow(pWindow), isDebugDrawingInitialized(false),
-	lineScreenShaderProgram(0)
+	lineScreenSpaceShaderProgram(0), lineWorldSpaceShaderProgram(0)
 {
 	int windowWidth;
 	int windowHeight;
@@ -60,6 +62,8 @@ OpenGlRender::OpenGlRender(Ptr<OpenGlResourcesManager> pResourcesManager, GLFWwi
 
 OpenGlRender::~OpenGlRender()
 {
+	glDeleteProgram(lineScreenSpaceShaderProgram);
+	glDeleteProgram(lineWorldSpaceShaderProgram);
 }
 
 void OpenGlRender::ClearView()
@@ -108,44 +112,99 @@ void OpenGlRender::Present()
 {
 	if(isDebugDrawingInitialized)
 	{
-		glUseProgram(lineScreenShaderProgram);
-		GLuint lineVao;
-		glGenVertexArrays(1, &lineVao);
-		glBindVertexArray(lineVao);
-		std::vector<GLfloat> vertices;
-		std::vector<GLfloat> colors;
-		for(auto& line : linesScreenSpace)
+		if(linesScreenSpace.size() > 0)
 		{
-			vertices.push_back(line.from.GetX());
-			vertices.push_back(line.from.GetY());
-			vertices.push_back(line.to.GetX());
-			vertices.push_back(line.to.GetY());
-			colors.push_back(line.colorStart.GetRed());
-			colors.push_back(line.colorStart.GetGreen());
-			colors.push_back(line.colorStart.GetBlue());
-			colors.push_back(line.colorStart.GetAlpha());
-			colors.push_back(line.colorEnd.GetRed());
-			colors.push_back(line.colorEnd.GetGreen());
-			colors.push_back(line.colorEnd.GetBlue());
-			colors.push_back(line.colorEnd.GetAlpha());
+			glUseProgram(lineScreenSpaceShaderProgram);
+			GLuint linesScreenSpaceVao;
+			glGenVertexArrays(1, &linesScreenSpaceVao);
+			glBindVertexArray(linesScreenSpaceVao);
+			std::vector<GLfloat> verticesScreenSpace;
+			std::vector<GLfloat> colorsScreenSpace;
+			for (auto& line : linesScreenSpace)
+			{
+				verticesScreenSpace.push_back(line.from.GetX());
+				verticesScreenSpace.push_back(line.from.GetY());
+				verticesScreenSpace.push_back(line.to.GetX());
+				verticesScreenSpace.push_back(line.to.GetY());
+				colorsScreenSpace.push_back(line.colorStart.GetRed());
+				colorsScreenSpace.push_back(line.colorStart.GetGreen());
+				colorsScreenSpace.push_back(line.colorStart.GetBlue());
+				colorsScreenSpace.push_back(line.colorStart.GetAlpha());
+				colorsScreenSpace.push_back(line.colorEnd.GetRed());
+				colorsScreenSpace.push_back(line.colorEnd.GetGreen());
+				colorsScreenSpace.push_back(line.colorEnd.GetBlue());
+				colorsScreenSpace.push_back(line.colorEnd.GetAlpha());
+			}
+			GLuint linesScreenSpaceVertexBuffer;
+			glGenBuffers(1, &linesScreenSpaceVertexBuffer);
+			glBindBuffer(GL_ARRAY_BUFFER, linesScreenSpaceVertexBuffer);
+			glBufferData(GL_ARRAY_BUFFER, verticesScreenSpace.size() * sizeof(GLfloat),
+				verticesScreenSpace.data(), GL_STATIC_DRAW);
+			glEnableVertexAttribArray(0);
+			glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
+			GLuint linesScreenSpaceColorBuffer;
+			glGenBuffers(1, &linesScreenSpaceColorBuffer);
+			glBindBuffer(GL_ARRAY_BUFFER, linesScreenSpaceColorBuffer);
+			glBufferData(GL_ARRAY_BUFFER, colorsScreenSpace.size() * sizeof(GLfloat),
+				colorsScreenSpace.data(), GL_STATIC_DRAW);
+			glEnableVertexAttribArray(1);
+			glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, nullptr);
+			glDrawArrays(GL_LINES, 0, linesScreenSpace.size() * 2);
+			glBindVertexArray(0);
+			glUseProgram(0);
+			glDeleteVertexArrays(1, &linesScreenSpaceVao);
+			linesScreenSpace.clear();			
 		}
-		GLuint lineVertexBuffer;
-		glGenBuffers(1, &lineVertexBuffer);
-		glBindBuffer(GL_ARRAY_BUFFER, lineVertexBuffer);
-		glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(GLfloat), vertices.data(), GL_STATIC_DRAW);
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
-		GLuint lineColorBuffer;
-		glGenBuffers(1, &lineColorBuffer);
-		glBindBuffer(GL_ARRAY_BUFFER, lineColorBuffer);
-		glBufferData(GL_ARRAY_BUFFER, colors.size() * sizeof(GLfloat), colors.data(), GL_STATIC_DRAW);
-		glEnableVertexAttribArray(1);
-		glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, nullptr);
-		glDrawArrays(GL_LINES, 0, linesScreenSpace.size() * 2);
-		glBindVertexArray(0);
-		glUseProgram(0);
-		glDeleteVertexArrays(1, &lineVao);
-		linesScreenSpace.clear();
+
+		if(linesWorldSpace.size() > 0)
+		{
+			glUseProgram(lineWorldSpaceShaderProgram);
+			GLuint linesWorldSpaceVao;
+			glGenVertexArrays(1, &linesWorldSpaceVao);
+			glBindVertexArray(linesWorldSpaceVao);
+			std::vector<GLfloat> verticesWorldSpace;
+			std::vector<GLfloat> colorsWorldSpace;
+			for(auto& line : linesWorldSpace)
+			{
+				verticesWorldSpace.push_back(line.from.GetX());
+				verticesWorldSpace.push_back(line.from.GetY());
+				verticesWorldSpace.push_back(line.from.GetZ());
+				verticesWorldSpace.push_back(line.to.GetX());
+				verticesWorldSpace.push_back(line.to.GetY());
+				verticesWorldSpace.push_back(line.to.GetZ());
+				colorsWorldSpace.push_back(line.colorStart.GetRed());
+				colorsWorldSpace.push_back(line.colorStart.GetGreen());
+				colorsWorldSpace.push_back(line.colorStart.GetBlue());
+				colorsWorldSpace.push_back(line.colorStart.GetAlpha());
+				colorsWorldSpace.push_back(line.colorEnd.GetRed());
+				colorsWorldSpace.push_back(line.colorEnd.GetGreen());
+				colorsWorldSpace.push_back(line.colorEnd.GetBlue());
+				colorsWorldSpace.push_back(line.colorEnd.GetAlpha());
+			}
+			GLuint linesWorldSpaceVertexBuffer;
+			glGenBuffers(1, &linesWorldSpaceVertexBuffer);
+			glBindBuffer(GL_ARRAY_BUFFER, linesWorldSpaceVertexBuffer);
+			glBufferData(GL_ARRAY_BUFFER, verticesWorldSpace.size() * sizeof(GLfloat),
+				verticesWorldSpace.data(), GL_STATIC_DRAW);
+			glEnableVertexAttribArray(0);
+			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+			GLuint linesWorldSpaceColorBuffer;
+			glGenBuffers(1, &linesWorldSpaceColorBuffer);
+			glBindBuffer(GL_ARRAY_BUFFER, linesWorldSpaceColorBuffer);
+			glBufferData(GL_ARRAY_BUFFER, colorsWorldSpace.size() * sizeof(GLfloat),
+				colorsWorldSpace.data(), GL_STATIC_DRAW);
+			glEnableVertexAttribArray(1);
+			glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, nullptr);
+			GLuint viewLoc = glGetUniformLocation(lineWorldSpaceShaderProgram, "view");
+			GLuint projectionLoc = glGetUniformLocation(lineWorldSpaceShaderProgram, "projection");
+			glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, projectionMatrix.Flatten());
+			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, viewMatrix.Flatten());
+			glDrawArrays(GL_LINES, 0, linesWorldSpace.size() * 2);
+			glBindVertexArray(0);
+			glUseProgram(0);
+			glDeleteVertexArrays(1, &linesWorldSpaceVao);
+			linesWorldSpace.clear();			
+		}
 	}
 	glfwSwapBuffers(pWindow);
 }
@@ -194,18 +253,51 @@ void OpenGlRender::DrawLine(Vector3 from, Vector3 to, float thickness, Color col
 
 void OpenGlRender::InitializeDebugDrawing()
 {
+	static const std::string versionLine = "#version 330 core\n";
 	std::stringstream ss;
-	ss << "#version 330 core\n";
-	ss << "layout(location = 0) in vec2 position;\n";
-	ss << "layout(location = 1) in vec4 color;\n";
+	ss << versionLine;
+	ss << "layout (location = 0) in vec2 position;\n";
+	ss << "layout (location = 1) in vec4 color;\n";
 	ss << "out vec4 fragmentColor;\n";
 	ss << "void main()\n";
 	ss << "{\n";
 	ss << "gl_Position = vec4(position.xy, 0.0f, 1.0f);\n";
 	ss << "fragmentColor = color;\n";
 	ss << "}\n";
-	std::string vertexShaderString = ss.str();
-	const char* vertexShader = vertexShaderString.c_str();
+	std::string screenSpaceVertexShader = ss.str();
+
+	ss = std::stringstream();
+	ss << versionLine;
+	ss << "in vec4 fragmentColor;\n";
+	ss << "out vec4 color;\n";
+	ss << "void main()\n";
+	ss << "{\n";
+	ss << "color = fragmentColor;\n";
+	ss << "}\n";
+	std::string fragmentShader = ss.str();
+
+	ss = std::stringstream();
+	ss << versionLine;
+	ss << "uniform mat4 view;\n";
+	ss << "uniform mat4 projection;\n";
+	ss << "layout (location = 0) in vec3 position;\n";
+	ss << "layout (location = 1) in vec4 color;\n";
+	ss << "out vec4 fragmentColor;\n";
+	ss << "void main()\n";
+	ss << "{\n";
+	ss << "gl_Position = projection * view * vec4(position, 1.0f);\n";
+	ss << "fragmentColor = color;\n";
+	ss << "}\n";
+	std::string worldSpaceVertexShader = ss.str();
+
+	lineScreenSpaceShaderProgram = CreateShaderProgram(screenSpaceVertexShader, fragmentShader);
+	lineWorldSpaceShaderProgram = CreateShaderProgram(worldSpaceVertexShader, fragmentShader);
+	isDebugDrawingInitialized = true;
+}
+
+GLuint CreateShaderProgram(const std::string& vertexShaderText, const std::string& fragmentShaderText)
+{
+	const char* vertexShader = vertexShaderText.c_str();
 	GLuint lineVertexShaderId = glCreateShader(GL_VERTEX_SHADER);
 	glShaderSource(lineVertexShaderId, 1, &vertexShader, nullptr);
 	glCompileShader(lineVertexShaderId);
@@ -216,18 +308,8 @@ void OpenGlRender::InitializeDebugDrawing()
 		GLchar infoLog[512];
 		glGetShaderInfoLog(lineVertexShaderId, 512, nullptr, infoLog);
 		throw std::runtime_error("failed to compile vertex shader:\n" + std::string(infoLog));
-	}
-
-	ss = std::stringstream();
-	ss << "#version 330 core\n";
-	ss << "in vec4 fragmentColor;\n";
-	ss << "out vec4 color;\n";
-	ss << "void main()\n";
-	ss << "{\n";
-	ss << "color = fragmentColor;\n";
-	ss << "}\n";
-	std::string fragmentShaderString = ss.str();
-	const char* fragmentShader = fragmentShaderString.c_str();
+	}	
+	const char* fragmentShader = fragmentShaderText.c_str();
 	GLuint lineFragmentShaderId = glCreateShader(GL_FRAGMENT_SHADER);
 	glShaderSource(lineFragmentShaderId, 1, &fragmentShader, nullptr);
 	glCompileShader(lineFragmentShaderId);
@@ -238,22 +320,19 @@ void OpenGlRender::InitializeDebugDrawing()
 		glGetShaderInfoLog(lineFragmentShaderId, 512, nullptr, infoLog);
 		throw std::runtime_error("failed to compile vertex shader:\n" + std::string(infoLog));
 	}
-
-	lineScreenShaderProgram = glCreateProgram();
-	glAttachShader(lineScreenShaderProgram, lineVertexShaderId);
-	glAttachShader(lineScreenShaderProgram, lineFragmentShaderId);
-	glLinkProgram(lineScreenShaderProgram);
+	GLuint shaderProgram = glCreateProgram();
+	glAttachShader(shaderProgram, lineVertexShaderId);
+	glAttachShader(shaderProgram, lineFragmentShaderId);
+	glLinkProgram(shaderProgram);
 	GLint programLinkSuccess;
-	glGetShaderiv(lineScreenShaderProgram, GL_LINK_STATUS, &programLinkSuccess);
+	glGetShaderiv(shaderProgram, GL_LINK_STATUS, &programLinkSuccess);
 	if (!programLinkSuccess)
 	{
 		GLchar infoLog[512];
-		glGetShaderInfoLog(lineScreenShaderProgram, 512, nullptr, infoLog);
+		glGetShaderInfoLog(shaderProgram, 512, nullptr, infoLog);
 		throw std::runtime_error("failed to link shader program:\n" + std::string(infoLog));
 	}
-
 	glDeleteShader(lineVertexShaderId);
 	glDeleteShader(lineFragmentShaderId);
-
-	isDebugDrawingInitialized = true;
+	return shaderProgram;
 }
