@@ -20,7 +20,12 @@ namespace QRose
 		float GetZ() const;
 		float GetW() const;
 
-		static Vector4 FromAxisAngle(const Vector3& axis, float angle);
+		static Vector4 FromAxisAngle(const Vector3& axis, float rad);
+		static Vector4 AroundX(float rad) { return FromAxisAngle(Vector3(1.0f, 0.0f, 0.0f), rad); }
+		static Vector4 AroundY(float rad) { return FromAxisAngle(Vector3(0.0f, 1.0f, 0.0f), rad); }
+		static Vector4 AroundZ(float rad) { return FromAxisAngle(Vector3(0.0f, 0.0f, 1.0f), rad); }
+
+		static const Vector4 Identity;
 
 	private:
 #ifdef QROSEENGINE_USE_OPENGL_MATHEMATICS

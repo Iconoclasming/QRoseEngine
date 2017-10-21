@@ -5,6 +5,8 @@
 
 using namespace QRose;
 
+const Vector4 Vector4::Identity = Vector4(0.0f, 0.0f, 0.0f, 1.0f);
+
 Vector4::Vector4(float x, float y, float z, float w) : quat(w, x, y, z)
 {
 }
@@ -37,9 +39,9 @@ float Vector4::GetW() const
 	return quat.w;
 }
 
-Vector4 Vector4::FromAxisAngle(const Vector3& axis, float angle)
+Vector4 Vector4::FromAxisAngle(const Vector3& axis, float rad)
 {
-	auto angleAxis = glm::angleAxis(angle, axis.vec3);
+	auto angleAxis = glm::angleAxis(rad, axis.vec3);
 	glm::quat quat1(angleAxis);
 	return Vector4(quat1);
 }
