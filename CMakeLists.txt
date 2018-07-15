@@ -5,12 +5,7 @@ project(QRoseEngine)
 # Copy all assets
 file(GLOB QROSEENGINE_DEMO_ASSETS_SHADERS "assets/shaders/*.glsl")
 file(COPY ${QROSEENGINE_DEMO_ASSETS_SHADERS} DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/assets/shaders")
-file(GLOB QROSEENGINE_DEMO_ASSETS_MODELS 
-	"assets/models/*.blend"
-	"assets/models/*.dae"
-	"assets/models/*.fbx" 
-	"assets/models/*.mtl"
-	"assets/models/*.obj")
+file(GLOB QROSEENGINE_DEMO_ASSETS_MODELS "assets/models/*")
 file(COPY ${QROSEENGINE_DEMO_ASSETS_MODELS} DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/assets/models")
 # Add the config file as content in VS project
 file(COPY src/QRoseEngine.Demo/config.json DESTINATION "${CMAKE_CURRENT_BINARY_DIR}")
@@ -42,9 +37,9 @@ include_directories(thirdparty/json/include)
 include_directories(thirdparty/StructureOfArrays)
 # Prepare assimp library
 include_directories(thirdparty/assimp/include)
-file(COPY thirdparty/assimp/bin/assimp-vc140-mt.dll DESTINATION "${CMAKE_CURRENT_BINARY_DIR}")
-file(COPY thirdparty/assimp/bin/assimp-vc140-mt.lib DESTINATION thirdparty/assimp/bin)
-set(THIRDPARTY_LIBS ${THIRDPARTY_LIBS} ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/assimp/bin/assimp-vc140-mt.lib)
+file(COPY thirdparty/assimp/bin/Assimp32.dll DESTINATION "${CMAKE_CURRENT_BINARY_DIR}")
+file(COPY thirdparty/assimp/bin/assimp.lib DESTINATION thirdparty/assimp/bin)
+set(THIRDPARTY_LIBS ${THIRDPARTY_LIBS} ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/assimp/bin/assimp.lib)
 
 # We are using GLM as our main mathematics library, so we set the flag
 add_definitions(-DQROSEENGINE_USE_OPENGL_MATHEMATICS=1)
