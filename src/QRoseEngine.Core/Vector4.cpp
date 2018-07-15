@@ -7,6 +7,10 @@ using namespace QRose;
 
 const Vector4 Vector4::Identity = Vector4(0.0f, 0.0f, 0.0f, 1.0f);
 
+Vector4::Vector4(const Vector3& vector3, float w) : Vector4(vector3.GetX(), vector3.GetY(), vector3.GetZ(), w)
+{
+}
+
 Vector4::Vector4(float x, float y, float z, float w) : quat(w, x, y, z)
 {
 }

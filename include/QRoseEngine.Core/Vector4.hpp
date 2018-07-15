@@ -12,6 +12,7 @@ namespace QRose
 	class Vector4
 	{
 	public:
+		Vector4(const Vector3& vector3, float w);
 		Vector4(float x, float y, float z, float w);
 		~Vector4();
 
@@ -19,6 +20,8 @@ namespace QRose
 		float GetY() const;
 		float GetZ() const;
 		float GetW() const;
+
+		Vector3 ToVector3() const { return Vector3(GetX(), GetY(), GetZ()); }
 
 		static Vector4 FromAxisAngle(const Vector3& axis, float rad);
 		static Vector4 AroundX(float rad) { return FromAxisAngle(Vector3(1.0f, 0.0f, 0.0f), rad); }
